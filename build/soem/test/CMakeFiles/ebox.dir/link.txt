@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/ebox.dir/linux/ebox/ebox.c.o  -o /home/calum/MotoWorkspace/devel/lib/soem/ebox -rdynamic /home/calum/MotoWorkspace/devel/lib/libsoem.so -lm -lc -lpthread /home/calum/MotoWorkspace/devel/lib/libosal.so -lrt /home/calum/MotoWorkspace/devel/lib/liboshw.so -lpthread -Wl,-rpath,/home/calum/MotoWorkspace/devel/lib: 

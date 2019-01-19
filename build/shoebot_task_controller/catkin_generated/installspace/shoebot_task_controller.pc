@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/install
+
+Name: shoebot_task_controller
+Description: Description of shoebot_task_controller
+Version: 0.0.0
+Cflags: -I/home/calum/MotoWorkspace/install/include
+Libs: -L/home/calum/MotoWorkspace/install/lib 
+Requires: 

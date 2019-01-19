@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/install
+
+Name: shoebot_moveit_config
+Description: Description of shoebot_moveit_config
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/calum/MotoWorkspace/install/lib 
+Requires: 

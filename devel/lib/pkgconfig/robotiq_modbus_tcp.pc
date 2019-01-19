@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/devel
+
+Name: robotiq_modbus_tcp
+Description: Description of robotiq_modbus_tcp
+Version: 1.0.0
+Cflags: 
+Libs: -L/home/calum/MotoWorkspace/devel/lib 
+Requires: rospy

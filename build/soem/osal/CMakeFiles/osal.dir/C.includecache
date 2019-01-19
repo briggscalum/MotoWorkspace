@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/calum/MotoWorkspace/src/soem/osal/linux/osal.c
+time.h
+-
+sys/time.h
+-
+unistd.h
+-
+osal.h
+-
+
+/home/calum/MotoWorkspace/src/soem/osal/osal.h
+stdint.h
+-
+

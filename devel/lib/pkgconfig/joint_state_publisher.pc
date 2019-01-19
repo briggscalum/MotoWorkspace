@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/devel
+
+Name: joint_state_publisher
+Description: Description of joint_state_publisher
+Version: 1.12.13
+Cflags: 
+Libs: -L/home/calum/MotoWorkspace/devel/lib 
+Requires: 

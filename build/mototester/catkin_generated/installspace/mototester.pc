@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/install
+
+Name: mototester
+Description: Description of mototester
+Version: 0.0.0
+Cflags: -I/home/calum/MotoWorkspace/install/include
+Libs: -L/home/calum/MotoWorkspace/install/lib 
+Requires: 

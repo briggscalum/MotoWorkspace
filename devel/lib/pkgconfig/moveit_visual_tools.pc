@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/devel
+
+Name: moveit_visual_tools
+Description: Description of moveit_visual_tools
+Version: 3.4.1
+Cflags: -I/home/calum/MotoWorkspace/src/moveit_visual_tools/include
+Libs: -L/home/calum/MotoWorkspace/devel/lib -lmoveit_visual_tools
+Requires: rviz_visual_tools moveit_ros_planning moveit_core geometry_msgs visualization_msgs graph_msgs std_msgs trajectory_msgs

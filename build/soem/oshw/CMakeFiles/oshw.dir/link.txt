@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,liboshw.so -o /home/calum/MotoWorkspace/devel/lib/liboshw.so CMakeFiles/oshw.dir/linux/nicdrv.c.o CMakeFiles/oshw.dir/linux/oshw.c.o -lpthread 

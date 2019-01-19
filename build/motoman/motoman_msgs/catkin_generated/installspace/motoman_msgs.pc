@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/install
+
+Name: motoman_msgs
+Description: Description of motoman_msgs
+Version: 0.3.5
+Cflags: -I/home/calum/MotoWorkspace/install/include
+Libs: -L/home/calum/MotoWorkspace/install/lib 
+Requires: industrial_msgs message_runtime std_msgs trajectory_msgs
