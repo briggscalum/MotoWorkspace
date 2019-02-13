@@ -1,8 +1,0 @@
-prefix=/home/calum/MotoWorkspace/devel
-
-Name: yaskawa_moveit_setup
-Description: Description of yaskawa_moveit_setup
-Version: 0.3.0
-Cflags: 
-Libs: -L/home/calum/MotoWorkspace/devel/lib 
-Requires: 

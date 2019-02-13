@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC   -shared -Wl,-soname,libosal.so -o /home/calum/MotoWorkspace/devel/lib/libosal.so CMakeFiles/osal.dir/linux/osal.c.o -lrt 

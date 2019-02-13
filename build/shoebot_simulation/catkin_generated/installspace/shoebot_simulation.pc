@@ -1,8 +1,0 @@
-prefix=/home/calum/MotoWorkspace/install
-
-Name: shoebot_simulation
-Description: Description of shoebot_simulation
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/calum/MotoWorkspace/install/lib 
-Requires: 

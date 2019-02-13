@@ -1,8 +1,0 @@
-prefix=/home/calum/MotoWorkspace/install
-
-Name: shoebot_common
-Description: Description of shoebot_common
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/calum/MotoWorkspace/install/lib 
-Requires: 

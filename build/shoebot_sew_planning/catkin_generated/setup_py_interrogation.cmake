@@ -1,6 +1,0 @@
-set(shoebot_sew_planning_SETUP_PY_VERSION "0.0.0")
-set(shoebot_sew_planning_SETUP_PY_SCRIPTS "src/PathPlanner.py;src/servertester.py;src/changeplot.py;scripts/sew_planner_server.py")
-set(shoebot_sew_planning_SETUP_PY_PACKAGES "shoebot_path_planning")
-set(shoebot_sew_planning_SETUP_PY_PACKAGE_DIRS "src/shoebot_path_planning")
-set(shoebot_sew_planning_SETUP_PY_MODULES "")
-set(shoebot_sew_planning_SETUP_PY_MODULE_DIRS "")

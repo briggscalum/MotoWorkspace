@@ -1,1 +1,0 @@
-/usr/bin/cc     CMakeFiles/slaveinfo.dir/linux/slaveinfo/slaveinfo.c.o  -o /home/calum/MotoWorkspace/devel/lib/soem/slaveinfo -rdynamic /home/calum/MotoWorkspace/devel/lib/libsoem.so -lm -lc -lpthread /home/calum/MotoWorkspace/devel/lib/libosal.so -lrt /home/calum/MotoWorkspace/devel/lib/liboshw.so -lpthread -Wl,-rpath,/home/calum/MotoWorkspace/devel/lib: 

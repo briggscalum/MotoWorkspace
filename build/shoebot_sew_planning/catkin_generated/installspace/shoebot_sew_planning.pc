@@ -1,8 +1,0 @@
-prefix=/home/calum/MotoWorkspace/install
-
-Name: shoebot_sew_planning
-Description: Description of shoebot_sew_planning
-Version: 0.0.0
-Cflags: -I/home/calum/MotoWorkspace/install/include
-Libs: -L/home/calum/MotoWorkspace/install/lib 
-Requires: message_runtime
