@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/devel
+
+Name: moto_vision
+Description: Description of moto_vision
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/calum/MotoWorkspace/devel/lib 
+Requires: 

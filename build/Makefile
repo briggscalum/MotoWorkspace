@@ -946,19 +946,6 @@ _motoman_msgs_generate_messages_check_deps_DynamicJointPoint/fast:
 .PHONY : _motoman_msgs_generate_messages_check_deps_DynamicJointPoint/fast
 
 #=============================================================================
-# Target rules for targets named robotiq_ethercat
-
-# Build rule for target.
-robotiq_ethercat: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 robotiq_ethercat
-.PHONY : robotiq_ethercat
-
-# fast build rule for target.
-robotiq_ethercat/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build
-.PHONY : robotiq_ethercat/fast
-
-#=============================================================================
 # Target rules for targets named roscpp_generate_messages_lisp
 
 # Build rule for target.
@@ -968,7 +955,7 @@ roscpp_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_lisp/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make moto_vision/CMakeFiles/roscpp_generate_messages_lisp.dir/build
 .PHONY : roscpp_generate_messages_lisp/fast
 
 #=============================================================================
@@ -981,7 +968,7 @@ roscpp_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_nodejs/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make moto_vision/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
 .PHONY : roscpp_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -994,7 +981,7 @@ roscpp_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_eus/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_eus.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_eus.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/roscpp_generate_messages_eus.dir/build.make moto_vision/CMakeFiles/roscpp_generate_messages_eus.dir/build
 .PHONY : roscpp_generate_messages_eus/fast
 
 #=============================================================================
@@ -1007,7 +994,7 @@ roscpp_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_cpp/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make moto_vision/CMakeFiles/roscpp_generate_messages_cpp.dir/build
 .PHONY : roscpp_generate_messages_cpp/fast
 
 #=============================================================================
@@ -1020,7 +1007,7 @@ rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
 .PHONY : rosgraph_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -1033,7 +1020,7 @@ rosgraph_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
 .PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -1046,7 +1033,7 @@ roscpp_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_py/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_py.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/roscpp_generate_messages_py.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/roscpp_generate_messages_py.dir/build.make moto_vision/CMakeFiles/roscpp_generate_messages_py.dir/build
 .PHONY : roscpp_generate_messages_py/fast
 
 #=============================================================================
@@ -1059,7 +1046,7 @@ rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -1072,7 +1059,7 @@ rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -1085,8 +1072,21 @@ rosgraph_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_py/fast:
-	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+	$(MAKE) -f moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 .PHONY : rosgraph_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named robotiq_ethercat
+
+# Build rule for target.
+robotiq_ethercat: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 robotiq_ethercat
+.PHONY : robotiq_ethercat
+
+# fast build rule for target.
+robotiq_ethercat/fast:
+	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build
+.PHONY : robotiq_ethercat/fast
 
 #=============================================================================
 # Target rules for targets named c_model_ethercat_node
@@ -4593,7 +4593,6 @@ help:
 	@echo "... _motoman_msgs_generate_messages_check_deps_CmdJointTrajectoryEx"
 	@echo "... motoman_msgs_generate_messages"
 	@echo "... _motoman_msgs_generate_messages_check_deps_DynamicJointPoint"
-	@echo "... robotiq_ethercat"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_eus"
@@ -4604,6 +4603,7 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... robotiq_ethercat"
 	@echo "... c_model_ethercat_node"
 	@echo "... robotiq_c_model_control_genpy"
 	@echo "... robotiq_c_model_control_generate_messages_py"

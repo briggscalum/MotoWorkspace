@@ -1,0 +1,6 @@
+set(moto_vision_SETUP_PY_VERSION "0.0.0")
+set(moto_vision_SETUP_PY_SCRIPTS "scripts/MotoVision.py")
+set(moto_vision_SETUP_PY_PACKAGES "moto_vision")
+set(moto_vision_SETUP_PY_PACKAGE_DIRS "src/moto_vision")
+set(moto_vision_SETUP_PY_MODULES "")
+set(moto_vision_SETUP_PY_MODULE_DIRS "")
