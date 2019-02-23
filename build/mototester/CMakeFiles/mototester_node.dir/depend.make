@@ -225,7 +225,10 @@ mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/ki
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/srdfdom/model.h
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/ColorRGBA.h
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/Empty.h
+mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/Float32MultiArray.h
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h
+mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/MultiArrayDimension.h
+mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/MultiArrayLayout.h
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/std_msgs/String.h
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/tf/FrameGraph.h
 mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o: /opt/ros/kinetic/include/tf/FrameGraphRequest.h
