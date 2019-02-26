@@ -66,7 +66,7 @@ parser = argparse.ArgumentParser(description='Code for Introduction to Principal
 parser.add_argument('--input', help='Path to input image.', default='../data/pca_test1.jpg')
 args = parser.parse_args()
 
-cap = cv.VideoCapture(0	)
+cap = cv.VideoCapture(1)
 
 posepub = rospy.Publisher('fabric_pose', Float32MultiArray, queue_size=10)
 
@@ -87,7 +87,7 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , bw = cv.threshold(gray, 40, 255, cv.THRESH_BINARY)
+    _ , bw = cv.threshold(gray, 40, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
     _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
 
@@ -97,12 +97,15 @@ while(True):
         # Calculate the area of each contour
         area = cv.contourArea(c);
         # Ignore contours that are too small or too large
-        if area < 1e4 or 1e6 < area:
+        if area < 12000 or 1e6 < area:
             continue
         # Draw each contour only for visualisation purposes
         cv.drawContours(src, contours, i, (0, 0, 255), 2);
         # Find the orientation of each shape
         angle, center = getOrientation(c, src)
+
+    ## Center: x = 360
+    ## 500 pixels = 0.40 cm,  pixel = 1.25 mm
 
     position = Float32MultiArray()
     position.data = [center[0],center[1],angle]

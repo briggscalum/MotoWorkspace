@@ -2,6 +2,8 @@
 #include "std_msgs/String.h"
 #include "std_msgs/Float32MultiArray.h"
 #include <tf/tf.h>
+#include <tf/transform_datatypes.h>
+
 
 #include <moveit/move_group_interface/move_group_interface.h>
 
@@ -28,11 +30,18 @@ double time;
 
 };
 
+float fabric_x = 0;
+float fabric_y = 0;
+float fabric_orien = 0;
 int test_num = 1;
 
 void poseUpdater(std_msgs::Float32MultiArray msg)
 {
-  	ROS_INFO("I heard: [%f]", msg.data[0]);
+  	fabric_x =  msg.data[0];
+  	fabric_y =  msg.data[1];
+  	fabric_orien =  msg.data[2];
+
+
 }
 
 int main(int argc, char **argv)
@@ -75,9 +84,17 @@ int main(int argc, char **argv)
 
 	group.setGoalJointTolerance(0.001);
 	group.setEndEffectorLink("arm_left_link_7_t");
-	//group.setEndEffectorLink("arm_right_link_7_t");
+	arm_right_group.setEndEffectorLink("arm_right_link_7_t");
 
 	geometry_msgs::Pose left_flat;
+
+
+	geometry_msgs::Pose right_home;
+
+	right_home.position.x = 0.15;   
+	right_home.position.y = -0.6;
+	right_home.position.z = 1.15;
+	right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(-M_PI/2, -M_PI/2 , 0);  
 
 
 
@@ -98,13 +115,13 @@ int main(int argc, char **argv)
 
 
 	// left_arm	
-	group_variable_values[0] = 1.0;
+	group_variable_values[0] = 0.0;
 	group_variable_values[1] = 0.0;
 	group_variable_values[2] = 0.0;
 	group_variable_values[3] = 0.0;
 	group_variable_values[4] = 0.0;
 	group_variable_values[5] = 0.0;
-	group_variable_values[6] = 0.0;
+	group_variable_values[6] = M_PI/2;
 
 
 
@@ -122,11 +139,33 @@ int main(int argc, char **argv)
 	left_sew_start.orientation.z = -0.37386;
 	left_sew_start.orientation.w = 0.60466;  
 
+	while(1) {
 
-	group.setPoseTarget(left_sew_start, "arm_left_link_7_t");
+	    sleep(2.0);
 
-	group.plan(my_plan);
-    group.execute(my_plan);
+		right_home.position.x = 0.15 + (fabric_x-360)*0.00125;
+		//group.setPoseTarget(left_sew_start, "arm_left_link_7_t");
+		arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
+
+
+		arm_right_group.plan(my_plan);
+	    arm_right_group.execute(my_plan);
+
+	    sleep(2.0);
+
+	    std::vector<double> right_group_variable_values;
+		arm_right_group.getCurrentState()->copyJointGroupPositions(
+	    arm_right_group.getCurrentState()->getRobotModel()->getJointModelGroup(arm_right_group.getName()), right_group_variable_values);
+
+	    right_group_variable_values[6] = -0.3;
+		arm_right_group.setJointValueTarget(right_group_variable_values);
+		arm_right_group.plan(my_plan);
+		arm_right_group.execute(my_plan);
+	}
+
+
+    //group.plan(my_plan);
+    //group.execute(my_plan);
 
 
 	sleep(5.0);

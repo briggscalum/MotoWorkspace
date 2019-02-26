@@ -1,0 +1,8 @@
+prefix=/home/calum/MotoWorkspace/devel
+
+Name: robotiq_2f_gripper_control
+Description: Description of robotiq_2f_gripper_control
+Version: 1.0.0
+Cflags: -I/home/calum/MotoWorkspace/devel/include -I/home/calum/MotoWorkspace/src/robotiq/robotiq_2f_gripper_control/include
+Libs: -L/home/calum/MotoWorkspace/devel/lib 
+Requires: rospy message_runtime roscpp robotiq_ethercat

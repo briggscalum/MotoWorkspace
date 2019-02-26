@@ -5,4 +5,4 @@ PROJECT_CATKIN_DEPENDS = "soem;roscpp".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "-lrobotiq_ethercat".split(';') if "-lrobotiq_ethercat" != "" else []
 PROJECT_NAME = "robotiq_ethercat"
 PROJECT_SPACE_DIR = "/home/calum/MotoWorkspace/install"
-PROJECT_VERSION = "0.1.0"
+PROJECT_VERSION = "1.0.0"

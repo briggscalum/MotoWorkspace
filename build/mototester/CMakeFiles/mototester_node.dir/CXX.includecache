@@ -69,6 +69,8 @@ std_msgs/Float32MultiArray.h
 /home/calum/MotoWorkspace/src/mototester/src/std_msgs/Float32MultiArray.h
 tf/tf.h
 -
+tf/transform_datatypes.h
+-
 moveit/move_group_interface/move_group_interface.h
 -
 moveit/planning_scene_interface/planning_scene_interface.h

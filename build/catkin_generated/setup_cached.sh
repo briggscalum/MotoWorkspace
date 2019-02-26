@@ -7,5 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PATH="/home/calum/MotoWorkspace/devel/bin:$PATH"
 export PWD="/home/calum/MotoWorkspace/build"

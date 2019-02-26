@@ -2,7 +2,7 @@ prefix=/home/calum/MotoWorkspace/install
 
 Name: robotiq_ethercat
 Description: Description of robotiq_ethercat
-Version: 0.1.0
+Version: 1.0.0
 Cflags: -I/home/calum/MotoWorkspace/install/include
 Libs: -L/home/calum/MotoWorkspace/install/lib -lrobotiq_ethercat
 Requires: soem roscpp
