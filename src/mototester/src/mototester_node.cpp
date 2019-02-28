@@ -91,21 +91,78 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose right_home;
 
-	right_home.position.x = 0.15;   
-	right_home.position.y = -0.6;
+	right_home.position.x = -0.4;   
+	right_home.position.y = -0.4;
 	right_home.position.z = 1.15;
-	right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(-M_PI/2, -M_PI/2 , 0);  
+	right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,M_PI/2,0);  
+
+	// ADD COLLISION
+
+	moveit_msgs::CollisionObject collision_object;
+	moveit_msgs::CollisionObject collision_object_2;
+	collision_object.header.frame_id = arm_right_group.getPlanningFrame();
+
+	/* The id of the object is used to identify it. */
+	collision_object.id = "box1";
+	collision_object_2.id = "box2";
+
+	/* Define a box to add to the world. */
+	shape_msgs::SolidPrimitive primitive;
+	primitive.type = primitive.BOX;
+	primitive.dimensions.resize(3);
+	primitive.dimensions[0] = 1.0;
+	primitive.dimensions[1] = 4.0;
+	primitive.dimensions[2] = 4.0;
+
+	shape_msgs::SolidPrimitive primitive_2;
+	primitive_2.type = primitive.BOX;
+	primitive_2.dimensions.resize(3);
+	primitive_2.dimensions[0] = 1.0;
+	primitive_2.dimensions[1] = 2.0;
+	primitive_2.dimensions[2] = 2.0;
+
+	/* A pose for the box (specified relative to frame_id) */
+	geometry_msgs::Pose box_pose;
+	box_pose.orientation.w = 1.0;
+	box_pose.position.x =  1;
+	box_pose.position.y = -0.5;
+	box_pose.position.z =  1.0;
+
+	geometry_msgs::Pose box2_pose;
+	box2_pose.orientation.w = 1.0;
+	box2_pose.position.x =  -1;
+	box2_pose.position.y =  0;
+	box2_pose.position.z =  0.3;
+
+	collision_object_2.primitives.push_back(primitive_2);
+	collision_object_2.primitive_poses.push_back(box2_pose);
+	collision_object_2.operation = collision_object_2.ADD;
+
+
+	collision_object.primitives.push_back(primitive);
+	collision_object.primitive_poses.push_back(box_pose);
+	collision_object.operation = collision_object.ADD;
+
+	std::vector<moveit_msgs::CollisionObject> collision_objects;
+	collision_objects.push_back(collision_object);
+	collision_objects.push_back(collision_object_2);
+
+	planning_scene_interface.applyCollisionObjects(collision_objects);
+
+    sleep(2.0);
+
+	// END COLLISION ADDER
 
 
 
-	std::vector<PointGoal> path(100);
+	// std::vector<PointGoal> path(100);
 
-	//Generate a Dummy Path
-    for (int i = 0; i < 100; i++)
-    {
-      path[i].x = sin(i/100.0*2.0*PI)/10.0;
-      path[i].time = i/10;
-    }
+	// //Generate a Dummy Path
+ //    for (int i = 0; i < 100; i++)
+ //    {
+ //      path[i].x = sin(i/100.0*2.0*PI)/10.0;
+ //      path[i].time = i/10;
+ //    }
 
 
 	std::vector<double> group_variable_values;
@@ -139,11 +196,14 @@ int main(int argc, char **argv)
 	left_sew_start.orientation.z = -0.37386;
 	left_sew_start.orientation.w = 0.60466;  
 
+	int grabcounter = 0;
+
 	while(1) {
 
+		grabcounter = grabcounter + 1;
 	    sleep(2.0);
 
-		right_home.position.x = 0.15 + (fabric_x-360)*0.00125;
+		//right_home.position.x = -0.4 + (fabric_x-360)*0.00125;
 		//group.setPoseTarget(left_sew_start, "arm_left_link_7_t");
 		arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
 
@@ -151,16 +211,21 @@ int main(int argc, char **argv)
 		arm_right_group.plan(my_plan);
 	    arm_right_group.execute(my_plan);
 
-	    sleep(2.0);
+	    // right_home.position.y = -0.2*(grabcounter%4);
+	    // arm_right_group.plan(my_plan);
+	    // arm_right_group.execute(my_plan);
 
-	    std::vector<double> right_group_variable_values;
-		arm_right_group.getCurrentState()->copyJointGroupPositions(
-	    arm_right_group.getCurrentState()->getRobotModel()->getJointModelGroup(arm_right_group.getName()), right_group_variable_values);
 
-	    right_group_variable_values[6] = -0.3;
-		arm_right_group.setJointValueTarget(right_group_variable_values);
-		arm_right_group.plan(my_plan);
-		arm_right_group.execute(my_plan);
+	 // sleep(2.0);
+
+	 //    std::vector<double> right_group_variable_values;
+		// arm_right_group.getCurrentState()->copyJointGroupPositions(
+	 //    arm_right_group.getCurrentState()->getRobotModel()->getJointModelGroup(arm_right_group.getName()), right_group_variable_values);
+
+	 //    right_group_variable_values[6] = -0.3;
+		// arm_right_group.setJointValueTarget(right_group_variable_values);
+		// arm_right_group.plan(my_plan);
+		// arm_right_group.execute(my_plan);
 	}
 
 
