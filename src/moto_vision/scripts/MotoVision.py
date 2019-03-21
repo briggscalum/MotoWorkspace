@@ -87,7 +87,7 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , bw = cv.threshold(gray, 40, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
+    _ , bw = cv.threshold(gray, 160 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
     _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
 
@@ -105,6 +105,7 @@ while(True):
         angle, center = getOrientation(c, src)
 
     ## Center: x = 360
+    ## Center: y = 240
     ## 500 pixels = 0.40 cm,  pixel = 1.25 mm
 
     position = Float32MultiArray()

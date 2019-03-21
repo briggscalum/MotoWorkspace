@@ -92,9 +92,9 @@ int main(int argc, char **argv)
 	geometry_msgs::Pose right_home;
 
 	right_home.position.x = -0.4;   
-	right_home.position.y = -0.4;
-	right_home.position.z = 1.15;
-	right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,M_PI/2,0);  
+	right_home.position.y = -0.25;
+	right_home.position.z = 1.4;
+	right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,M_PI/4,0);  
 
 	// ADD COLLISION
 
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 	primitive_2.dimensions.resize(3);
 	primitive_2.dimensions[0] = 1.0;
 	primitive_2.dimensions[1] = 2.0;
-	primitive_2.dimensions[2] = 2.0;
+	primitive_2.dimensions[2] = 1.2;
 
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
@@ -130,9 +130,9 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose box2_pose;
 	box2_pose.orientation.w = 1.0;
-	box2_pose.position.x =  -1;
+	box2_pose.position.x =  -0.9;
 	box2_pose.position.y =  0;
-	box2_pose.position.z =  0.3;
+	box2_pose.position.z =  0.60;
 
 	collision_object_2.primitives.push_back(primitive_2);
 	collision_object_2.primitive_poses.push_back(box2_pose);
@@ -196,25 +196,55 @@ int main(int argc, char **argv)
 	left_sew_start.orientation.z = -0.37386;
 	left_sew_start.orientation.w = 0.60466;  
 
-	int grabcounter = 0;
+	int grabcounter = 1;
 
 	while(1) {
 
 		grabcounter = grabcounter + 1;
 	    sleep(2.0);
 
-		//right_home.position.x = -0.4 + (fabric_x-360)*0.00125;
+		right_home.position.y = -0.25 - (fabric_x-360)*0.001;
+		right_home.position.x = -0.4 - (fabric_y-240)*0.00125;
 		//group.setPoseTarget(left_sew_start, "arm_left_link_7_t");
 		arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
-
 
 		arm_right_group.plan(my_plan);
 	    arm_right_group.execute(my_plan);
 
-	    // right_home.position.y = -0.2*(grabcounter%4);
-	    // arm_right_group.plan(my_plan);
-	    // arm_right_group.execute(my_plan);
+   	    sleep(2.0);
 
+   	    right_home.position.x = right_home.position.x - 0.01;
+   	    right_home.position.x = right_home.position.z - 0.01;
+
+   	    arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
+   	    arm_right_group.plan(my_plan);
+	    arm_right_group.execute(my_plan);
+
+	    sleep(10.0);
+
+
+    	// ROS_INFO("Count: %i", grabcounter);
+
+
+	    // if(grabcounter%5 == 0){
+
+	    // 	right_home.position.x = -0.55;
+	    // 	arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
+	    // 	arm_right_group.plan(my_plan);
+	    // 	arm_right_group.execute(my_plan);
+
+	    // 	sleep(5.0);
+
+	    // 	ROS_INFO("Grabbing");
+
+	    // 	right_home.position.x = -0.45;
+	    // 	arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
+	    // 	arm_right_group.plan(my_plan);
+	    // 	arm_right_group.execute(my_plan);
+
+	    // 	sleep(3.0);
+
+	    // }
 
 	 // sleep(2.0);
 
