@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+     <xacro:include filename="$(find motoman_sda10f_support)/urdf/common_torso_macro.xacro" />
+     <xacro:include filename="$(find motoman_sda10f_support)/urdf/arm_macro.xacro" />
+     <xacro:include filename="$(find robotiq_2f_c2_gripper_visualization)/urdf/robotiq_c2_model_macro.xacro" />
+
+     <!-- <xacro:robotiq_c2_model prefix="left_" /> -->
+	
+    
+
+     <!-- 
+     <xacro:robotiq_c2_model prefix="left_gripper_" >
+     	<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+     </xacro:robotiq_c2_model> -->
+	
+     <xacro:macro name="motoman_sda10f" params="prefix">	
+        
+        <xacro:torso name="${prefix}torso" prefix="${prefix}torso_"/>
+
+        <xacro:motoman_arm name="${prefix}arm_left" prefix="${prefix}arm_left_" parent="${prefix}torso_link_b1" reflect="1">
+            <origin xyz="0.09996 0.0275 0.32214" rpy="1.57 0 0" />
+        </xacro:motoman_arm> 
+ 
+	<xacro:motoman_arm name="${prefix}arm_right" prefix="${prefix}arm_right_" parent="${prefix}torso_link_b1" reflect="-1">
+            <origin xyz="0.09996 -0.0275 0.32214" rpy="1.57 0 0" />
+        </xacro:motoman_arm>    
+
+	<xacro:robotiq_c2_model prefix="${prefix}arm_right_" parent="${prefix}arm_right_link_7_t">
+   	</xacro:robotiq_c2_model>   
+    
+	<xacro:robotiq_c2_model prefix="${prefix}arm_left_" parent="${prefix}arm_left_link_7_t">
+   	</xacro:robotiq_c2_model> 
+
+    </xacro:macro>
+
+    
+  
+            
+<!-- The following xacro is kept for backwards compatibility, it should not be used -->
+<!-- see: https://github.com/ros-industrial/motoman/issues/166 -->
+     <xacro:macro name="sda10f">
+          <xacro:motoman_sda10f prefix=""/> 
+     </xacro:macro>
+
+</robot>
