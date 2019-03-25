@@ -195,6 +195,21 @@ mototester_node/fast:
 	cd /home/calum/MotoWorkspace/build && $(MAKE) -f mototester/CMakeFiles/mototester_node.dir/build.make mototester/CMakeFiles/mototester_node.dir/build
 .PHONY : mototester_node/fast
 
+# Convenience name for target.
+mototester/CMakeFiles/workspace_maker.dir/rule:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 mototester/CMakeFiles/workspace_maker.dir/rule
+.PHONY : mototester/CMakeFiles/workspace_maker.dir/rule
+
+# Convenience name for target.
+workspace_maker: mototester/CMakeFiles/workspace_maker.dir/rule
+
+.PHONY : workspace_maker
+
+# fast build rule for target.
+workspace_maker/fast:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/build
+.PHONY : workspace_maker/fast
+
 src/mototester_node.o: src/mototester_node.cpp.o
 
 .PHONY : src/mototester_node.o
@@ -222,6 +237,33 @@ src/mototester_node.cpp.s:
 	cd /home/calum/MotoWorkspace/build && $(MAKE) -f mototester/CMakeFiles/mototester_node.dir/build.make mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.s
 .PHONY : src/mototester_node.cpp.s
 
+src/workspace_maker.o: src/workspace_maker.cpp.o
+
+.PHONY : src/workspace_maker.o
+
+# target to build an object file
+src/workspace_maker.cpp.o:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/src/workspace_maker.cpp.o
+.PHONY : src/workspace_maker.cpp.o
+
+src/workspace_maker.i: src/workspace_maker.cpp.i
+
+.PHONY : src/workspace_maker.i
+
+# target to preprocess a source file
+src/workspace_maker.cpp.i:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/src/workspace_maker.cpp.i
+.PHONY : src/workspace_maker.cpp.i
+
+src/workspace_maker.s: src/workspace_maker.cpp.s
+
+.PHONY : src/workspace_maker.s
+
+# target to generate assembly for a file
+src/workspace_maker.cpp.s:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/src/workspace_maker.cpp.s
+.PHONY : src/workspace_maker.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -235,11 +277,15 @@ help:
 	@echo "... install"
 	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... mototester_node"
+	@echo "... workspace_maker"
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... src/mototester_node.o"
 	@echo "... src/mototester_node.i"
 	@echo "... src/mototester_node.s"
+	@echo "... src/workspace_maker.o"
+	@echo "... src/workspace_maker.i"
+	@echo "... src/workspace_maker.s"
 .PHONY : help
 
 

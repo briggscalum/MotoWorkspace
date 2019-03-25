@@ -78,6 +78,13 @@
 /home/calum/MotoWorkspace/build/robotiq/robotiq_3f_gripper_articulated_gazebo/CMakeFiles/install/local.dir
 /home/calum/MotoWorkspace/build/robotiq/robotiq_3f_gripper_articulated_gazebo/CMakeFiles/test.dir
 /home/calum/MotoWorkspace/build/robotiq/robotiq_3f_gripper_articulated_gazebo/CMakeFiles/edit_cache.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/list_install_components.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/install.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/rebuild_cache.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/install/strip.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/install/local.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/test.dir
+/home/calum/MotoWorkspace/build/shoebot_common/CMakeFiles/edit_cache.dir
 /home/calum/MotoWorkspace/build/robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/list_install_components.dir
 /home/calum/MotoWorkspace/build/robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/install.dir
 /home/calum/MotoWorkspace/build/robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/_robotiq_3f_gripper_articulated_msgs_generate_messages_check_deps_Robotiq3FGripperRobotInput.dir
@@ -604,5 +611,6 @@
 /home/calum/MotoWorkspace/build/mototester/CMakeFiles/install.dir
 /home/calum/MotoWorkspace/build/mototester/CMakeFiles/moveit_ros_manipulation_gencfg.dir
 /home/calum/MotoWorkspace/build/mototester/CMakeFiles/mototester_node.dir
+/home/calum/MotoWorkspace/build/mototester/CMakeFiles/workspace_maker.dir
 /home/calum/MotoWorkspace/build/mototester/CMakeFiles/install/local.dir
 /home/calum/MotoWorkspace/build/mototester/CMakeFiles/install/strip.dir

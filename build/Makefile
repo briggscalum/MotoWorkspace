@@ -4520,6 +4520,19 @@ mototester_node/fast:
 	$(MAKE) -f mototester/CMakeFiles/mototester_node.dir/build.make mototester/CMakeFiles/mototester_node.dir/build
 .PHONY : mototester_node/fast
 
+#=============================================================================
+# Target rules for targets named workspace_maker
+
+# Build rule for target.
+workspace_maker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 workspace_maker
+.PHONY : workspace_maker
+
+# fast build rule for target.
+workspace_maker/fast:
+	$(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/build
+.PHONY : workspace_maker/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -4868,6 +4881,7 @@ help:
 	@echo "... object_recognition_msgs_generate_messages_cpp"
 	@echo "... moveit_ros_manipulation_gencfg"
 	@echo "... mototester_node"
+	@echo "... workspace_maker"
 .PHONY : help
 
 

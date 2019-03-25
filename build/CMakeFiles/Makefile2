@@ -556,6 +556,24 @@ robotiq/robotiq_3f_gripper_articulated_gazebo/preinstall:
 .PHONY : robotiq/robotiq_3f_gripper_articulated_gazebo/preinstall
 
 #=============================================================================
+# Directory level rules for directory shoebot_common
+
+# Convenience name for "all" pass in the directory.
+shoebot_common/all:
+
+.PHONY : shoebot_common/all
+
+# Convenience name for "clean" pass in the directory.
+shoebot_common/clean:
+
+.PHONY : shoebot_common/clean
+
+# Convenience name for "preinstall" pass in the directory.
+shoebot_common/preinstall:
+
+.PHONY : shoebot_common/preinstall
+
+#=============================================================================
 # Directory level rules for directory robotiq/robotiq_3f_gripper_articulated_msgs
 
 # Convenience name for "all" pass in the directory.
@@ -759,7 +777,7 @@ robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articu
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_cpp.dir/all: robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_cpp.dir/build.make robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_cpp.dir/build.make robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=71 "Built target robotiq_3f_gripper_articulated_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=70 "Built target robotiq_3f_gripper_articulated_msgs_generate_messages_cpp"
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -889,12 +907,12 @@ robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articu
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/all: robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/build.make robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/build.make robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=72 "Built target robotiq_3f_gripper_articulated_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=71,72 "Built target robotiq_3f_gripper_articulated_msgs_generate_messages_eus"
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_eus.dir/rule
@@ -923,12 +941,12 @@ robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articu
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/all: robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/build.make robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/build.make robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=75,76 "Built target robotiq_3f_gripper_articulated_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=75 "Built target robotiq_3f_gripper_articulated_msgs_generate_messages_py"
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_generate_messages_py.dir/rule
@@ -960,7 +978,7 @@ robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articu
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_geneus.dir/rule
@@ -1165,7 +1183,7 @@ robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articu
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_articulated_msgs/CMakeFiles/robotiq_3f_gripper_articulated_msgs_genpy.dir/rule
@@ -2679,7 +2697,7 @@ robotiq/robotiq_ethercat/preinstall:
 robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/all:
 	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/depend
 	$(MAKE) -f robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build.make robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=90 "Built target robotiq_ethercat"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=89 "Built target robotiq_ethercat"
 .PHONY : robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/all
 
 # Include target in all.
@@ -2753,7 +2771,7 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_genpy.d
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_genpy.dir/rule
@@ -2781,12 +2799,12 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generat
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/all: robotiq/robotiq_2f_gripper_control/CMakeFiles/_robotiq_2f_gripper_control_generate_messages_check_deps_Robotiq2FGripper_robot_input.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=68 "Built target robotiq_2f_gripper_control_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=67,68 "Built target robotiq_2f_gripper_control_generate_messages_py"
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_py.dir/rule
@@ -2879,7 +2897,7 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.d
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/all: robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_cpp.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=69,70 "Built target robotiq_2f_gripper_ethercat_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=69 "Built target robotiq_2f_gripper_ethercat_node"
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/all
 
 # Include target in all.
@@ -2889,7 +2907,7 @@ all: robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_n
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_ethercat_node.dir/rule
@@ -3054,12 +3072,12 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generat
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/all: robotiq/robotiq_2f_gripper_control/CMakeFiles/_robotiq_2f_gripper_control_generate_messages_check_deps_Robotiq2FGripper_robot_input.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=64,65 "Built target robotiq_2f_gripper_control_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=64 "Built target robotiq_2f_gripper_control_generate_messages_eus"
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_eus.dir/rule
@@ -3091,7 +3109,7 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_geneus.
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_geneus.dir/rule
@@ -3119,7 +3137,7 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generat
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_lisp.dir/all: robotiq/robotiq_2f_gripper_control/CMakeFiles/_robotiq_2f_gripper_control_generate_messages_check_deps_Robotiq2FGripper_robot_input.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_lisp.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_lisp.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_lisp.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=66 "Built target robotiq_2f_gripper_control_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=65 "Built target robotiq_2f_gripper_control_generate_messages_lisp"
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3184,7 +3202,7 @@ robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generat
 robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/all: robotiq/robotiq_2f_gripper_control/CMakeFiles/_robotiq_2f_gripper_control_generate_messages_check_deps_Robotiq2FGripper_robot_input.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/build.make robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=67 "Built target robotiq_2f_gripper_control_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=66 "Built target robotiq_2f_gripper_control_generate_messages_nodejs"
 .PHONY : robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3265,7 +3283,7 @@ robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/all: moto_vision/CMakeFi
 robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/all: robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_gencpp.dir/all
 	$(MAKE) -f robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/build.make robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/depend
 	$(MAKE) -f robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/build.make robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=99,100 "Built target rq_test_sensor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=99 "Built target rq_test_sensor"
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/all
 
 # Include target in all.
@@ -3275,7 +3293,7 @@ all: robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/rq_test_sensor.dir/rule
@@ -3402,7 +3420,7 @@ robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir
 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir/all: robotiq/robotiq_ft_sensor/CMakeFiles/_robotiq_ft_sensor_generate_messages_check_deps_sensor_accessor.dir/all
 	$(MAKE) -f robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir/build.make robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir/depend
 	$(MAKE) -f robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir/build.make robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=91 "Built target robotiq_ft_sensor_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=90 "Built target robotiq_ft_sensor_generate_messages_cpp"
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3439,7 +3457,7 @@ robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_geneus.dir/all: robotiq/r
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_geneus.dir/rule
@@ -3532,12 +3550,12 @@ robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir
 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/all: robotiq/robotiq_ft_sensor/CMakeFiles/_robotiq_ft_sensor_generate_messages_check_deps_sensor_accessor.dir/all
 	$(MAKE) -f robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/build.make robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/depend
 	$(MAKE) -f robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/build.make robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=92 "Built target robotiq_ft_sensor_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=91,92 "Built target robotiq_ft_sensor_generate_messages_eus"
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages_eus.dir/rule
@@ -3664,7 +3682,7 @@ all: robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages.di
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_ft_sensor/CMakeFiles/robotiq_ft_sensor_generate_messages.dir/rule
@@ -7647,7 +7665,7 @@ robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_se
 robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/all: robotiq/robotiq_2f_gripper_control/CMakeFiles/robotiq_2f_gripper_control_generate_messages_nodejs.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/build.make robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/build.make robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=62 "Built target robotiq_2f_gripper_action_server_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=61,62 "Built target robotiq_2f_gripper_action_server_node"
 .PHONY : robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/all
 
 # Include target in all.
@@ -7657,7 +7675,7 @@ all: robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_acti
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_node.dir/rule
@@ -7684,7 +7702,7 @@ clean: robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_ac
 robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_client_test.dir/all: robotiq/robotiq_ethercat/CMakeFiles/robotiq_ethercat.dir/all
 	$(MAKE) -f robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_client_test.dir/build.make robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_client_test.dir/depend
 	$(MAKE) -f robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_client_test.dir/build.make robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_client_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=61 "Built target robotiq_2f_gripper_action_server_client_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=60 "Built target robotiq_2f_gripper_action_server_client_test"
 .PHONY : robotiq/robotiq_2f_gripper_action_server/CMakeFiles/robotiq_2f_gripper_action_server_client_test.dir/all
 
 # Include target in all.
@@ -7845,7 +7863,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/al
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=77 "Built target robotiq_3f_gripper_can_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=76,77 "Built target robotiq_3f_gripper_can_node"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/all
 
 # Include target in all.
@@ -7855,7 +7873,7 @@ all: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.d
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_can_node.dir/rule
@@ -7883,7 +7901,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.d
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=87,88 "Built target robotiq_3f_gripper_ethercat_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=87 "Built target robotiq_3f_gripper_ethercat_node"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/all
 
 # Include target in all.
@@ -7893,7 +7911,7 @@ all: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_n
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat_node.dir/rule
@@ -7920,7 +7938,7 @@ clean: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_ethercat
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/all:
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num= "Built target robotiq_3f_gripper_control_gencfg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=80 "Built target robotiq_3f_gripper_control_gencfg"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/all
 
 # Include target in all.
@@ -7930,7 +7948,7 @@ all: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_ge
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_gencfg.dir/rule
@@ -7962,7 +7980,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_genpy.d
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_genpy.dir/rule
@@ -7990,12 +8008,12 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generat
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/_robotiq_3f_gripper_control_generate_messages_check_deps_Robotiq3FGripper_robot_output.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=86 "Built target robotiq_3f_gripper_control_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=85,86 "Built target robotiq_3f_gripper_control_generate_messages_py"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_py.dir/rule
@@ -8023,7 +8041,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generat
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_nodejs.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/_robotiq_3f_gripper_control_generate_messages_check_deps_Robotiq3FGripper_robot_output.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_nodejs.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_nodejs.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_nodejs.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=85 "Built target robotiq_3f_gripper_control_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=84 "Built target robotiq_3f_gripper_control_generate_messages_nodejs"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
@@ -8088,7 +8106,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generat
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_lisp.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/_robotiq_3f_gripper_control_generate_messages_check_deps_Robotiq3FGripper_robot_output.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_lisp.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_lisp.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_lisp.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=84 "Built target robotiq_3f_gripper_control_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=83 "Built target robotiq_3f_gripper_control_generate_messages_lisp"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -8125,7 +8143,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_geneus.
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_geneus.dir/rule
@@ -8190,7 +8208,7 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/all
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/std_srvs_generate_messages_nodejs.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=78,79,80 "Built target robotiq_3f_gripper_control"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=78,79 "Built target robotiq_3f_gripper_control"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control.dir/all
 
 # Include target in all.
@@ -8228,12 +8246,12 @@ robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generat
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/_robotiq_3f_gripper_control_generate_messages_check_deps_Robotiq3FGripper_robot_output.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/build.make robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=82,83 "Built target robotiq_3f_gripper_control_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=82 "Built target robotiq_3f_gripper_control_generate_messages_eus"
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_eus.dir/rule
@@ -9319,7 +9337,7 @@ robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_j
 robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_joint_states.dir/all: robotiq/robotiq_3f_gripper_control/CMakeFiles/robotiq_3f_gripper_control_generate_messages_cpp.dir/all
 	$(MAKE) -f robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_joint_states.dir/build.make robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_joint_states.dir/depend
 	$(MAKE) -f robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_joint_states.dir/build.make robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_joint_states.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=89 "Built target robotiq_3f_gripper_joint_states"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=88 "Built target robotiq_3f_gripper_joint_states"
 .PHONY : robotiq/robotiq_3f_gripper_joint_state_publisher/CMakeFiles/robotiq_3f_gripper_joint_states.dir/all
 
 # Include target in all.
@@ -9645,7 +9663,7 @@ all: motoman/motoman_driver/CMakeFiles/motoman_robot_state_bswap.dir/all
 
 # Build rule for subdir invocation for target.
 motoman/motoman_driver/CMakeFiles/motoman_robot_state_bswap.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 30
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 29
 	$(MAKE) -f CMakeFiles/Makefile2 motoman/motoman_driver/CMakeFiles/motoman_robot_state_bswap.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : motoman/motoman_driver/CMakeFiles/motoman_robot_state_bswap.dir/rule
@@ -9720,7 +9738,7 @@ all: motoman/motoman_driver/CMakeFiles/motoman_motion_streaming_interface_bswap.
 
 # Build rule for subdir invocation for target.
 motoman/motoman_driver/CMakeFiles/motoman_motion_streaming_interface_bswap.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 30
 	$(MAKE) -f CMakeFiles/Makefile2 motoman/motoman_driver/CMakeFiles/motoman_motion_streaming_interface_bswap.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : motoman/motoman_driver/CMakeFiles/motoman_motion_streaming_interface_bswap.dir/rule
@@ -9747,7 +9765,7 @@ clean: motoman/motoman_driver/CMakeFiles/motoman_motion_streaming_interface_bswa
 motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/all:
 	$(MAKE) -f motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/build.make motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/depend
 	$(MAKE) -f motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/build.make motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=50,51,52,53,54,55,56 "Built target motoman_simple_message_bswap"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=50,51,52,53,54,55 "Built target motoman_simple_message_bswap"
 .PHONY : motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/all
 
 # Include target in all.
@@ -9757,7 +9775,7 @@ all: motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/all
 
 # Build rule for subdir invocation for target.
 motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
 .PHONY : motoman/motoman_driver/CMakeFiles/motoman_simple_message_bswap.dir/rule
@@ -11095,7 +11113,7 @@ moveit_visual_tools/preinstall:
 moveit_visual_tools/CMakeFiles/moveit_visual_tools_demo.dir/all: moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/all
 	$(MAKE) -f moveit_visual_tools/CMakeFiles/moveit_visual_tools_demo.dir/build.make moveit_visual_tools/CMakeFiles/moveit_visual_tools_demo.dir/depend
 	$(MAKE) -f moveit_visual_tools/CMakeFiles/moveit_visual_tools_demo.dir/build.make moveit_visual_tools/CMakeFiles/moveit_visual_tools_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=60 "Built target moveit_visual_tools_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=59 "Built target moveit_visual_tools_demo"
 .PHONY : moveit_visual_tools/CMakeFiles/moveit_visual_tools_demo.dir/all
 
 # Include target in all.
@@ -11612,7 +11630,7 @@ clean: moveit_visual_tools/CMakeFiles/graph_msgs_generate_messages_lisp.dir/clea
 moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/all: moveit_visual_tools/CMakeFiles/graph_msgs_generate_messages_cpp.dir/all
 	$(MAKE) -f moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/build.make moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/depend
 	$(MAKE) -f moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/build.make moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=58,59 "Built target moveit_visual_tools"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=57,58 "Built target moveit_visual_tools"
 .PHONY : moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/all
 
 # Include target in all.
@@ -12191,12 +12209,14 @@ clean: moveit_visual_tools/CMakeFiles/object_recognition_msgs_generate_messages_
 
 # Convenience name for "all" pass in the directory.
 mototester/all: mototester/CMakeFiles/mototester_node.dir/all
+mototester/all: mototester/CMakeFiles/workspace_maker.dir/all
 
 .PHONY : mototester/all
 
 # Convenience name for "clean" pass in the directory.
 mototester/clean: mototester/CMakeFiles/moveit_ros_manipulation_gencfg.dir/clean
 mototester/clean: mototester/CMakeFiles/mototester_node.dir/clean
+mototester/clean: mototester/CMakeFiles/workspace_maker.dir/clean
 
 .PHONY : mototester/clean
 
@@ -12244,7 +12264,7 @@ clean: mototester/CMakeFiles/moveit_ros_manipulation_gencfg.dir/clean
 mototester/CMakeFiles/mototester_node.dir/all: moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/all
 	$(MAKE) -f mototester/CMakeFiles/mototester_node.dir/build.make mototester/CMakeFiles/mototester_node.dir/depend
 	$(MAKE) -f mototester/CMakeFiles/mototester_node.dir/build.make mototester/CMakeFiles/mototester_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=57 "Built target mototester_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=56 "Built target mototester_node"
 .PHONY : mototester/CMakeFiles/mototester_node.dir/all
 
 # Include target in all.
@@ -12271,6 +12291,43 @@ mototester/CMakeFiles/mototester_node.dir/clean:
 
 # clean rule for target.
 clean: mototester/CMakeFiles/mototester_node.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target mototester/CMakeFiles/workspace_maker.dir
+
+# All Build rule for target.
+mototester/CMakeFiles/workspace_maker.dir/all: moveit_visual_tools/CMakeFiles/moveit_visual_tools.dir/all
+	$(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/depend
+	$(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/calum/MotoWorkspace/build/CMakeFiles --progress-num=100 "Built target workspace_maker"
+.PHONY : mototester/CMakeFiles/workspace_maker.dir/all
+
+# Include target in all.
+all: mototester/CMakeFiles/workspace_maker.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+mototester/CMakeFiles/workspace_maker.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 mototester/CMakeFiles/workspace_maker.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/calum/MotoWorkspace/build/CMakeFiles 0
+.PHONY : mototester/CMakeFiles/workspace_maker.dir/rule
+
+# Convenience name for target.
+workspace_maker: mototester/CMakeFiles/workspace_maker.dir/rule
+
+.PHONY : workspace_maker
+
+# clean rule for target.
+mototester/CMakeFiles/workspace_maker.dir/clean:
+	$(MAKE) -f mototester/CMakeFiles/workspace_maker.dir/build.make mototester/CMakeFiles/workspace_maker.dir/clean
+.PHONY : mototester/CMakeFiles/workspace_maker.dir/clean
+
+# clean rule for target.
+clean: mototester/CMakeFiles/workspace_maker.dir/clean
 
 .PHONY : clean
 

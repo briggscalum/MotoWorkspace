@@ -25,9 +25,10 @@ include_directories(
 )
 
 add_executable(mototester_node src/mototester_node.cpp)
-
+add_executable(workspace_maker src/workspace_maker.cpp)
 
 target_link_libraries(mototester_node ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(workspace_maker ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
