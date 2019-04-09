@@ -107,14 +107,29 @@
 				<material name="blue"/>
 			</visual>
 			<collision>
+				<origin rpy="0 0 0" xyz="0 0 0.0"/>
 				<geometry>
 					<mesh filename="package://motoman_sda10f_support/meshes/sda10f/collision/motoman_axis_t.stl" />
 				</geometry>
 				<material name="yellow"/>
 			</collision>
 		</link>
-	    <link name="${prefix}link_tool0" />
-		
+	        <link name="${prefix}link_tool0" >
+			<visual>
+				<geometry>
+					<mesh filename="package://motoman_sda10f_support/meshes/sda10f/collision/motoman_axis_t.stl" />
+				</geometry>
+				<material name="blue"/>
+			</visual>
+			<collision>
+				<origin rpy="0 0 0" xyz="0 0 0.0"/>
+				<geometry>
+					<mesh filename="package://motoman_sda10f_support/meshes/sda10f/collision/motoman_axis_t.stl" />
+				</geometry>
+				<material name="yellow"/>
+			</collision>	
+		</link>		
+
 		<joint name="${prefix}joint_1_s" type="revolute">
 			<parent link="${parent}"/>
 			<child link="${prefix}link_1_s"/>
@@ -161,14 +176,14 @@
 			<parent link="${prefix}link_6_b"/>
 			<child link="${prefix}link_7_t"/>
 			<origin xyz="0 0.168 -0.015" rpy="1.57 0 0"/>
-			<axis xyz="0 0 ${-reflect}" />
+			<axis xyz="0 0 ${reflect}" />
 			<limit lower="-3.13" upper="3.13" effort="0" velocity="6.97" />
 		</joint>
-    <joint name="${prefix}joint_tool0" type="fixed" >
-      <origin xyz="0 0 0.0" rpy="0 0 -3.13"/>
-      <parent link="${prefix}link_7_t" />
-      <child link="${prefix}link_tool0" />
-    </joint>
+    		<joint name="${prefix}joint_tool0" type="fixed" >
+      			<origin xyz="0 0.0 -0.15" rpy="0 0 0"/>
+      			<parent link="${prefix}link_7_t" />
+      			<child link="${prefix}link_tool0" />
+    		</joint>
 		<!-- end of joint list -->
 	</xacro:macro>
 </robot>

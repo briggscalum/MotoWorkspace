@@ -15,7 +15,7 @@
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
 #include <motoman_msgs/DynamicJointTrajectory.h>
-
+#include <robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h>  
 #include <moveit_visual_tools/moveit_visual_tools.h>
 #define PI 3.14159265
 
@@ -40,8 +40,6 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
   	fabric_x =  msg.data[0];
   	fabric_y =  msg.data[1];
   	fabric_orien =  msg.data[2];
-
-
 }
 
 int main(int argc, char **argv)
@@ -63,11 +61,53 @@ int main(int argc, char **argv)
 
 	// command_publisher.publish(command);
 
-	// sleep(5.0);
+	sleep(1.0);
 
 	ros::Subscriber posedub = node_handle.subscribe("fabric_pose", 1000, poseUpdater);
+ 	ros::Publisher gripper_pub = node_handle.advertise<robotiq_2f_gripper_control::Robotiq2FGripper_robot_output>("Robotiq2FGripperRobotOutput", 10);
 
-	moveit::planning_interface::MoveGroupInterface group("arm_left");
+ 	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output reset;
+ 	reset.rACT = 0;
+ 	reset.rGTO = 0;
+	reset.rATR = 0;
+	reset.rPR = 0;
+	reset.rSP = 0;
+	reset.rFR = 0;
+
+	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output open;
+ 	open.rACT = 1;
+ 	open.rGTO = 1;
+	open.rATR = 0;
+	open.rPR = 0;
+	open.rSP = 255;
+	open.rFR = 150;
+
+	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output close;
+ 	close.rACT = 1;
+ 	close.rGTO = 1;
+	close.rATR = 0;
+	close.rPR = 255;
+	close.rSP = 255;
+	close.rFR = 150;
+
+
+
+	sleep(1.0);
+	// gripper_pub.publish(reset);
+
+	// sleep(2.0);
+	// gripper_pub.publish(close);
+
+	// sleep(2.0);
+	// gripper_pub.publish(open);
+
+	// sleep(2.0);
+
+
+
+	moveit::planning_interface::MoveGroupInterface group("left_side");
+	moveit::planning_interface::MoveGroupInterface torso_group("torso");
+
 	//moveit::planning_interface::MoveGroupInterface arm_left_group("arm_left");
 	moveit::planning_interface::MoveGroupInterface arm_right_group("arm_right");
 
@@ -83,77 +123,28 @@ int main(int argc, char **argv)
 	//group.setPlannerId("PRMstarkConfigDefault");
 
 	group.setGoalJointTolerance(0.001);
-	group.setEndEffectorLink("arm_left_link_7_t");
-	arm_right_group.setEndEffectorLink("arm_right_link_7_t");
+	torso_group.setEndEffectorLink("torso_link_b1");
+	group.setEndEffectorLink("arm_left_link_tool0");
+	arm_right_group.setEndEffectorLink("arm_right_link_tool0");
 
 	geometry_msgs::Pose left_flat;
-
-
 	geometry_msgs::Pose right_home;
 
-	right_home.position.x = -0.4;   
-	right_home.position.y = -0.25;
-	right_home.position.z = 1.4;
-	right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,M_PI/4,0);  
+	// right_home.position.x = 0.4;   
+	// right_home.position.y = -0.1;
+	// right_home.position.z = 1.0;
+	// right_home.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,M_PI/4,0);  
+
+	left_flat.position.x = 0;  
+	left_flat.position.y = 0.8;
+	left_flat.position.z = 0.8;
+	left_flat.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2 - M_PI/8,0,0);  
+
+	// tf::createQuaternionMsgFromRollPitchYaw(0,M_PI/4,0); behind robot flat
 
 	// ADD COLLISION
 
-	// moveit_msgs::CollisionObject collision_object;
-	// moveit_msgs::CollisionObject collision_object_2;
-	// collision_object.header.frame_id = arm_right_group.getPlanningFrame();
-
-	// /* The id of the object is used to identify it. */
-	// collision_object.id = "box1";
-	// collision_object_2.id = "box2";
-
-	// /* Define a box to add to the world. */
-	// shape_msgs::SolidPrimitive primitive;
-	// primitive.type = primitive.BOX;
-	// primitive.dimensions.resize(3);
-	// primitive.dimensions[0] = 1.0;
-	// primitive.dimensions[1] = 4.0;
-	// primitive.dimensions[2] = 4.0;
-
-	// shape_msgs::SolidPrimitive primitive_2;
-	// primitive_2.type = primitive.BOX;
-	// primitive_2.dimensions.resize(3);
-	// primitive_2.dimensions[0] = 1.0;
-	// primitive_2.dimensions[1] = 2.0;
-	// primitive_2.dimensions[2] = 1.2;
-
-	// /* A pose for the box (specified relative to frame_id) */
-	// geometry_msgs::Pose box_pose;
-	// box_pose.orientation.w = 1.0;
-	// box_pose.position.x =  1;
-	// box_pose.position.y = -0.5;
-	// box_pose.position.z =  1.0;
-
-	// geometry_msgs::Pose box2_pose;
-	// box2_pose.orientation.w = 1.0;
-	// box2_pose.position.x =  -0.9;
-	// box2_pose.position.y =  0;
-	// box2_pose.position.z =  0.60;
-
-	// collision_object_2.primitives.push_back(primitive_2);
-	// collision_object_2.primitive_poses.push_back(box2_pose);
-	// collision_object_2.operation = collision_object_2.ADD;
-
-
-	// collision_object.primitives.push_back(primitive);
-	// collision_object.primitive_poses.push_back(box_pose);
-	// collision_object.operation = collision_object.ADD;
-
-	// std::vector<moveit_msgs::CollisionObject> collision_objects;
-	// collision_objects.push_back(collision_object);
-	// collision_objects.push_back(collision_object_2);
-
-	// planning_scene_interface.applyCollisionObjects(collision_objects);
-
- //    sleep(2.0);
-
 	// END COLLISION ADDER
-
-
 
 	// std::vector<PointGoal> path(100);
 
@@ -166,52 +157,91 @@ int main(int argc, char **argv)
 
 
 	std::vector<double> group_variable_values;
+	std::vector<double> torso_variable_values;
 
-	group.getCurrentState()->copyJointGroupPositions(
-    group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
+	//group.getCurrentState()->copyJointGroupPositions(
+    //group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-
-	// left_arm	
-	group_variable_values[0] = 0.0;
-	group_variable_values[1] = 0.0;
-	group_variable_values[2] = 0.0;
-	group_variable_values[3] = 0.0;
-	group_variable_values[4] = 0.0;
-	group_variable_values[5] = 0.0;
-	group_variable_values[6] = M_PI/2;
-
+	torso_group.getCurrentState()->copyJointGroupPositions(
+    torso_group.getCurrentState()->getRobotModel()->getJointModelGroup(torso_group.getName()), torso_variable_values);
+    torso_variable_values[0] = 0.1;
+    torso_group.setJointValueTarget(torso_variable_values);
+    torso_group.plan(my_plan);
+	torso_group.execute(my_plan);
+   	sleep(2.0);
 
 
-	// group_variable_values[10] = group_variable_values[10] + 0.1;
+	// // left_arm	
+	// group_variable_values[0] = 0.0;
+	// group_variable_values[1] = 0.0;
+	// group_variable_values[2] = 0.0;
+	// group_variable_values[3] = 0.0;
+	// group_variable_values[4] = 0.0;
+	// group_variable_values[5] = 0.0;
+	// group_variable_values[6] = M_PI/2;
 
-	
-	//group.setJointValueTarget(group_variable_values);
 
-	geometry_msgs::Pose left_sew_start;
-	left_sew_start.position.x = 0.63566;   
-	left_sew_start.position.y = 0.093692;
-	left_sew_start.position.z = 0.88518;
-	left_sew_start.orientation.x = 0.35885;      
-	left_sew_start.orientation.y = -0.60485;
-	left_sew_start.orientation.z = -0.37386;
-	left_sew_start.orientation.w = 0.60466;  
+	// //group_variable_values[10] = group_variable_values[10] + 0.1;
+	// //group.setJointValueTarget(group_variable_values);
+
+	// geometry_msgs::Pose left_sew_start;
+	// left_sew_start.position.x = 0.63566;   
+	// left_sew_start.position.y = 0.093692;
+	// left_sew_start.position.z = 0.88518;
+	// left_sew_start.orientation.x = 0.35885;      
+	// left_sew_start.orientation.y = -0.60485;
+	// left_sew_start.orientation.z = -0.37386;
+	// left_sew_start.orientation.w = 0.60466;  
 
 	int grabcounter = 1;
 
-	while(1) {
+	//while(1) {
 
-		grabcounter = grabcounter + 1;
-	    sleep(2.0);
-
-		right_home.position.y = -0.25 - (fabric_x-360)*0.001;
-		right_home.position.x = -0.4 - (fabric_y-240)*0.00125;
-		//group.setPoseTarget(left_sew_start, "arm_left_link_7_t");
-		arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
-
-		arm_right_group.plan(my_plan);
-	    arm_right_group.execute(my_plan);
 
    	    sleep(2.0);
+
+		grabcounter = grabcounter + 1;
+		//right_home.position.y = -0.25 - (fabric_x-360)*0.001;
+		//right_home.position.x = -0.4 - (fabric_y-240)*0.00125;
+		//right_home.position.z = right_home.position.z - 0.05;
+
+		//group.setPoseTarget(left_sew_start, "arm_left_link_7_t");
+		group.setPoseTarget(left_flat, "arm_left_link_tool0");
+
+		group.plan(my_plan);
+	    group.execute(my_plan);
+
+   	    sleep(2.0);
+
+   	    left_flat.position.y = 1.0;
+
+   	    group.setPoseTarget(left_flat, "arm_left_link_tool0");
+
+   	    group.plan(my_plan);
+	    group.execute(my_plan);
+
+	    gripper_pub.publish(close);
+
+   	    sleep(2.0);
+
+
+
+		left_flat.position.y = 0.8;
+		left_flat.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2 - M_PI/8,0,0);  
+		left_flat.position.z = 1.0;
+
+		group.setPoseTarget(left_flat, "arm_left_link_tool0");
+
+
+		group.plan(my_plan);
+	    group.execute(my_plan);
+
+   	    sleep(2.0);
+
+
+
+
+
 
    	 //    right_home.position.x = right_home.position.x - 0.01;
    	 //    right_home.position.x = right_home.position.z - 0.01;
@@ -220,10 +250,7 @@ int main(int argc, char **argv)
    	 //    arm_right_group.plan(my_plan);
 	    // arm_right_group.execute(my_plan);
 
-	    sleep(1.0);
-
-
-    	// ROS_INFO("Count: %i", grabcounter);
+	   	// ROS_INFO("Count: %i", grabcounter);
 
 
 	    // if(grabcounter%5 == 0){
@@ -256,7 +283,7 @@ int main(int argc, char **argv)
 		// arm_right_group.setJointValueTarget(right_group_variable_values);
 		// arm_right_group.plan(my_plan);
 		// arm_right_group.execute(my_plan);
-	}
+	//}
 
 
     //group.plan(my_plan);

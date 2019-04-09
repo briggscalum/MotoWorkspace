@@ -70,7 +70,6 @@
 			<origin xyz="0.09257 0 0.8835" rpy="0 0 0"/>
 			<axis xyz="0 0 1" />
 			<limit lower="-2.9570" upper="2.9570" effort="100" velocity="2.26" />
-			<mimic joint="${prefix}joint_b1" multiplier="1" offset="0"/>
 		</joint>
 		<!-- end of joint list -->
 	</xacro:macro>

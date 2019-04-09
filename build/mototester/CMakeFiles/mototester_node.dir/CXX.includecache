@@ -60,6 +60,22 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
+/home/calum/MotoWorkspace/devel/include/robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/calum/MotoWorkspace/src/mototester/src/mototester_node.cpp
 ros/ros.h
 /home/calum/MotoWorkspace/src/mototester/src/ros/ros.h
@@ -84,6 +100,8 @@ moveit_msgs/AttachedCollisionObject.h
 moveit_msgs/CollisionObject.h
 -
 motoman_msgs/DynamicJointTrajectory.h
+-
+robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h
 -
 moveit_visual_tools/moveit_visual_tools.h
 -

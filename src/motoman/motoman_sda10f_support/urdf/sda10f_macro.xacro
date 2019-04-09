@@ -5,15 +5,6 @@
      <xacro:include filename="$(find motoman_sda10f_support)/urdf/arm_macro.xacro" />
      <xacro:include filename="$(find robotiq_2f_c2_gripper_visualization)/urdf/robotiq_c2_model_macro.xacro" />
 
-     <!-- <xacro:robotiq_c2_model prefix="left_" /> -->
-	
-    
-
-     <!-- 
-     <xacro:robotiq_c2_model prefix="left_gripper_" >
-     	<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-     </xacro:robotiq_c2_model> -->
-	
      <xacro:macro name="motoman_sda10f" params="prefix">	
         
         <xacro:torso name="${prefix}torso" prefix="${prefix}torso_"/>

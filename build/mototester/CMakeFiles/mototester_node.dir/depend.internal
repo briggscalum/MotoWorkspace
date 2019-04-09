@@ -5,6 +5,7 @@ mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o
  /home/calum/MotoWorkspace/devel/include/motoman_msgs/DynamicJointPoint.h
  /home/calum/MotoWorkspace/devel/include/motoman_msgs/DynamicJointTrajectory.h
  /home/calum/MotoWorkspace/devel/include/motoman_msgs/DynamicJointsGroup.h
+ /home/calum/MotoWorkspace/devel/include/robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h
  /home/calum/MotoWorkspace/src/mototester/src/mototester_node.cpp
  /home/calum/MotoWorkspace/src/moveit_visual_tools/include/moveit_visual_tools/moveit_visual_tools.h
  /opt/ros/kinetic/include/boost_161_condition_variable.h
