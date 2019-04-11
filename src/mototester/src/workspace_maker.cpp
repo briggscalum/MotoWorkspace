@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	moveit_msgs::CollisionObject collision_object;
 	moveit_msgs::CollisionObject collision_object_2;
 	moveit_msgs::CollisionObject collision_object_3;
-
+	moveit_msgs::CollisionObject collision_object_4;
 
     //#collision_object.header.frame_id = arm_right_group.getPlanningFrame();
 
@@ -30,6 +30,7 @@ int main(int argc, char **argv)
 	collision_object.id = "box1";
 	collision_object_2.id = "box2";
 	collision_object_3.id = "sewing_machine";
+	collision_object_4.id = "machine_bed";
 
 	/* Define a box to add to the world. */
 	shape_msgs::SolidPrimitive primitive;
@@ -53,10 +54,17 @@ int main(int argc, char **argv)
 	primitive_3.dimensions[1] = 0.5;
 	primitive_3.dimensions[2] = 0.4;
 
+	shape_msgs::SolidPrimitive primitive_4;
+	primitive_4.type = primitive.BOX;
+	primitive_4.dimensions.resize(3);
+	primitive_4.dimensions[0] = 0.8;
+	primitive_4.dimensions[1] = 0.5;
+	primitive_4.dimensions[2] = 0.1;
+
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
 	box_pose.orientation.w = 1.0;
-	box_pose.position.x =  1.1;
+	box_pose.position.x =  1.2;
 	box_pose.position.y = -0.5;
 	box_pose.position.z =  1.0;
 
@@ -64,13 +72,24 @@ int main(int argc, char **argv)
 	box2_pose.orientation.w = 1.0;
 	box2_pose.position.x =  0.0;
 	box2_pose.position.y =  1.3;
-	box2_pose.position.z =  0.35;
+	box2_pose.position.z =  0.4;
 
 	geometry_msgs::Pose sewing_pose;
 	sewing_pose.orientation.w = 1.0;
-	sewing_pose.position.x =  0.9;
+	sewing_pose.position.x =  1.0;
 	sewing_pose.position.y =  0.0;
 	sewing_pose.position.z =  0.85;
+
+	geometry_msgs::Pose bed_pose;
+	bed_pose.orientation.w = 1.0;
+	bed_pose.position.x =  0.9;
+	bed_pose.position.y =  0.0;
+	bed_pose.position.z =  0.7;
+
+	
+	collision_object_4.primitives.push_back(primitive_4);
+	collision_object_4.primitive_poses.push_back(bed_pose);
+	collision_object_4.operation = collision_object_4.ADD;
 
 	collision_object_3.primitives.push_back(primitive_3);
 	collision_object_3.primitive_poses.push_back(sewing_pose);
@@ -88,6 +107,7 @@ int main(int argc, char **argv)
 	collision_objects.push_back(collision_object);
 	collision_objects.push_back(collision_object_2);
 	collision_objects.push_back(collision_object_3);
+	collision_objects.push_back(collision_object_4);
 
 	planning_scene_interface.applyCollisionObjects(collision_objects);
 
