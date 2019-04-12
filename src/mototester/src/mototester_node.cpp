@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 
 
 
-	moveit::planning_interface::MoveGroupInterface group("left_side");
+	moveit::planning_interface::MoveGroupInterface group("arm_left");
 	moveit::planning_interface::MoveGroupInterface torso_group("torso");
 
 	//moveit::planning_interface::MoveGroupInterface arm_left_group("arm_left");
@@ -158,31 +158,126 @@ int main(int argc, char **argv)
 
 	std::vector<double> group_variable_values;
 	std::vector<double> torso_variable_values;
+	//std::vector<double> left_start_position = {-1.4351, -1.4266, 0, -1.7675, 0, 0.6670, -1.4645};
+	std::vector<double> left_alt_start_position = {1.6808, -0.6219, -0.1952, -1.674, 0, 0.08568, 1.52};
+	std::vector<double> left_alt_pregrip_position = {1.802564, -0.526207, -0.236598, -1.471528, 0, -0.154917, 1.5345};
+
+	std::vector<double> left_alt_grip_position = {1.890188, -0.407766, -0.314982, -1.142800, 0, -0.42265, 1.540177};
+
+	std::vector<double> left_alt_postgrip_position = {1.694776, -0.782688, -0.155478, -1.552859, 0, -0.359225, 1.572601};
+	//std::vector<double> left_grip_position = {-1.226, 0.3801, -0.3696, 1.077, 0, 0.41692, -1.5115};
+	
+	std::vector<double> left_preprepre_sew_position = {2.156794, -0.670111, -0.943899, -1.064476, 0, -1.469128, -1.1475};
+	std::vector<double> left_prepre_sew_position = {2.033547, -0.779688, -0.916789, -1.642225, 0, -1.022603, -1.071741};
+	std::vector<double> left_pre_sew_position = {2.104537, -0.830992, -1.100775, -1.840762, 0, -0.808256, -0.919216};
+	std::vector<double> left_alt_sew_position = {2.32439, -0.8409, -1.349660 -1.544886, 0, -0.954030, -0.799565};
+
+
+	// std::vector<double> left_prepre_sew_position = {2.6565, -0.738203, -1.512687, -0.421708, 0, -1.829020, -0.898371};
+	// std::vector<double> left_pre_sew_position = {2.339, -0.7352, -1.214, -1.074, 0, -1.316, -0.8973};
+	// std::vector<double> left_alt_sew_position = {2.2955, -0.8602, -1.3303, -1.652, 0, -0.8620, -0.7915};
+
+
 
 	//group.getCurrentState()->copyJointGroupPositions(
     //group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-	torso_group.getCurrentState()->copyJointGroupPositions(
-    torso_group.getCurrentState()->getRobotModel()->getJointModelGroup(torso_group.getName()), torso_variable_values);
-    torso_variable_values[0] = 0.1;
-    torso_group.setJointValueTarget(torso_variable_values);
-    torso_group.plan(my_plan);
-	torso_group.execute(my_plan);
-   	sleep(2.0);
+	group.getCurrentState()->copyJointGroupPositions(
+    group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
+ //    torso_variable_values[0] = 0.1;
+ //    torso_group.setJointValueTarget(torso_variable_values);
+ //    torso_group.plan(my_plan);
+	// torso_group.execute(my_plan);
+ //   	sleep(1.0);
 
 
-	// // left_arm	
-	// group_variable_values[0] = 0.0;
-	// group_variable_values[1] = 0.0;
-	// group_variable_values[2] = 0.0;
-	// group_variable_values[3] = 0.0;
-	// group_variable_values[4] = 0.0;
-	// group_variable_values[5] = 0.0;
-	// group_variable_values[6] = M_PI/2;
+    group.setJointValueTarget(left_alt_start_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+
+	sleep(1.0);
+
+	group.setJointValueTarget(left_alt_pregrip_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+	group.setJointValueTarget(left_alt_grip_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+	gripper_pub.publish(close);
+	gripper_pub.publish(close);
+	gripper_pub.publish(close);
+
+	sleep(1.0);
+
+
+
+	group.setJointValueTarget(left_alt_postgrip_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+	group.setJointValueTarget(left_preprepre_sew_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+
+	group.setJointValueTarget(left_prepre_sew_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+
+	group.setJointValueTarget(left_pre_sew_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+	group.setJointValueTarget(left_alt_sew_position);
+	group.plan(my_plan);
+	group.execute(my_plan);
+
+	sleep(1.0);
+
+	// Sewing Allignment 270, 226 0.46
+
+ //  group.setJointValueTarget(left_pre_sew_position);
+	// group.plan(my_plan);
+	// group.execute(my_plan);
+
+	// ROS_INFO("Joint 1 %f", group_variable_values[0]);
+	// ROS_INFO("Joint 2 %f", group_variable_values[1]);
+	// ROS_INFO("Joint 3 %f", group_variable_values[2]);
+	// ROS_INFO("Joint 4 %f", group_variable_values[3]);
+	// ROS_INFO("Joint 5 %f", group_variable_values[4]);
+	// ROS_INFO("Joint 6 %f", group_variable_values[5]);
+	// ROS_INFO("Joint 7 %f", group_variable_values[6]);
+
+	// left_arm	
+	//left_start_position[0] = 0.0;
+	//left_start_position[1] = 0.0;
+	//left_start_position[2] = 0.0;
+	//left_start_position[3] = 0.0;
+	//left_start_position[4] = 0.0;
+	//left_start_position[5] = 0.0;
+	//left_start_position[6] = 0.0;
 
 
 	// //group_variable_values[10] = group_variable_values[10] + 0.1;
-	// //group.setJointValueTarget(group_variable_values);
+	// group.setJointValueTarget(left_start_position);
+	// group.plan(my_plan);
+	// group.execute(my_plan);
 
 	// geometry_msgs::Pose left_sew_start;
 	// left_sew_start.position.x = 0.63566;   
@@ -197,6 +292,9 @@ int main(int argc, char **argv)
 
 	//while(1) {
 
+	int test = 0;
+
+	if(test == 1) {
 
    	    sleep(2.0);
 
@@ -237,7 +335,7 @@ int main(int argc, char **argv)
 	    group.execute(my_plan);
 
    	    sleep(2.0);
-
+   	}
 
 
 

@@ -23,6 +23,8 @@ int main(int argc, char **argv)
 	moveit_msgs::CollisionObject collision_object_2;
 	moveit_msgs::CollisionObject collision_object_3;
 	moveit_msgs::CollisionObject collision_object_4;
+	moveit_msgs::CollisionObject collision_object_5;
+	moveit_msgs::CollisionObject collision_object_6;
 
     //#collision_object.header.frame_id = arm_right_group.getPlanningFrame();
 
@@ -31,12 +33,15 @@ int main(int argc, char **argv)
 	collision_object_2.id = "box2";
 	collision_object_3.id = "sewing_machine";
 	collision_object_4.id = "machine_bed";
+	collision_object_5.id = "pickup camera";
+	collision_object_6.id = "whiteboard";
+
 
 	/* Define a box to add to the world. */
 	shape_msgs::SolidPrimitive primitive;
 	primitive.type = primitive.BOX;
 	primitive.dimensions.resize(3);
-	primitive.dimensions[0] = 1.0;
+	primitive.dimensions[0] = 0.9;
 	primitive.dimensions[1] = 4.0;
 	primitive.dimensions[2] = 2;
 
@@ -61,6 +66,20 @@ int main(int argc, char **argv)
 	primitive_4.dimensions[1] = 0.5;
 	primitive_4.dimensions[2] = 0.1;
 
+	shape_msgs::SolidPrimitive primitive_5;
+	primitive_5.type = primitive.BOX;
+	primitive_5.dimensions.resize(3);
+	primitive_5.dimensions[0] = 0.1;
+	primitive_5.dimensions[1] = 0.5;
+	primitive_5.dimensions[2] = 0.05;
+
+	shape_msgs::SolidPrimitive primitive_6;
+	primitive_6.type = primitive.BOX;
+	primitive_6.dimensions.resize(3);
+	primitive_6.dimensions[0] = 4;
+	primitive_6.dimensions[1] = 0.5;
+	primitive_6.dimensions[2] = 4;
+
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
 	box_pose.orientation.w = 1.0;
@@ -76,17 +95,37 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose sewing_pose;
 	sewing_pose.orientation.w = 1.0;
-	sewing_pose.position.x =  1.0;
-	sewing_pose.position.y =  0.0;
+	sewing_pose.position.x =  1.03;
+	sewing_pose.position.y =  0.3;
 	sewing_pose.position.z =  0.85;
 
 	geometry_msgs::Pose bed_pose;
 	bed_pose.orientation.w = 1.0;
-	bed_pose.position.x =  0.9;
-	bed_pose.position.y =  0.0;
-	bed_pose.position.z =  0.7;
+	bed_pose.position.x =  0.93;
+	bed_pose.position.y =  0.3;
+	bed_pose.position.z =  0.75;
 
+	geometry_msgs::Pose camera_pose;
+	camera_pose.orientation.w = 1.0;
+	camera_pose.position.x =  0.25;
+	camera_pose.position.y =  1.0;
+	camera_pose.position.z =  1.35;
+
+
+	geometry_msgs::Pose wall_pose;
+	wall_pose.orientation.w = 1.0;
+	wall_pose.position.x =  0.0;
+	wall_pose.position.y =  1.5;
+	wall_pose.position.z =  2;
 	
+	collision_object_6.primitives.push_back(primitive_6);
+	collision_object_6.primitive_poses.push_back(wall_pose);
+	collision_object_6.operation = collision_object_6.ADD;
+
+	collision_object_5.primitives.push_back(primitive_5);
+	collision_object_5.primitive_poses.push_back(camera_pose);
+	collision_object_5.operation = collision_object_5.ADD;
+
 	collision_object_4.primitives.push_back(primitive_4);
 	collision_object_4.primitive_poses.push_back(bed_pose);
 	collision_object_4.operation = collision_object_4.ADD;
@@ -108,6 +147,8 @@ int main(int argc, char **argv)
 	collision_objects.push_back(collision_object_2);
 	collision_objects.push_back(collision_object_3);
 	collision_objects.push_back(collision_object_4);
+	collision_objects.push_back(collision_object_5);
+	collision_objects.push_back(collision_object_6);
 
 	planning_scene_interface.applyCollisionObjects(collision_objects);
 

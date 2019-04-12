@@ -10,6 +10,7 @@ from math import atan2, cos, sin, sqrt, pi
 from std_msgs.msg import Float32MultiArray
 import time
 
+
 def drawAxis(img, p_, q_, colour, scale):
     p = list(p_)
     q = list(q_)
@@ -87,7 +88,7 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , bw = cv.threshold(gray, 160 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+    _ , bw = cv.threshold(gray, 170 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
     _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
 
