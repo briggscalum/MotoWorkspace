@@ -99,6 +99,10 @@ moveit_msgs/AttachedCollisionObject.h
 -
 moveit_msgs/CollisionObject.h
 -
+moveit_msgs/Constraints.h
+-
+moveit_msgs/PositionConstraint.h
+-
 motoman_msgs/DynamicJointTrajectory.h
 -
 robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h
