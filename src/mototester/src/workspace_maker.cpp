@@ -12,6 +12,8 @@ int main(int argc, char **argv)
 	ros::AsyncSpinner spinner(1);
 	spinner.start();
 
+	float xoffset = 0.20;
+
 	//moveit::planning_interface::MoveGroupInterface group("arm_left");
 	//moveit::planning_interface::MoveGroupInterface arm_left_group("arm_left");
 	//moveit::planning_interface::MoveGroupInterface arm_right_group("arm_right");
@@ -71,7 +73,7 @@ int main(int argc, char **argv)
 	primitive_5.dimensions.resize(3);
 	primitive_5.dimensions[0] = 0.1;
 	primitive_5.dimensions[1] = 0.5;
-	primitive_5.dimensions[2] = 0.05;
+	primitive_5.dimensions[2] = 0.1;
 
 	shape_msgs::SolidPrimitive primitive_6;
 	primitive_6.type = primitive.BOX;
@@ -83,38 +85,38 @@ int main(int argc, char **argv)
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
 	box_pose.orientation.w = 1.0;
-	box_pose.position.x =  1.2;
+	box_pose.position.x =  1.2 + xoffset;
 	box_pose.position.y = -0.5;
 	box_pose.position.z =  1.0;
 
 	geometry_msgs::Pose box2_pose;
 	box2_pose.orientation.w = 1.0;
-	box2_pose.position.x =  0.0;
+	box2_pose.position.x =  0.0 + xoffset;
 	box2_pose.position.y =  1.3;
-	box2_pose.position.z =  0.4;
+	box2_pose.position.z =  0.34;
 
 	geometry_msgs::Pose sewing_pose;
 	sewing_pose.orientation.w = 1.0;
-	sewing_pose.position.x =  1.03;
-	sewing_pose.position.y =  0.3;
+	sewing_pose.position.x =  1.03  + xoffset;
+	sewing_pose.position.y =  0.1;
 	sewing_pose.position.z =  0.85;
 
 	geometry_msgs::Pose bed_pose;
 	bed_pose.orientation.w = 1.0;
-	bed_pose.position.x =  0.93;
-	bed_pose.position.y =  0.3;
+	bed_pose.position.x =  0.93  + xoffset;
+	bed_pose.position.y =  0.1;
 	bed_pose.position.z =  0.75;
 
 	geometry_msgs::Pose camera_pose;
 	camera_pose.orientation.w = 1.0;
-	camera_pose.position.x =  0.25;
+	camera_pose.position.x =  0.09 + xoffset;
 	camera_pose.position.y =  1.0;
 	camera_pose.position.z =  1.35;
 
 
 	geometry_msgs::Pose wall_pose;
 	wall_pose.orientation.w = 1.0;
-	wall_pose.position.x =  0.0;
+	wall_pose.position.x =  0.0 + xoffset;
 	wall_pose.position.y =  1.5;
 	wall_pose.position.z =  2;
 	
@@ -154,7 +156,7 @@ int main(int argc, char **argv)
 
     sleep(2.0);
 
-	ros::spin();
+	ros::shutdown();
 	return 0;
 }
 

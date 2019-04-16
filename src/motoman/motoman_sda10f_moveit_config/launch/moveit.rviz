@@ -39,7 +39,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Acceleration_Scaling_Factor: 1
+    - Acceleration_Scaling_Factor: 0.10000000000000001
       Class: moveit_rviz_plugin/MotionPlanning
       Enabled: true
       Move Group Namespace: ""
@@ -48,7 +48,7 @@ Visualization Manager:
       MoveIt_Allow_Replanning: true
       MoveIt_Allow_Sensor_Positioning: false
       MoveIt_Goal_Tolerance: 0
-      MoveIt_Planning_Attempts: 100
+      MoveIt_Planning_Attempts: 1000
       MoveIt_Planning_Time: 1
       MoveIt_Use_Constraint_Aware_IK: true
       MoveIt_Warehouse_Host: 127.0.0.1
@@ -528,25 +528,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.13028288
+      Distance: 2.87975168
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.801722169
-        Y: 0.250621468
-        Z: 5.81145855e-07
+        X: 0.810249865
+        Y: 0.3043845
+        Z: 1.05798301e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.629797339
+      Pitch: 0.159798026
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 2.79314613
+      Yaw: 2.98321509
     Saved: ~
 Window Geometry:
   Displays:

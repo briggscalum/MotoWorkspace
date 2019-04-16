@@ -136,7 +136,7 @@
 			<child link="${prefix}link_1_s"/>
 			<origin xyz="0.09996 ${reflect*0.0275} 0.32214" rpy="1.57 0 ${(reflect-1)*1.57}"/>
 			<axis xyz="0 0 ${-reflect}" />
-			<limit lower="-3.13" upper="3.13" effort="0" velocity="2.95" />
+			<limit lower="0" upper="3.13" effort="0" velocity="2.95" />
 		</joint>
 		<joint name="${prefix}joint_2_l" type="revolute">
 			<parent link="${prefix}link_1_s"/>
@@ -164,7 +164,7 @@
 			<child link="${prefix}link_5_r"/>
 			<origin xyz="0 0.1936 0.0155" rpy="1.57 0 0"/>
 			<axis xyz="0 0 ${reflect}" />
-			<limit lower="0.0" upper="0.0" effort="0" velocity="3.48" />
+			<limit lower="0" upper="3.13" effort="0" velocity="3.48" />
 		</joint>
 		<joint name="${prefix}joint_6_b" type="revolute">
 			<parent link="${prefix}link_5_r"/>
@@ -181,7 +181,7 @@
 			<limit lower="-3.13" upper="3.13" effort="0" velocity="6.97" />
 		</joint>
     		<joint name="${prefix}joint_tool0" type="fixed" >
-      			<origin xyz="0 0.1 -0.2	" rpy="1.2 0 0"/>
+      			<origin xyz="0 0.05 -0.25	" rpy="1.0 0 0"/>
       			<parent link="${prefix}link_7_t" />
       			<child link="${prefix}link_tool0" />
     		</joint>

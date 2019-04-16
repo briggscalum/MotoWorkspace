@@ -35,7 +35,7 @@ double time;
 float fabric_x = 0;
 float fabric_y = 0;
 float fabric_orien = 0;
-int test_num = 1;
+int test_num = 2;
 
 void poseUpdater(std_msgs::Float32MultiArray msg)
 {
@@ -345,20 +345,25 @@ int main(int argc, char **argv)
 		geometry_msgs::PoseStamped test_pose;
 		test_pose = group.getCurrentPose();
 
-		moveit_msgs::Constraints arm_left_constraints;
-		moveit_msgs::PositionConstraint arm_left_position_constraints;
-			arm_left_position_constraints.link_name = "arm_left_link_tool0";
-			//arm_left_position_constraints.target_point_offset.y = 0.001;
-			arm_left_position_constraints.target_point_offset.x = 0.001;
-			arm_left_position_constraints.weight= 1000.0;
+		// moveit_msgs::Constraints arm_left_constraints;
+		// moveit_msgs::PositionConstraint arm_left_position_constraints;
+		// 	arm_left_position_constraints.link_name = "arm_left_link_tool0";
+		// 	arm_left_position_constraints.target_point_offset.y = 0.001;
+		// 	arm_left_position_constraints.target_point_offset.x = 0.001;
+		// 	arm_left_position_constraints.weight= 1000.0;
 
 
-		arm_left_constraints.position_constraints = {arm_left_position_constraints};
+		// arm_left_constraints.position_constraints = {arm_left_position_constraints}	;
 
-		group.setPathConstraints(arm_left_constraints);
+		//group.setPathConstraints(arm_left_constraints);
 		//test_pose.position.x = 0.5;  
 		//test_pose.position.y = 0.5;
-		test_pose.pose.position.z = test_pose.pose.position.z + 0.5;
+		//test_pose.pose.position.z = test_pose.pose.position.z 
+
+	    ROS_INFO("X Position %f", test_pose.pose.position.x);
+   	    ROS_INFO("Y Position %f", test_pose.pose.position.y);
+	    ROS_INFO("Z Position %f", test_pose.pose.position.z);
+
 
 		group.setPoseTarget(test_pose);
 		group.plan(my_plan);
@@ -368,6 +373,32 @@ int main(int argc, char **argv)
    	    
    	}
 
+   	if(test == 3) {
+
+
+   	geometry_msgs::Pose left_start_pose;
+		left_start_pose.position.x = 0.322390;   
+		left_start_pose.position.y = 0.797189;
+		left_start_pose.position.z = 0.805369;
+
+	// Keep X Constant
+
+	geometry_msgs::Pose left_pre_grab_pose;
+		left_pre_grab_pose.position.x = 0.322390;   
+		left_pre_grab_pose.position.y = 0.919551;
+		left_pre_grab_pose.position.z = 0.733381;
+
+	// Keep Z Constant Modify X and Y with vision
+
+	geometry_msgs::Pose left_grab_pose;
+		left_grab_pose.position.x = 0.325269;   
+		left_grab_pose.position.y = 1.145305;
+		left_grab_pose.position.z = 0.733381;
+
+
+
+
+   	}
 
    	 //    right_home.position.x = right_home.position.x - 0.01;
    	 //    right_home.position.x = right_home.position.z - 0.01;
