@@ -88,17 +88,17 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , bw = cv.threshold(gray, 170 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+    _ , bw = cv.threshold(gray, 240 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
     _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
 
-
+    center = 0    
 
     for i, c in enumerate(contours):
         # Calculate the area of each contour
         area = cv.contourArea(c);
         # Ignore contours that are too small or too large
-        if area < 12000 or 1e6 < area:
+        if area < 1e3 or 1e4 < area:
             continue
         # Draw each contour only for visualisation purposes
         cv.drawContours(src, contours, i, (0, 0, 255), 2);
@@ -110,8 +110,9 @@ while(True):
     ## 500 pixels = 0.40 cm,  pixel = 1.25 mm
 
     position = Float32MultiArray()
-    position.data = [center[0],center[1],angle]
-    posepub.publish(position)
+    if center != 0:
+    	position.data = [center[0],center[1],angle]
+    	posepub.publish(position)
 
     cv.imshow('output', src)
     cv.imshow('binary', bw)

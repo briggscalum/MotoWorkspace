@@ -10,28 +10,31 @@
         
         <xacro:torso name="${prefix}torso" prefix="${prefix}torso_"/>
 
-	<!--	
-
+	
+	<!--
 	
         <xacro:motoman_arm name="${prefix}arm_left" prefix="${prefix}arm_left_" parent="${prefix}torso_link_b1" reflect="1">
             <origin xyz="0.09996 0.0275 0.32214" rpy="1.57 0 0" />
         </xacro:motoman_arm> 
+	
+	-->
  
 	<xacro:motoman_arm name="${prefix}arm_right" prefix="${prefix}arm_right_" parent="${prefix}torso_link_b1" reflect="-1">
             <origin xyz="0.09996 -0.0275 0.32214" rpy="1.57 0 0" />
         </xacro:motoman_arm>    
-	
-	-->
+		
 
 	<xacro:motoman_under_arm name="${prefix}arm_left" prefix="${prefix}arm_left_" parent="${prefix}torso_link_b1" reflect="1">
             <origin xyz="0.09996 0.0275 0.32214" rpy="1.57 0 0" />
         </xacro:motoman_under_arm> 
- 
+	
+	<!-- 
+
 	<xacro:motoman_under_arm name="${prefix}arm_right" prefix="${prefix}arm_right_" parent="${prefix}torso_link_b1" reflect="-1">
             <origin xyz="0.09996 -0.0275 0.32214" rpy="1.57 0 0" />
         </xacro:motoman_under_arm>  
 
-	
+	-->	
 
 	<xacro:robotiq_c2_model prefix="${prefix}arm_right_" parent="${prefix}arm_right_link_7_t">
    	</xacro:robotiq_c2_model>   
