@@ -189,7 +189,7 @@ int main(int argc, char **argv)
 	group.getCurrentState()->copyJointGroupPositions(
     group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-	int test = 2;
+	int test = 6;
 	
 	if(test == 0) {
 
@@ -676,6 +676,17 @@ int main(int argc, char **argv)
 
   	}
 
+
+	if(test == 6) {
+
+  		std::vector<double> left_start_position = {-1.4688,0.7039, -0.403209, 2.2110, 0.642783, -0.4479, -2.00};
+  		group.setJointValueTarget(left_start_position);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(2.0);
+
+	}
   //  		moveit_msgs::Constraints arm_left_constraints;
 		// moveit_msgs::PositionConstraint arm_left_position_constraints;
 		// arm_left_position_constraints.link_name = "arm_left_link_tool0";
