@@ -86,6 +86,7 @@ mototester/CMakeFiles/mototester_node.dir/src/mototester_node.cpp.o
  /opt/ros/kinetic/include/moveit/robot_state/attached_body.h
  /opt/ros/kinetic/include/moveit/robot_state/robot_state.h
  /opt/ros/kinetic/include/moveit/robot_trajectory/robot_trajectory.h
+ /opt/ros/kinetic/include/moveit/trajectory_processing/iterative_time_parameterization.h
  /opt/ros/kinetic/include/moveit/transforms/transforms.h
  /opt/ros/kinetic/include/moveit_msgs/AllowedCollisionEntry.h
  /opt/ros/kinetic/include/moveit_msgs/AllowedCollisionMatrix.h

@@ -101,11 +101,15 @@ moveit_msgs/CollisionObject.h
 -
 moveit_msgs/Constraints.h
 -
+moveit_msgs/RobotTrajectory.h
+-
 moveit_msgs/PositionConstraint.h
 -
 motoman_msgs/DynamicJointTrajectory.h
 -
 robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h
+-
+moveit/trajectory_processing/iterative_time_parameterization.h
 -
 moveit_visual_tools/moveit_visual_tools.h
 -
@@ -1246,6 +1250,16 @@ moveit_msgs/RobotTrajectory.h
 moveit_msgs/RobotState.h
 -
 deque
+-
+
+/opt/ros/kinetic/include/moveit/trajectory_processing/iterative_time_parameterization.h
+trajectory_msgs/JointTrajectory.h
+-
+moveit_msgs/JointLimits.h
+-
+moveit_msgs/RobotState.h
+-
+moveit/robot_trajectory/robot_trajectory.h
 -
 
 /opt/ros/kinetic/include/moveit/transforms/transforms.h

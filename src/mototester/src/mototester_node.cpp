@@ -15,9 +15,12 @@
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
 #include <moveit_msgs/Constraints.h>
+#include <moveit_msgs/RobotTrajectory.h>
 #include <moveit_msgs/PositionConstraint.h>
 #include <motoman_msgs/DynamicJointTrajectory.h>
 #include <robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h>  
+#include <moveit/trajectory_processing/iterative_time_parameterization.h>
+
 #include <moveit_visual_tools/moveit_visual_tools.h>
 #define PI 3.14159265
 
@@ -126,7 +129,7 @@ int main(int argc, char **argv)
 	//group.setPlannerId("PRMstarkConfigDefault");
 
 	group.setGoalJointTolerance(0.001);
-	group.setNumPlanningAttempts(2);
+	group.setNumPlanningAttempts(10);
 	torso_group.setEndEffectorLink("torso_link_b1");
 	group.setEndEffectorLink("arm_left_link_tool0");
 	arm_right_group.setEndEffectorLink("arm_right_link_tool0");
@@ -189,7 +192,7 @@ int main(int argc, char **argv)
 	group.getCurrentState()->copyJointGroupPositions(
     group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-	int test = 6;
+	int test = 7;
 	
 	if(test == 0) {
 
@@ -363,6 +366,8 @@ int main(int argc, char **argv)
 	    ROS_INFO("X Position %f", test_pose.pose.position.x);
    	    ROS_INFO("Y Position %f", test_pose.pose.position.y);
 	    ROS_INFO("Z Position %f", test_pose.pose.position.z);
+
+
 
 	    ROS_INFO("Joint 1 %f", group_variable_values[0]);
 		ROS_INFO("Joint 2 %f", group_variable_values[1]);
@@ -685,6 +690,79 @@ int main(int argc, char **argv)
 		group.execute(my_plan);
 
 		sleep(2.0);
+
+	}
+
+	if(test == 7) {
+
+
+	    moveit_msgs::RobotTrajectory trajectory;
+
+		std::vector<double> left_start_position = {-1.4688,0.7039, -0.403209, 2.2110, 0.642783, -0.4479, -2.00};
+  		group.setJointValueTarget(left_start_position);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(2.0);
+
+
+	    geometry_msgs::Pose Pose1;
+	    Pose1.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0); 
+	  
+		Pose1.position.x = 0.4;   
+		Pose1.position.y = 0.770986;
+		Pose1.position.z = 0.808254;
+
+	    geometry_msgs::Pose Pose2;
+
+	    Pose2.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0); 
+	  
+		Pose2.position.x = -0.3;   
+		Pose2.position.y = 0.770986;
+		Pose2.position.z = 0.708254;
+
+
+		std::vector<geometry_msgs::Pose> waypoints;
+		waypoints.push_back(Pose1);
+		waypoints.push_back(Pose2);
+
+		group.setPlanningTime(2.0);
+
+		group.setPoseTarget(Pose1);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(2.0);
+
+		// group.setPoseTarget(Pose2);
+		// group.plan(my_plan);
+		// group.execute(my_plan);
+
+    	double fraction = group.computeCartesianPath(waypoints, 0.01,  // eef_step
+    	                                             0,   // jump_threshold
+    	                                             trajectory);
+
+    	    // First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    		// Second get a RobotTrajectory from trajectory
+    	rt.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+   		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+
+   		int trajlen = (int)rt.getWayPointCount();
+   		for( int i = 0; i < trajlen; i++) {
+   			rt.setWayPointDurationFromPrevious (i, (trajlen-1-i)*0.01);
+   		}
+
+   		rt.getRobotTrajectoryMsg(trajectory);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+    	cart_plan.trajectory_ = trajectory;
+    	group.execute(cart_plan);
+
 
 	}
   //  		moveit_msgs::Constraints arm_left_constraints;
