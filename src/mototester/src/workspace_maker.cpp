@@ -97,15 +97,15 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose sewing_pose;
 	sewing_pose.orientation.w = 1.0;
-	sewing_pose.position.x =  1.03  + xoffset;
+	sewing_pose.position.x =  1.08  + xoffset;
 	sewing_pose.position.y =  0.1;
-	sewing_pose.position.z =  0.85;
+	sewing_pose.position.z =  0.9;
 
 	geometry_msgs::Pose bed_pose;
 	bed_pose.orientation.w = 1.0;
 	bed_pose.position.x =  0.93  + xoffset;
 	bed_pose.position.y =  0.1;
-	bed_pose.position.z =  0.71;
+	bed_pose.position.z =  0.70;
 
 	geometry_msgs::Pose camera_pose;
 	camera_pose.orientation.w = 1.0;

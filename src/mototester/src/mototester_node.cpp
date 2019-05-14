@@ -192,7 +192,7 @@ int main(int argc, char **argv)
 	group.getCurrentState()->copyJointGroupPositions(
     group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-	int test = 7;
+	int test = 4;
 	
 	if(test == 0) {
 
@@ -613,13 +613,69 @@ int main(int argc, char **argv)
 
 	if(test == 4) {
 
+		group.setMaxVelocityScalingFactor(0.05);
+		
 		sleep(2.0);
 
-		float xoff = 317.0 - fabric_x;
-		float yoff = 291.0 - fabric_y;
+		float xoff = 271.0 - fabric_x;
+		float yoff = 334.0 - fabric_y;
+		float angleoff = 0.47 - fabric_orien;
 
-		ROS_INFO("X Offset: %f", xoff);
-		ROS_INFO("X Offset: %f", yoff);
+
+		ROS_INFO("X Offset in pixels: %f", xoff);
+		ROS_INFO("y Offset in pixels: %f", yoff);
+		ROS_INFO("Anlge Offset in radians: %f", angleoff * 0.5);
+
+		// Vision Center: [317.0, 291.0, 0.3955684006214142]
+
+		ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
+		ROS_INFO("y Offset in millimeters: %f", yoff * 0.5);
+
+		geometry_msgs::PoseStamped sew_pose;
+		sew_pose = group.getCurrentPose();
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,M_PI-angleoff);
+		sleep(1.0);
+		group.setPoseTarget(sew_pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+		sleep(1.0);
+
+
+		while(xoff > 10 || xoff < -10 || (yoff > 10) || (yoff < -10)) {
+
+
+			xoff = 271.0 - fabric_x;
+			yoff = 334.0 - fabric_y;
+			//angleoff = 0.407 - fabric_orien;
+
+
+
+			ROS_INFO("X Offset in pixels: %f", xoff);
+			ROS_INFO("Y Offset in pixels: %f", yoff);
+			ROS_INFO("Anlge Offset in radians: %f", yoff * 0.5);
+
+			// Vision Center: [317.0, 291.0, 0.3955684006214142]
+
+			ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
+			ROS_INFO("Y Offset in millimeters: %f", yoff * 0.5);
+
+
+			//geometry_msgs::PoseStamped sew_pose;
+			sew_pose = group.getCurrentPose();
+
+			sew_pose.pose.position.x = sew_pose.pose.position.x + yoff*0.00018;
+			sew_pose.pose.position.y = sew_pose.pose.position.y + xoff*0.00018;	
+			sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,M_PI-angleoff);
+
+			sleep(1.0);
+
+			group.setPoseTarget(sew_pose);
+			group.plan(my_plan);
+			group.execute(my_plan);
+
+
+			sleep(1.0);
+		}
 	}
   
 	// Show off Robot Pickup demo
@@ -710,7 +766,7 @@ int main(int argc, char **argv)
 	    Pose1.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0); 
 	  
 		Pose1.position.x = 0.4;   
-		Pose1.position.y = 0.770986;
+		Pose1.position.y = 0.870986;
 		Pose1.position.z = 0.808254;
 
 	    geometry_msgs::Pose Pose2;
@@ -718,8 +774,8 @@ int main(int argc, char **argv)
 	    Pose2.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0); 
 	  
 		Pose2.position.x = -0.3;   
-		Pose2.position.y = 0.770986;
-		Pose2.position.z = 0.708254;
+		Pose2.position.y = 0.870986;
+		Pose2.position.z = 0.808254;
 
 
 		std::vector<geometry_msgs::Pose> waypoints;
@@ -755,7 +811,7 @@ int main(int argc, char **argv)
 
    		int trajlen = (int)rt.getWayPointCount();
    		for( int i = 0; i < trajlen; i++) {
-   			rt.setWayPointDurationFromPrevious (i, (trajlen-1-i)*0.01);
+   			rt.setWayPointDurationFromPrevious (i, 0.02+(trajlen-1-i)*0.001);
    		}
 
    		rt.getRobotTrajectoryMsg(trajectory);
