@@ -182,7 +182,8 @@
 		</joint>
     		<joint name="${prefix}joint_tool0" type="fixed" >
       			<!-- <origin xyz="0 0.0 -0.15	" rpy="0 0 1.5705"/> -->
-			<origin xyz="-0.07 0.05 -0.25" rpy="0.8 0 0"/>
+			<!-- <origin xyz="-0.07 0.05 -0.25" rpy="0.8 0 0"/> < Used for original alligment testing  -->
+			<origin xyz="0.0 0.05 -0.25" rpy="0.65 0 0"/>
       			<parent link="${prefix}link_7_t" />
       			<child link="${prefix}link_tool0" />
     		</joint>

@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	ros::AsyncSpinner spinner(1);
 	spinner.start();
 
-	float xoffset = 0.20;
+	float xoffset = 0.15;
 
 	//moveit::planning_interface::MoveGroupInterface group("arm_left");
 	//moveit::planning_interface::MoveGroupInterface arm_left_group("arm_left");
@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 	moveit_msgs::CollisionObject collision_object_4;
 	moveit_msgs::CollisionObject collision_object_5;
 	moveit_msgs::CollisionObject collision_object_6;
+	moveit_msgs::CollisionObject collision_object_7;
 
     //#collision_object.header.frame_id = arm_right_group.getPlanningFrame();
 
@@ -37,6 +38,7 @@ int main(int argc, char **argv)
 	collision_object_4.id = "machine_bed";
 	collision_object_5.id = "pickup camera";
 	collision_object_6.id = "whiteboard";
+	collision_object_7.id = "machinetop";
 
 
 	/* Define a box to add to the world. */
@@ -82,18 +84,26 @@ int main(int argc, char **argv)
 	primitive_6.dimensions[1] = 0.5;
 	primitive_6.dimensions[2] = 4;
 
+
+	shape_msgs::SolidPrimitive primitive_7;
+	primitive_7.type = primitive.BOX;
+	primitive_7.dimensions.resize(3);
+	primitive_7.dimensions[0] = 1;
+	primitive_7.dimensions[1] = 0.2;
+	primitive_7.dimensions[2] = 0.3;
+
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
 	box_pose.orientation.w = 1.0;
 	box_pose.position.x =  1.2 + xoffset;
 	box_pose.position.y = -0.5;
-	box_pose.position.z =  1.0;
+	box_pose.position.z =  -0.2;
 
 	geometry_msgs::Pose box2_pose;
 	box2_pose.orientation.w = 1.0;
 	box2_pose.position.x =  0.0 + xoffset;
-	box2_pose.position.y =  1.3;
-	box2_pose.position.z =  0.35;
+	box2_pose.position.y =  1.5; // 1.3 original
+	box2_pose.position.z =  0.40;
 
 	geometry_msgs::Pose sewing_pose;
 	sewing_pose.orientation.w = 1.0;
@@ -105,7 +115,7 @@ int main(int argc, char **argv)
 	bed_pose.orientation.w = 1.0;
 	bed_pose.position.x =  0.93  + xoffset;
 	bed_pose.position.y =  0.1;
-	bed_pose.position.z =  0.70;
+	bed_pose.position.z =  0.75;
 
 	geometry_msgs::Pose camera_pose;
 	camera_pose.orientation.w = 1.0;
@@ -119,7 +129,17 @@ int main(int argc, char **argv)
 	wall_pose.position.x =  0.0 + xoffset;
 	wall_pose.position.y =  1.5;
 	wall_pose.position.z =  2;
+
+	geometry_msgs::Pose top_pose;
+	top_pose.orientation.w = 1.0;
+	top_pose.position.x =  1.1 + xoffset;
+	top_pose.position.y =  0.1;
+	top_pose.position.z =  1.0;
 	
+	collision_object_7.primitives.push_back(primitive_7);
+	collision_object_7.primitive_poses.push_back(top_pose);
+	collision_object_7.operation = collision_object_7.ADD;
+
 	collision_object_6.primitives.push_back(primitive_6);
 	collision_object_6.primitive_poses.push_back(wall_pose);
 	collision_object_6.operation = collision_object_6.ADD;
@@ -151,6 +171,7 @@ int main(int argc, char **argv)
 	collision_objects.push_back(collision_object_4);
 	collision_objects.push_back(collision_object_5);
 	collision_objects.push_back(collision_object_6);
+	collision_objects.push_back(collision_object_7);
 
 	planning_scene_interface.applyCollisionObjects(collision_objects);
 

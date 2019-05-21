@@ -48,6 +48,7 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
 
 int main(int argc, char **argv)
 {
+	int test = 3;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -90,13 +91,12 @@ int main(int argc, char **argv)
  	close.rACT = 1;
  	close.rGTO = 1;
 	close.rATR = 0;
-	close.rPR = 170;
+	close.rPR = 255;
 	close.rSP = 255;
-	close.rFR = 150;
+	close.rFR = 200;
 
 
 
-	sleep(1.0);
 	// gripper_pub.publish(reset);
 
 	// sleep(2.0);
@@ -107,12 +107,8 @@ int main(int argc, char **argv)
 
 	// sleep(2.0);
 
-
-
 	moveit::planning_interface::MoveGroupInterface group("arm_left");
 	moveit::planning_interface::MoveGroupInterface torso_group("torso");
-
-
 
 	//moveit::planning_interface::MoveGroupInterface arm_left_group("arm_left");
 	moveit::planning_interface::MoveGroupInterface arm_right_group("arm_right");
@@ -192,7 +188,6 @@ int main(int argc, char **argv)
 	group.getCurrentState()->copyJointGroupPositions(
     group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-	int test = 4;
 	
 	if(test == 0) {
 
@@ -383,99 +378,77 @@ int main(int argc, char **argv)
 
    	if(test == 3) {
 
+
+   		group.setMaxVelocityScalingFactor(0.4);
+   		moveit_msgs::RobotTrajectory trajectory;
   		std::vector<double> left_start_position = {1.030,-1.4833, 2.896, 2.318, -0.897, 0.593, -0.717};
   
 
-   		moveit_msgs::Constraints arm_left_constraints;
-		moveit_msgs::PositionConstraint arm_left_position_constraints;
-		arm_left_position_constraints.link_name = "arm_left_link_tool0";
-		arm_left_position_constraints.header.frame_id = "/torso_base_link";
-		arm_left_position_constraints.weight= 100000.0;
+  		// moveit_msgs::Constraints arm_left_constraints;
+		// moveit_msgs::PositionConstraint arm_left_position_constraints;
+		// arm_left_position_constraints.link_name = "arm_left_link_tool0";
+		// arm_left_position_constraints.header.frame_id = "/torso_base_link";
+		// arm_left_position_constraints.weight= 100000.0;
 		
-	 //   	geometry_msgs::Pose left_start_pose;
-	 //   		left_start_pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0);  
-		// 	left_start_pose.position.x = 0.30;   
-		// 	left_start_pose.position.y = 0.797189;
-		// 	left_start_pose.position.z = 0.85;
-
-		// group.setPoseTarget(left_start_pose);
-
-
 		group.setJointValueTarget(left_start_position);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(2.0);
+		sleep(1.0);
 
-		// geometry_msgs::Pose left_pre_grab_pose;
-		// 	left_pre_grab_pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0);  
-		// 	left_pre_grab_pose.position.x = 0.30;   
-		// 	left_pre_grab_pose.position.y = 0.9;
-		// 	left_pre_grab_pose.position.z = 0.74;
-
-		// Keep X Constant
-		// arm_left_position_constraints.target_point_offset.x = 0.001;
-		// arm_left_position_constraints.target_point_offset.y = 0.3;
-		// arm_left_position_constraints.target_point_offset.z = 0.3;
-		// arm_left_constraints.position_constraints = {arm_left_position_constraints};
-		// group.setPathConstraints(arm_left_constraints);
-
-
-		std::vector<double> left_pre_grab = {2.51866, -0.72866, 2.679955, 1.678160, -1.089172, -0.354501, 0.098776};
+		std::vector<double> left_pre_grab = {2.758473, -0.905713, 2.652617, 1.955613, -0.450778, -0.712207, -0.339732};
 		
 		group.setJointValueTarget(left_pre_grab);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(2.0);
-
-		// group.setPoseTarget(left_pre_grab_pose);
-		// group.plan(my_plan);
-		// group.execute(my_plan);
-
-		// sleep(2.0);
-
-		// !!!!
-		// Add mid point to adjust Vision for Testing Here
-		// !!!!
-
-		// Keep Z Constant Modify X and Y with vision
+		sleep(1.0);
 
 
-		std::vector<double> left_grab = { 2.740627, -0.538189, 2.5896, 1.1397, -1.848416, -0.407249, 0.952722};
-		
-		group.setJointValueTarget(left_grab);
+		geometry_msgs::PoseStamped preGrabPose;
+		geometry_msgs::PoseStamped grabPose;
 
-		//arm_left_position_constraints.target_point_offset.x = 0.05;
-		arm_left_position_constraints.target_point_offset.z = 0.03;
-		arm_left_constraints.position_constraints = {arm_left_position_constraints};
-		group.setPathConstraints(arm_left_constraints);
-		
-		group.plan(my_plan);
-		group.execute(my_plan);
-		group.clearPathConstraints();
+		preGrabPose = group.getCurrentPose();
+		grabPose = group.getCurrentPose();
 
-		// sleep(2.0);
-		// geometry_msgs::Pose left_grab_pose;
-		// 	left_grab_pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0);  
-		// 	left_grab_pose.position.x = 0.30;   
-		// 	left_grab_pose.position.y = 1.10;
-		// 	left_grab_pose.position.z = 0.74;
+		grabPose.pose.position.y = grabPose.pose.position.y + 0.17;
+		grabPose.pose.position.x = grabPose.pose.position.x - 0.01;
 
-		// // arm_left_position_constraints.target_point_offset.z = 0.01;
-		// // arm_left_constraints.position_constraints = {arm_left_position_constraints};
-		// // group.setPathConstraints(arm_left_constraints);
+		std::vector<geometry_msgs::Pose> waypoints;
+		waypoints.push_back(preGrabPose.pose);
+		waypoints.push_back(grabPose.pose);
+
+		group.setMaxVelocityScalingFactor(0.5);
+
+		group.setPlanningTime(7.0);
+
+		double fraction = group.computeCartesianPath(waypoints, 0.01, 0, trajectory);
+
+    	// First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    	// Second get a RobotTrajectory from trajectory
+    	rt.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+   		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+
+   		int trajlen = (int)rt.getWayPointCount();
+
+   		for( int i = 1; i < trajlen; i++) {
+   			rt.setWayPointDurationFromPrevious (i, 0.1);
+   		}
+
+   		rt.getRobotTrajectoryMsg(trajectory);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+    	cart_plan.trajectory_ = trajectory;
+    	group.execute(cart_plan);
 
 
-		// group.setPoseTarget(left_grab_pose);
-		// group.plan(my_plan);
-		// group.execute(my_plan);
+    	sleep(2.0);
 
-		// group.clearPathConstraints();
-
-		sleep(2.0);
-
-		
 		gripper_pub.publish(close);
 		gripper_pub.publish(close);
 		gripper_pub.publish(close);
@@ -497,7 +470,7 @@ int main(int argc, char **argv)
 		sleep(2.0);
 
 
-  		std::vector<double> left_mid_position = {1.684,-0.8745, 1.618, 2.046, -0.1423, 0.999, 3.12};
+  		//std::vector<double> left_mid_position = {1.684,-0.8745, 1.618, 2.046, -0.1423, 0.999, 3.12};
   
 
   //  		moveit_msgs::Constraints arm_left_constraints;
@@ -515,147 +488,116 @@ int main(int argc, char **argv)
 		// group.setPoseTarget(left_start_pose);
 
 
-		group.setJointValueTarget(left_mid_position);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(1.0);
-
-
-		// Attempt 2
-
-		// std::vector<double> left_just_above_2 = {2.67729,-1.745295, 0.569562, 2.086229, 1.253293, -1.227944, -2.468145};
-		
-		// group.setJointValueTarget(left_just_above_2);
+		// group.setJointValueTarget(left_mid_position);
 		// group.plan(my_plan);
 		// group.execute(my_plan);
-		
-		// sleep(1.0);
+
+		// sleep(3.0);
 
 
+		group.setMaxVelocityScalingFactor(0.2);
 
 		// Attempt 1
 
-		std::vector<double> left_just_above_sew = {2.3196,-0.832645, 1.385807, 1.805192, -0.183197, 0.744588, 2.972825};
+		std::vector<double> left_just_pre_sew = {2.650497,-0.489527,1.358955,0.761918, -0.032624, 1.743939, 2.685309};
+		
+		group.setJointValueTarget(left_just_pre_sew);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(2.0);
+
+		std::vector<double> left_just_above_sew = {2.712010,-0.543950, 1.314090, 0.874825, 0.009432, 1.589310, 2.712379};
 		
 		group.setJointValueTarget(left_just_above_sew);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(1.0);
+		sleep(2.0);
 
-		std::vector<double> left_on_platform = {2.473987,-0.822793, 1.332315, 1.747356, -0.172550, 0.681756, 2.918113};
+		std::vector<double> left_tilted = {2.665224, -0.531388, 1.318388, 1.067499, -0.009128,1.403775, 2.712981};
 		
-		group.setJointValueTarget(left_on_platform);
+		group.setJointValueTarget(left_tilted);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(1.0);
+		sleep(2.0);
 
 
-		std::vector<double> left_under_foot = {2.695307,-0.974265, 1.251592, 1.268268, -0.058762,  1.151685, 2.980705};
+		std::vector<double> left_under_foot = {2.673439, -0.553307, 1.246899, 1.303732, -0.030376, 1.173526, 2.566982};
 		
 		group.setJointValueTarget(left_under_foot);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(1.0);
+		sleep(2.0);
 
-		std::vector<double> left_under_foot_2 = {2.722151,-0.923576, 1.245790, 1.182335, -0.075408,  1.157897, 2.889058};
 		
-		group.setJointValueTarget(left_under_foot_2);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(1.0);
-
-		std::vector<double> left_under_foot_3 = {2.755899,-0.791858, 1.186314, 1.228552, -0.046809,  1.045552, 2.730967};
-		
-		group.setJointValueTarget(left_under_foot_3);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(1.0);
-
-		std::vector<double> left_sew = {2.838938,-0.839548, 1.149043, 1.118469, -0.014201, 1.081183, 2.717793};
+		std::vector<double> left_sew = {2.825593, -0.603775, 1.136042, 1.283638, 0.079296, 1.150045, 2.518556};
 		
 		group.setJointValueTarget(left_sew);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(1.0);
+		sleep(5.0);
 
-		sleep(2.0);
-
-  		// Vision Center: [317.0, 291.0, 0.3955684006214142]
-
-		// float xoff = 317.0 - fabric_x;
-		// float yoff = 291.0 - fabric_y;
-
-		// ROS_INFO("X Offset: %f", xoff);
-		// ROS_INFO("Y Offset: %f", yoff);
-
-		// geometry_msgs::PoseStamped sew_pose;
-		// sew_pose = group.getCurrentPose();
-
-		// sew_pose.pose.position.x = sew_pose.pose.position.x + xoff*0.00005;
-		// sew_pose.pose.position.y = sew_pose.pose.position.y - yoff*0.00005;
-
-		// sleep(2.0);
-
-		// group.setPoseTarget(sew_pose);
-		// group.plan(my_plan);
-		// group.execute(my_plan);
-
-
-
-   	}
-
-	if(test == 4) {
-
-		group.setMaxVelocityScalingFactor(0.05);
+		group.setMaxVelocityScalingFactor(0.02);
 		
-		sleep(2.0);
+		
 
-		float xoff = 271.0 - fabric_x;
-		float yoff = 334.0 - fabric_y;
-		float angleoff = 0.47 - fabric_orien;
+		float xoff = 284.0 - fabric_x;
+		float yoff = 265.0 - fabric_y;
+		float angleoff = 0.389 - fabric_orien;
 
 
 		ROS_INFO("X Offset in pixels: %f", xoff);
 		ROS_INFO("y Offset in pixels: %f", yoff);
-		ROS_INFO("Anlge Offset in radians: %f", angleoff * 0.5);
-
-		// Vision Center: [317.0, 291.0, 0.3955684006214142]
-
+		ROS_INFO("Anlge Offset in radians: %f", angleoff);
 		ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
 		ROS_INFO("y Offset in millimeters: %f", yoff * 0.5);
+
+		sleep(5.0);
 
 		geometry_msgs::PoseStamped sew_pose;
 		sew_pose = group.getCurrentPose();
 		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,M_PI-angleoff);
+
 		sleep(1.0);
-		group.setPoseTarget(sew_pose);
+
+		moveit_msgs::Constraints arm_left_constraints;
+		moveit_msgs::PositionConstraint arm_left_position_constraints;
+		arm_left_position_constraints.link_name = "arm_left_link_tool0";
+		arm_left_position_constraints.header.frame_id = "/torso_base_link";
+		arm_left_position_constraints.weight= 100000.0;
+
+		arm_left_position_constraints.target_point_offset.z = 0.001;
+		arm_left_position_constraints.target_point_offset.x = 0.001;
+		arm_left_position_constraints.target_point_offset.y= 0.001;
+			
+		arm_left_constraints.position_constraints = {arm_left_position_constraints};
+
+		group.setPathConstraints(arm_left_constraints);
+
+		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);
+		sleep(10.0);
 		group.execute(my_plan);
 		sleep(1.0);
+		group.clearPathConstraints();
 
 
-		while(xoff > 10 || xoff < -10 || (yoff > 10) || (yoff < -10)) {
+		//while(xoff > 10 || xoff < -10 || (yoff > 10) || (yoff < -10)) {
 
 
-			xoff = 271.0 - fabric_x;
-			yoff = 334.0 - fabric_y;
+			xoff = 284.0 - fabric_x;
+			yoff = 265.0 - fabric_y;
 			//angleoff = 0.407 - fabric_orien;
 
 
 
 			ROS_INFO("X Offset in pixels: %f", xoff);
 			ROS_INFO("Y Offset in pixels: %f", yoff);
-			ROS_INFO("Anlge Offset in radians: %f", yoff * 0.5);
-
-			// Vision Center: [317.0, 291.0, 0.3955684006214142]
-
+			ROS_INFO("Anlge Offset in radians: %f", angleoff);
 			ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
 			ROS_INFO("Y Offset in millimeters: %f", yoff * 0.5);
 
@@ -665,7 +607,6 @@ int main(int argc, char **argv)
 
 			sew_pose.pose.position.x = sew_pose.pose.position.x + yoff*0.00018;
 			sew_pose.pose.position.y = sew_pose.pose.position.y + xoff*0.00018;	
-			sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,M_PI-angleoff);
 
 			sleep(1.0);
 
@@ -675,7 +616,86 @@ int main(int argc, char **argv)
 
 
 			sleep(1.0);
-		}
+		//}
+   	}
+
+	if(test == 4) {
+
+		group.setMaxVelocityScalingFactor(0.05);
+		
+		sleep(2.0);
+
+
+		float xoff = 284.0 - fabric_x;
+		float yoff = 265.0 - fabric_y;
+		float angleoff = 0.389 - fabric_orien;
+
+		ROS_INFO("X Offset in pixels: %f", xoff);
+		ROS_INFO("y Offset in pixels: %f", yoff);
+		ROS_INFO("Anlge Offset in radians: %f", angleoff);
+		ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
+		ROS_INFO("y Offset in millimeters: %f", yoff * 0.5);
+
+		sleep(5.0);
+
+		geometry_msgs::PoseStamped sew_pose;
+		sew_pose = group.getCurrentPose();
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,M_PI-angleoff);
+
+		sleep(1.0);
+
+		moveit_msgs::Constraints arm_left_constraints;
+		moveit_msgs::PositionConstraint arm_left_position_constraints;
+		arm_left_position_constraints.link_name = "arm_left_link_tool0";
+		arm_left_position_constraints.header.frame_id = "/torso_base_link";
+		arm_left_position_constraints.weight= 100000.0;
+
+		arm_left_position_constraints.target_point_offset.z = 0.001;
+		arm_left_position_constraints.target_point_offset.x = 0.001;
+		arm_left_position_constraints.target_point_offset.y= 0.001;
+			
+		arm_left_constraints.position_constraints = {arm_left_position_constraints};
+
+		group.setPathConstraints(arm_left_constraints);
+
+		group.setPoseTarget(sew_pose.pose);
+		group.plan(my_plan);
+		sleep(4.0);
+		group.execute(my_plan);
+		sleep(2.0);
+		group.clearPathConstraints();
+
+
+		//while(xoff > 10 || xoff < -10 || (yoff > 10) || (yoff < -10)) {
+
+
+
+			xoff = 284.0 - fabric_x;
+			yoff = 265.0 - fabric_y;
+			
+
+			ROS_INFO("X Offset in pixels: %f", xoff);
+			ROS_INFO("Y Offset in pixels: %f", yoff);
+			ROS_INFO("Anlge Offset in radians: %f", angleoff);
+			ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
+			ROS_INFO("Y Offset in millimeters: %f", yoff * 0.5);
+
+
+			//geometry_msgs::PoseStamped sew_pose;
+			sew_pose = group.getCurrentPose();
+
+			sew_pose.pose.position.x = sew_pose.pose.position.x + yoff*0.00018;
+			sew_pose.pose.position.y = sew_pose.pose.position.y + xoff*0.00018;	
+
+			sleep(1.0);
+
+			group.setPoseTarget(sew_pose);
+			group.plan(my_plan);
+			group.execute(my_plan);
+
+
+			sleep(1.0);
+		//}
 	}
   
 	// Show off Robot Pickup demo
@@ -740,6 +760,8 @@ int main(int argc, char **argv)
 
 	if(test == 6) {
 
+
+		group.setMaxVelocityScalingFactor(0.2);
   		std::vector<double> left_start_position = {-1.4688,0.7039, -0.403209, 2.2110, 0.642783, -0.4479, -2.00};
   		group.setJointValueTarget(left_start_position);
 		group.plan(my_plan);
@@ -821,108 +843,90 @@ int main(int argc, char **argv)
 
 
 	}
-  //  		moveit_msgs::Constraints arm_left_constraints;
-		// moveit_msgs::PositionConstraint arm_left_position_constraints;
-		// arm_left_position_constraints.link_name = "arm_left_link_tool0";
-		// arm_left_position_constraints.header.frame_id = "/torso_base_link";
-		// arm_left_position_constraints.weight= 100000.0;
-		
-	 //   	geometry_msgs::Pose left_start_pose;
-	 //   		left_start_pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0);  
-		// 	left_start_pose.position.x = 0.30;   
-		// 	left_start_pose.position.y = 0.797189;
-		// 	left_start_pose.position.z = 0.85;
 
-		// group.setPoseTarget(left_start_pose);
+	if(test == 8) {
+
+		//group.setMaxVelocityScalingFactor(0.2);
 
 
-		// geometry_msgs::Pose left_mid_pose;
-		// left_mid_pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0, M_PI);  
-		// left_mid_pose.position.x = 0.619;   
-		// left_mid_pose.position.y = 0.461;
-		// left_mid_pose.position.z = 0.862;
+		moveit_msgs::RobotTrajectory trajectory;
 
-		// // arm_left_position_constraints.target_point_offset.x = 1.0;
-		// // arm_left_position_constraints.target_point_offset.y = 0.8;
-		// // arm_left_position_constraints.target_point_offset.z = 0.2;
-		// // arm_left_constraints.position_constraints = {arm_left_position_constraints};
-		// // group.setPathConstraints(arm_left_constraints);
-
-
-		// group.setPoseTarget(left_mid_pose);
+		// std::vector<double> left_start_position = {-1.4688,0.7039, -0.403209, 2.2110, 0.642783, -0.4479, -2.00};
+  // 		group.setJointValueTarget(left_start_position);
 		// group.plan(my_plan);
 		// group.execute(my_plan);
 
-		// sleep(1.0);
 
-   	 //    right_home.position.x = right_home.position.x - 0.01;
-   	 //    right_home.position.x = right_home.position.z - 0.01;
+		geometry_msgs::PoseStamped Pose1;
+		geometry_msgs::PoseStamped Pose2;
+		geometry_msgs::PoseStamped Pose3;
 
-   	 //    arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
-   	 //    arm_right_group.plan(my_plan);
-	    // arm_right_group.execute(my_plan);
+		Pose1 = group.getCurrentPose();
+		Pose2 = group.getCurrentPose();
+		Pose3 = group.getCurrentPose();
 
-	   	// ROS_INFO("Count: %i", grabcounter);
-
-
-	    // if(grabcounter%5 == 0){
-
-	    // 	right_home.position.x = -0.55;
-	    // 	arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
-	    // 	arm_right_group.plan(my_plan);
-	    // 	arm_right_group.execute(my_plan);
-
-	    // 	sleep(5.0);
-
-	    // 	ROS_INFO("Grabbing");
-
-	    // 	right_home.position.x = -0.45;
-	    // 	arm_right_group.setPoseTarget(right_home, "arm_right_link_7_t");
-	    // 	arm_right_group.plan(my_plan);
-	    // 	arm_right_group.execute(my_plan);
-
-	    // 	sleep(3.0);
-
-	    // }
-
-	 // sleep(2.0);
-
-	 //    std::vector<double> right_group_variable_values;
-		// arm_right_group.getCurrentState()->copyJointGroupPositions(
-	 //    arm_right_group.getCurrentState()->getRobotModel()->getJointModelGroup(arm_right_group.getName()), right_group_variable_values);
-
-	 //    right_group_variable_values[6] = -0.3;
-		// arm_right_group.setJointValueTarget(right_group_variable_values);
-		// arm_right_group.plan(my_plan);
-		// arm_right_group.execute(my_plan);
-	//}
+		sleep(4.0);
 
 
-    //group.plan(my_plan);
-    //group.execute(my_plan);
+		Pose2.pose.position.y = Pose2.pose.position.y + 0.1;
+		Pose2.pose.position.z = Pose2.pose.position.z + 0.15;
+		Pose2.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0);
 
+		Pose3.pose.position.y = Pose2.pose.position.y;
+		Pose3.pose.position.z = Pose2.pose.position.z - 0.12;
+		Pose3.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,0);
+
+		std::vector<geometry_msgs::Pose> waypoints;
+		waypoints.push_back(Pose1.pose);
+		waypoints.push_back(Pose2.pose);
+		waypoints.push_back(Pose3.pose);
+
+
+		group.setPlanningTime(2.0);
+
+		sleep(2.0);
+
+		double fraction = group.computeCartesianPath(waypoints, 0.01,  // eef_step
+    	                                             0,   // jump_threshold
+    	                                             trajectory);
+
+    	    // First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    		// Second get a RobotTrajectory from trajectory
+    	rt.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+   		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+
+   		int trajlen = (int)rt.getWayPointCount();
+
+   		for( int i = 0; i < trajlen; i++) {
+   			rt.setWayPointDurationFromPrevious (i, -0.02+(trajlen-i)*0.002);
+   			if(i>trajlen/2)
+   				rt.setWayPointDurationFromPrevious (i, 0.1);
+   		}
+
+   		rt.getRobotTrajectoryMsg(trajectory);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+    	cart_plan.trajectory_ = trajectory;
+    	group.execute(cart_plan);
+
+	}
+
+	// moveit_msgs::Constraints arm_left_constraints;
+	// moveit_msgs::PositionConstraint arm_left_position_constraints;
+	// arm_left_position_constraints.link_name = "arm_left_link_tool0";
+	// arm_left_position_constraints.header.frame_id = "/torso_base_link";
+	// arm_left_position_constraints.weight= 100000.0;
 
 	sleep(1.0);
 
-	ROS_INFO("Get Ready to Rumble");
+	ROS_INFO("Test Complete");
 
     sleep(1.0);
-
-
-    int starttime = ros::Time::now().toSec();
-    int currenttime = starttime;
-    int i = 0;
-	// while(i < 50) {
-	// 	group_variable_values[2] = group_variable_values[2] + 0.03;
-	// 	group.setJointValueTarget(group_variable_values);
-	// 	group.plan(my_plan);
- //    	group.asyncExecute(my_plan);
- //    	ROS_INFO("Move at time: %f", ros::Time::now().toSec());
- //    	ros::Duration(0.5).sleep();
- //    	i++;
-	// }
-
-
 
 	ros::shutdown();
 	return 0;
