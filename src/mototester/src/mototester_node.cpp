@@ -40,7 +40,7 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
 
 int main(int argc, char **argv)
 {
-	int test = 4;
+	int test = 1;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -59,7 +59,6 @@ int main(int argc, char **argv)
 
 	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output close;
  	close.rACT = 1; close.rGTO = 1;	close.rATR = 0; close.rPR = 255; close.rSP = 255; close.rFR = 200;
-
 
 	moveit::planning_interface::MoveGroupInterface group("arm_left");
 	moveit::planning_interface::MoveGroupInterface torso_group("torso");
@@ -80,35 +79,96 @@ int main(int argc, char **argv)
 	group.setNumPlanningAttempts(10);
 	torso_group.setEndEffectorLink("torso_link_b1");
 	group.setEndEffectorLink("arm_left_link_tool0");
-	arm_right_group.setEndEffectorLink("arm_right_link_tool0");
+	arm_right_group.setEndEffectorLink("arm_right_link_7_t");
 
 
+
+	std::vector<double> right_group_variable_values;
 	std::vector<double> group_variable_values;
 	std::vector<double> torso_variable_values;
 
 	group.getCurrentState()->copyJointGroupPositions(
     group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
+	arm_right_group.getCurrentState()->copyJointGroupPositions(
+    arm_right_group.getCurrentState()->getRobotModel()->getJointModelGroup(arm_right_group.getName()), right_group_variable_values);
+
+	if(test == 1) {
+
+	    moveit_msgs::RobotTrajectory trajectory;
+
+		std::vector<double> right_throw_start = {-0.663702, -0.344720, 0.392957, -1.610543, 1.624000, 0.524910, -0.018498};
+		arm_right_group.setJointValueTarget(right_throw_start);
+		arm_right_group.plan(my_plan);
+		arm_right_group.execute(my_plan);
+
+		sleep(5.0);
+
+
+	    geometry_msgs::PoseStamped Pose1;
+	    Pose1 = arm_right_group.getCurrentPose();
+	  
+	    geometry_msgs::PoseStamped Pose2;
+
+	    Pose2.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,-M_PI,M_PI); 
+	  
+		Pose2.pose.position.x = 0.091534;   
+		Pose2.pose.position.y = -0.685660;
+		Pose2.pose.position.z = 1.643481;
+
+		std::vector<geometry_msgs::Pose> waypoints;
+		waypoints.push_back(Pose1.pose);
+		waypoints.push_back(Pose2.pose);
+
+		arm_right_group.setPlanningTime(5.0);
+
+		sleep(2.0);
+
+		double fraction = arm_right_group.computeCartesianPath(waypoints, 0.01,  // eef_step
+		                                             0,   // jump_threshold
+		                                             trajectory);
+
+		// First to create a RobotTrajectory object
+		robot_trajectory::RobotTrajectory rt(arm_right_group.getCurrentState()->getRobotModel(), "arm_right");
+
+		// Second get a RobotTrajectory from trajectory
+		rt.setRobotTrajectoryMsg(*arm_right_group.getCurrentState(), trajectory);
+
+		// Thrid create a IterativeParabolicTimeParameterization object
+		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+
+		int trajlen = (int)rt.getWayPointCount();
+		for( int i = 0; i < trajlen; i++) {
+			rt.setWayPointDurationFromPrevious (i, 0.02);
+		}
+
+		rt.getRobotTrajectoryMsg(trajectory);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+		cart_plan.trajectory_ = trajectory;
+		arm_right_group.execute(cart_plan);
+	}
 	
 	if(test == 2) {
 
 	geometry_msgs::PoseStamped test_pose;
-	test_pose = group.getCurrentPose();
+	test_pose = arm_right_group.getCurrentPose();
 	
     ROS_INFO("X Position %f", test_pose.pose.position.x);
 	ROS_INFO("Y Position %f", test_pose.pose.position.y);
     ROS_INFO("Z Position %f", test_pose.pose.position.z);
 
-    ROS_INFO("Joint 1 %f", group_variable_values[0]);
-	ROS_INFO("Joint 2 %f", group_variable_values[1]);
-	ROS_INFO("Joint 3 %f", group_variable_values[2]);
-	ROS_INFO("Joint 4 %f", group_variable_values[3]);
-	ROS_INFO("Joint 5 %f", group_variable_values[4]);
-	ROS_INFO("Joint 6 %f", group_variable_values[5]);
-	ROS_INFO("Joint 7 %f", group_variable_values[6]);
+    ROS_INFO("Joint 1 %f", right_group_variable_values[0]);
+	ROS_INFO("Joint 2 %f", right_group_variable_values[1]);
+	ROS_INFO("Joint 3 %f", right_group_variable_values[2]);
+	ROS_INFO("Joint 4 %f", right_group_variable_values[3]);
+	ROS_INFO("Joint 5 %f", right_group_variable_values[4]);
+	ROS_INFO("Joint 6 %f", right_group_variable_values[5]);
+	ROS_INFO("Joint 7 %f", right_group_variable_values[6]);
 
-	ROS_INFO("Joints: {%f, %f, %f, %f, %f, %f, %f}", group_variable_values[0], group_variable_values[1], group_variable_values[2], 
-			group_variable_values[3], group_variable_values[4], group_variable_values[5], group_variable_values[6]	);
+	ROS_INFO("Joints: {%f, %f, %f, %f, %f, %f, %f}", right_group_variable_values[0], right_group_variable_values[1], right_group_variable_values[2], 
+			right_group_variable_values[3], right_group_variable_values[4], right_group_variable_values[5], right_group_variable_values[6]);
 	sleep(1.0);
    	    
    	}
@@ -333,15 +393,12 @@ int main(int argc, char **argv)
 		float xoff = goal_x - fabric_x;
 		float yoff = goal_y - fabric_y;
 		float angleoff = goal_orien - fabric_orien;
-		angleoff = 0.1;
 
 		ROS_INFO("X Offset in pixels: %f", xoff);
 		ROS_INFO("y Offset in pixels: %f", yoff);
 		ROS_INFO("Anlge Offset in radians: %f", angleoff);
 		ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
 		ROS_INFO("y Offset in millimeters: %f", yoff * 0.5);
-
-		sleep(5.0);
 
 		geometry_msgs::PoseStamped sew_pose;
 		sew_pose = group.getCurrentPose();
@@ -402,65 +459,6 @@ int main(int argc, char **argv)
 		//}
 	}
   
-	// Show off Robot Pickup demo
-
-  	if(test == 5) {
-
-  		std::vector<double> left_start_position = {-1.2725,0.7272, 2.606, -2.349, -2.7848, -1.284230, 3.12};
-  		group.setJointValueTarget(left_start_position);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(2.0);
-
-		geometry_msgs::PoseStamped goal_pose;
-		goal_pose = group.getCurrentPose();
-
-		ROS_INFO("%f", ((390.0 - fabric_x)*0.00125));
-		ROS_INFO("%f", ((200.0 - fabric_y)*0.00125));
-
-		goal_pose.pose.position.z = 0.832870;
-		goal_pose.pose.position.x = 0.254483; + (390.0 - fabric_x)*0.00125;
-		goal_pose.pose.position.y = 1.058344; + (200.0 - fabric_y)*0.00125;
-
-		group.setPoseTarget(goal_pose, "arm_left_link_tool0");
-
-
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(1.0);
-
-		gripper_pub.publish(close);
-		gripper_pub.publish(close);
-		gripper_pub.publish(close);
-
-		sleep(1.0);
-
-		sleep(2.0);
-
-		group.setJointValueTarget(left_start_position);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(2.0);
-
-		sleep(1.0);
-
-		gripper_pub.publish(open);
-		gripper_pub.publish(open);
-		gripper_pub.publish(open);
-
-		sleep(1.0);
-
-
-		// Vision Center
-		// x = 380 y = 206
-		// x inverted, y not inverted
-		// pixel = 1.25 mm
-
-  	}
-
 
 	if(test == 6) {
 
@@ -556,7 +554,7 @@ int main(int argc, char **argv)
 		moveit_msgs::RobotTrajectory trajectory;
 
 		// std::vector<double> left_start_position = {-1.4688,0.7039, -0.403209, 2.2110, 0.642783, -0.4479, -2.00};
-  // 		group.setJointValueTarget(left_start_position);
+  		// group.setJointValueTarget(left_start_position);
 		// group.plan(my_plan);
 		// group.execute(my_plan);
 
