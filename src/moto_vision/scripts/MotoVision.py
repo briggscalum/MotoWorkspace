@@ -62,6 +62,102 @@ def getOrientation(pts, img):
     
     return angle, cntr
 
+def getN(img,target):
+
+	imgN = img
+	center = target
+	frontier = []
+
+
+
+	while imgN[center[1],center[0]] == 255:
+		img[center[1],center[0]] = 100
+		center = [center[0],center[1]+1]
+
+	frontier.append(center)
+
+	while frontier:
+		center = frontier.pop()
+		img[center[1],center[0]] = 100
+		if center[1] < 479 and img[center[1]+1,center[0]] == 0:
+			frontier.append([center[0],center[1]+1])
+		if center[1] > 0 and img[center[1]-1,center[0]] == 0:
+			frontier.append([center[0],center[1]-1])
+		if center[0] < 639 and img[center[1],center[0]+1] == 0:
+			frontier.append([center[0]+1,center[1]])
+		if center[0] > 0 and img[center[1],center[0]-1] == 0:
+			frontier.append([center[0]-1,center[1]])
+
+	center = target
+	frontier.append(center)
+	while frontier:
+		center = frontier.pop()
+		img[center[1],center[0]] = 100
+		if  center[1] < 479 and img[center[1]+1,center[0]] == 255:
+			frontier.append([center[0],center[1]+1])
+		if  center[1] > 0 and img[center[1]-1,center[0]] == 255:
+			frontier.append([center[0],center[1]-1])
+		if  center[0] < 639 and img[center[1],center[0]+1] == 255:
+			frontier.append([center[0]+1,center[1]])
+		if  center[0] > 0 and img[center[1],center[0]-1] == 255:
+			frontier.append([center[0]-1,center[1]])
+	
+	center = target
+	img[center[1],center[0]- 70] = 255	
+	point1 = [center[0]-90,center[1]-60]
+	point2 = [center[0]-50,center[1]+80]
+	point3 = [center[0]+110,center[1]+90]
+
+	img[point1[1],point1[0]] = 254
+	img[point2[1],point2[0]] = 254
+	img[point3[1],point3[0]] = 254
+
+	top_left_hor = 0;
+	bottom_left_hor = 0;
+	bottom_left_ver = 0;
+	bottom_right_ver = 0;
+
+
+	center = point1
+	while img[center[1],center[0]-1] != 0:
+		center = [center[0]-1,center[1]]
+		if img[center[1],center[0]-1] == 255:
+			img[center[1],center[0]-1] = 99;
+			top_left_hor = top_left_hor + 1;
+
+
+	center = point2
+	while img[center[1],center[0]-1] != 0:
+		center = [center[0]-1,center[1]]
+		if img[center[1],center[0]-1] == 255:
+			img[center[1],center[0]-1] = 99;		
+			bottom_left_hor = bottom_left_hor + 1;
+	
+	center = point2
+	while img[center[1]+1,center[0]] != 0:
+		center = [center[0],center[1]+1]
+		if img[center[1]+1,center[0]] == 255:
+			img[center[1]+1,center[0]] = 99;
+			bottom_left_ver = bottom_left_ver + 1;
+	
+	center = point3
+	
+	while img[center[1]+1,center[0]] != 0:
+		center = [center[0],center[1]+1]
+		if img[center[1]+1,center[0]] == 255:
+			img[center[1]+1,center[0]] = 99;
+			bottom_right_ver = bottom_right_ver + 1;
+
+
+	print(top_left_hor)
+	print(bottom_left_hor)
+	print(bottom_left_ver)
+	print(bottom_right_ver)
+
+	#print(pixelcount)
+	imgN = img
+	return imgN
+
 parser = argparse.ArgumentParser(description='Code for Introduction to Principal Component Analysis (PCA) tutorial.\
                                               This program demonstrates how to use OpenCV PCA to extract the orientation of an object.')
 parser.add_argument('--input', help='Path to input image.', default='../data/pca_test1.jpg')
@@ -88,9 +184,12 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , bw = cv.threshold(gray, 150 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+    # FELIX THIS ONE
+    _ , bw = cv.threshold(gray, 100 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
     _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
+    #bw[320,155:180] = 100;
+    #print(bw(640*240));
 
     center = 0    
 
@@ -99,10 +198,15 @@ while(True):
         area = cv.contourArea(c);
         # Ignore contours that are too small or too large
         
-        if area > 15000 and area < 30000 :
+        # Project
+        if area > 13000 and area < 30000 :
         	print(area)
-        if area < 16000	 or 25000 < area:
+        if area < 13000	 or 25000 < area:
             continue
+
+        # Touch Tommorow
+        # if area < 2000 or 6000 < area:
+        #     continue
         # Draw each contour only for visualisation purposes
         cv.drawContours(src, contours, i, (0, 0, 255), 2);
         # Find the orientation of each shape
@@ -111,6 +215,10 @@ while(True):
     ## Center: x = 360
     ## Center: y = 240
     ## 500 pixels = 0.40 cm,  pixel = 1.25 mm
+
+    bw = getN(bw,center)
+    #bw[center[1],center[0]] = 100
+
 
     position = Float32MultiArray()
     if center != 0:

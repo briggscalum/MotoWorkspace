@@ -28,6 +28,7 @@ int main(int argc, char **argv)
 	moveit_msgs::CollisionObject collision_object_5;
 	moveit_msgs::CollisionObject collision_object_6;
 	moveit_msgs::CollisionObject collision_object_7;
+	moveit_msgs::CollisionObject collision_object_8;
 
     //#collision_object.header.frame_id = arm_right_group.getPlanningFrame();
 
@@ -39,6 +40,7 @@ int main(int argc, char **argv)
 	collision_object_5.id = "pickup camera";
 	collision_object_6.id = "whiteboard";
 	collision_object_7.id = "machinetop";
+	collision_object_8.id = "righttable";
 
 
 	/* Define a box to add to the world. */
@@ -92,6 +94,13 @@ int main(int argc, char **argv)
 	primitive_7.dimensions[1] = 0.2;
 	primitive_7.dimensions[2] = 0.3;
 
+	shape_msgs::SolidPrimitive primitive_8;
+	primitive_8.type = primitive.BOX;
+	primitive_8.dimensions.resize(3);
+	primitive_8.dimensions[0] = 2;
+	primitive_8.dimensions[1] = 1;
+	primitive_8.dimensions[2] = 0.74;
+
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
 	box_pose.orientation.w = 1.0;
@@ -115,7 +124,7 @@ int main(int argc, char **argv)
 	bed_pose.orientation.w = 1.0;
 	bed_pose.position.x =  0.93  + xoffset;
 	bed_pose.position.y =  0.1;
-	bed_pose.position.z =  0.75;
+	bed_pose.position.z =  0.74;
 
 	geometry_msgs::Pose camera_pose;
 	camera_pose.orientation.w = 1.0;
@@ -135,7 +144,17 @@ int main(int argc, char **argv)
 	top_pose.position.x =  1.1 + xoffset;
 	top_pose.position.y =  0.1;
 	top_pose.position.z =  1.0;
+
+	geometry_msgs::Pose tabletwo_pose;
+	tabletwo_pose.orientation.w = 1.0;
+	tabletwo_pose.position.x =  0;
+	tabletwo_pose.position.y =  -1.2;
+	tabletwo_pose.position.z =  0.37;
 	
+	collision_object_8.primitives.push_back(primitive_8);
+	collision_object_8.primitive_poses.push_back(tabletwo_pose);
+	collision_object_8.operation = collision_object_8.ADD;
+
 	collision_object_7.primitives.push_back(primitive_7);
 	collision_object_7.primitive_poses.push_back(top_pose);
 	collision_object_7.operation = collision_object_7.ADD;
@@ -172,6 +191,7 @@ int main(int argc, char **argv)
 	collision_objects.push_back(collision_object_5);
 	collision_objects.push_back(collision_object_6);
 	collision_objects.push_back(collision_object_7);
+	collision_objects.push_back(collision_object_8);
 
 	planning_scene_interface.applyCollisionObjects(collision_objects);
 
