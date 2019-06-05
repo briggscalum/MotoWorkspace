@@ -27,6 +27,8 @@ Panels:
         - /MotionPlanning1/Planning Request1
       Splitter Ratio: 0.5
     Tree Height: 352
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -112,6 +114,16 @@ Visualization Manager:
             Show Trail: false
             Value: true
           arm_left_link_7_t:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_left_link_leftN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_left_link_rightN:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -202,11 +214,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           arm_right_link_7_t:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          arm_right_link_tool0:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -356,6 +363,16 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          arm_left_link_leftN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_left_link_rightN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           arm_left_link_tool0:
             Alpha: 1
             Show Axes: false
@@ -446,11 +463,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          arm_right_link_tool0:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           arm_right_robotiq_85_adapter_link:
             Alpha: 1
             Show Axes: false
@@ -537,25 +549,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 4.46297216
+      Distance: 2.47289658
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.58972096
-        Y: 0.537837148
+        X: 1.31668866
+        Y: 0.70171535
         Z: 4.02331921e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.539797664
+      Pitch: 0.35479787
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 3.18137407
+      Yaw: 3.09636259
     Saved: ~
 Window Geometry:
   Displays:

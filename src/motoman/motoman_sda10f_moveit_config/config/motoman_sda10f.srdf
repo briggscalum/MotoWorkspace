@@ -47,8 +47,22 @@
         <joint name="arm_left_joint_6_b" />
         <joint name="arm_left_joint_7_t" />
 	<joint name="arm_left_joint_tool0" />
-	
+	<joint name="arm_left_joint_leftN" />
     </group>
+
+   <group name="arm_left_N">
+        <joint name="arm_left_joint_1_s" />
+        <joint name="arm_left_joint_2_l" />
+        <joint name="arm_left_joint_3_e" />
+        <joint name="arm_left_joint_4_u" />
+        <joint name="arm_left_joint_5_r" />
+        <joint name="arm_left_joint_6_b" />
+        <joint name="arm_left_joint_7_t" />
+	<joint name="arm_left_joint_tool0" />
+	<joint name="arm_left_joint_rightN" />
+	<joint name="arm_left_joint_leftN" />
+    </group>
+
     <group name="arm_right">
    	<joint name="arm_right_joint_1_s" />
         <joint name="arm_right_joint_2_l" />
@@ -86,6 +100,12 @@
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="world_joint" type="fixed" parent_frame="world" child_link="torso_base_link" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+
+
+    <disable_collisions link1="arm_left_link_leftN" link2="arm_left_link_rightN" reason="Adjacent" />
+    <disable_collisions link1="arm_left_link_leftN" link2="arm_left_link_tool0" reason="Adjacent" />
+    <disable_collisions link1="arm_left_link_rightN" link2="arm_left_link_tool0" reason="Adjacent" />
+
     <disable_collisions link1="arm_left_link_1_s" link2="arm_left_link_2_l" reason="Adjacent" />
     <disable_collisions link1="arm_left_link_1_s" link2="arm_left_link_3_e" reason="Never" />
     <disable_collisions link1="arm_left_link_1_s" link2="arm_left_link_4_u" reason="Never" />

@@ -40,7 +40,7 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
 
 int main(int argc, char **argv)
 {
-	int test = 1;
+	int test = 9;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -540,6 +540,27 @@ int main(int argc, char **argv)
 
 	}
 
+
+	if(test == 9) {
+
+	arm_right_group.setMaxVelocityScalingFactor(1.0);
+
+	std::vector<double> right_start = {-0.047417, 0.447462, -0.076578, -1.214184, 2.760862, -0.119347, 1.886676};
+	arm_right_group.setJointValueTarget(right_start);
+	arm_right_group.plan(my_plan);
+	arm_right_group.execute(my_plan);
+
+	sleep(2.0);
+
+
+	std::vector<double> right_end = {-2.752217, 0.447479, -0.556486, -1.214214, 2.760862, -0.119347, 1.886646};
+	arm_right_group.setJointValueTarget(right_end);
+	arm_right_group.plan(my_plan);
+	arm_right_group.execute(my_plan);
+
+	sleep(2.0);
+
+	}
 	// moveit_msgs::Constraints arm_left_constraints;
 	// moveit_msgs::PositionConstraint arm_left_position_constraints;
 	// arm_left_position_constraints.link_name = "arm_left_link_tool0";

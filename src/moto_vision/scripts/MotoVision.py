@@ -70,7 +70,7 @@ def getN(img,target):
 
 
 
-	while imgN[center[1],center[0]] == 255:
+	while img[center[1],center[0]] == 255:
 		img[center[1],center[0]] = 100
 		center = [center[0],center[1]+1]
 
@@ -119,7 +119,7 @@ def getN(img,target):
 
 
 	center = point1
-	while img[center[1],center[0]-1] != 0:
+	while center[0] > 1 and img[center[1],center[0]-1] != 0:
 		center = [center[0]-1,center[1]]
 		if img[center[1],center[0]-1] == 255:
 			img[center[1],center[0]-1] = 99;
@@ -127,14 +127,14 @@ def getN(img,target):
 
 
 	center = point2
-	while img[center[1],center[0]-1] != 0:
+	while center[0] > 1 and img[center[1],center[0]-1] != 0:
 		center = [center[0]-1,center[1]]
 		if img[center[1],center[0]-1] == 255:
 			img[center[1],center[0]-1] = 99;		
 			bottom_left_hor = bottom_left_hor + 1;
 	
 	center = point2
-	while img[center[1]+1,center[0]] != 0:
+	while center[1] < 478 and img[center[1]+1,center[0]] != 0:
 		center = [center[0],center[1]+1]
 		if img[center[1]+1,center[0]] == 255:
 			img[center[1]+1,center[0]] = 99;
@@ -142,7 +142,7 @@ def getN(img,target):
 	
 	center = point3
 	
-	while img[center[1]+1,center[0]] != 0:
+	while center[1] < 478 and img[center[1]+1,center[0]] != 0:
 		center = [center[0],center[1]+1]
 		if img[center[1]+1,center[0]] == 255:
 			img[center[1]+1,center[0]] = 99;
@@ -215,8 +215,8 @@ while(True):
     ## Center: x = 360
     ## Center: y = 240
     ## 500 pixels = 0.40 cm,  pixel = 1.25 mm
-
-    bw = getN(bw,center)
+    if center:
+    	bw = getN(bw,center)
     #bw[center[1],center[0]] = 100
 
 
