@@ -10,7 +10,6 @@ from math import atan2, cos, sin, sqrt, pi
 from std_msgs.msg import Float32MultiArray
 import time
 
-
 def drawAxis(img, p_, q_, colour, scale):
     p = list(p_)
     q = list(q_)
@@ -64,99 +63,109 @@ def getOrientation(pts, img):
 
 def getN(img,target):
 
-	imgN = img
-	center = target
-	frontier = []
+    imgN = img
+    center = target
+    frontier = []
+
+    if(target[1] < 200 or target[1] > 800 or target[0] < 200 or target[0] > 800):
+        return imgN, 0.0, 0.0 ,0.0
+
+    center = target
+    img[center[1],center[0]- 140] = 255    
+    point1 = [center[0]-180,center[1]-120]
+    point2 = [center[0]-100,center[1]+160]
+    point3 = [center[0]+220,center[1]+180]
+
+    top_left_hor = 0;
+    bottom_left_hor = 0;
+    bottom_left_ver = 0;
+    bottom_right_ver = 0;
+
+
+    state = 0 # Has the count reached the edge of the N?
+    center = point1
+    while center[0] > 1:
+    	if state == 0:
+    		if img[center[1],center[0]-1] == 0:
+    			state = 1
+    	elif state == 1:
+    		if img[center[1],center[0]-1] == 255:
+    			state = 2
+    	elif state == 2:
+    		if img[center[1],center[0]-1] == 0:
+    			break
+    		img[center[1],center[0]-1] = 99;
+    		top_left_hor = top_left_hor + 1;
+    	center = [center[0]-1,center[1]]
+
+    state = 0
+    center = point2
+    while center[0] > 1:
+    	if state == 0:
+    		if img[center[1],center[0]-1] == 0:
+    			state = 1
+    	elif state == 1:
+    		if img[center[1],center[0]-1] == 255:
+    			state = 2
+    	elif state == 2:
+    		if img[center[1],center[0]-1] == 0:
+    			break
+    		img[center[1],center[0]-1] = 99;
+    		bottom_left_hor = bottom_left_hor + 1;
+    	center = [center[0]-1,center[1]]
+
+    state = 0
+    center = point2
+
+    while center[1] < 947:
+    	if state == 0:
+    		if img[center[1]+1,center[0]] == 0:
+    			state = 1
+    	elif state == 1:
+    		if img[center[1]+1,center[0]] == 255:
+    			state = 2
+    	elif state == 2:
+    		if img[center[1]+1,center[0]] == 0:
+    			break
+    		img[center[1]+1,center[0]] = 99;
+    		bottom_left_ver = bottom_left_ver + 1;
+
+    	center = [center[0],center[1]+1]
+
+    state = 0
+    center = point3
+
+    while center[1] < 947:
+    	if state == 0:
+    		if img[center[1]+1,center[0]] == 0:
+    			state = 1
+    	elif state == 1:
+    		if img[center[1]+1,center[0]] == 255:
+    			state = 2
+    	elif state == 2:
+    		if img[center[1]+1,center[0]] == 0:
+    			break
+    		img[center[1]+1,center[0]] = 99;
+    		bottom_right_ver = bottom_right_ver + 1;
+
+    	center = [center[0],center[1]+1]
+
+    print(top_left_hor)
+    print(bottom_left_hor)
+    print(bottom_left_ver)
+    print(bottom_right_ver)
+    print(np.arctan((bottom_left_hor-top_left_hor)*0.06/30));
+    print(np.arctan((bottom_right_ver-bottom_left_ver)*0.06/30));
+
+    angle2 = (np.arctan((bottom_left_hor-top_left_hor)*0.06/30) + np.arctan((bottom_right_ver-bottom_left_ver)*0.06/30)) / 2
+    newx = ((top_left_hor + bottom_left_hor) / 2)
+    newy = ((bottom_left_ver + bottom_right_ver) / 2)
 
 
 
-	while img[center[1],center[0]] == 255:
-		img[center[1],center[0]] = 100
-		center = [center[0],center[1]+1]
-
-	frontier.append(center)
-
-	while frontier:
-		center = frontier.pop()
-		img[center[1],center[0]] = 100
-		if center[1] < 479 and img[center[1]+1,center[0]] == 0:
-			frontier.append([center[0],center[1]+1])
-		if center[1] > 0 and img[center[1]-1,center[0]] == 0:
-			frontier.append([center[0],center[1]-1])
-		if center[0] < 639 and img[center[1],center[0]+1] == 0:
-			frontier.append([center[0]+1,center[1]])
-		if center[0] > 0 and img[center[1],center[0]-1] == 0:
-			frontier.append([center[0]-1,center[1]])
-
-	center = target
-	frontier.append(center)
-	while frontier:
-		center = frontier.pop()
-		img[center[1],center[0]] = 100
-		if  center[1] < 479 and img[center[1]+1,center[0]] == 255:
-			frontier.append([center[0],center[1]+1])
-		if  center[1] > 0 and img[center[1]-1,center[0]] == 255:
-			frontier.append([center[0],center[1]-1])
-		if  center[0] < 639 and img[center[1],center[0]+1] == 255:
-			frontier.append([center[0]+1,center[1]])
-		if  center[0] > 0 and img[center[1],center[0]-1] == 255:
-			frontier.append([center[0]-1,center[1]])
-	
-	center = target
-	img[center[1],center[0]- 70] = 255	
-	point1 = [center[0]-90,center[1]-60]
-	point2 = [center[0]-50,center[1]+80]
-	point3 = [center[0]+110,center[1]+90]
-
-	img[point1[1],point1[0]] = 254
-	img[point2[1],point2[0]] = 254
-	img[point3[1],point3[0]] = 254
-
-	top_left_hor = 0;
-	bottom_left_hor = 0;
-	bottom_left_ver = 0;
-	bottom_right_ver = 0;
-
-
-	center = point1
-	while center[0] > 1 and img[center[1],center[0]-1] != 0:
-		center = [center[0]-1,center[1]]
-		if img[center[1],center[0]-1] == 255:
-			img[center[1],center[0]-1] = 99;
-			top_left_hor = top_left_hor + 1;
-
-
-	center = point2
-	while center[0] > 1 and img[center[1],center[0]-1] != 0:
-		center = [center[0]-1,center[1]]
-		if img[center[1],center[0]-1] == 255:
-			img[center[1],center[0]-1] = 99;		
-			bottom_left_hor = bottom_left_hor + 1;
-	
-	center = point2
-	while center[1] < 478 and img[center[1]+1,center[0]] != 0:
-		center = [center[0],center[1]+1]
-		if img[center[1]+1,center[0]] == 255:
-			img[center[1]+1,center[0]] = 99;
-			bottom_left_ver = bottom_left_ver + 1;
-	
-	center = point3
-	
-	while center[1] < 478 and img[center[1]+1,center[0]] != 0:
-		center = [center[0],center[1]+1]
-		if img[center[1]+1,center[0]] == 255:
-			img[center[1]+1,center[0]] = 99;
-			bottom_right_ver = bottom_right_ver + 1;
-
-
-	print(top_left_hor)
-	print(bottom_left_hor)
-	print(bottom_left_ver)
-	print(bottom_right_ver)
-
-	#print(pixelcount)
-	imgN = img
-	return imgN
+    #print(pixelcount)
+    imgN = img
+    return imgN,angle2, newx, newy
 
 parser = argparse.ArgumentParser(description='Code for Introduction to Principal Component Analysis (PCA) tutorial.\
                                               This program demonstrates how to use OpenCV PCA to extract the orientation of an object.')
@@ -165,13 +174,23 @@ args = parser.parse_args()
 
 cap = cv.VideoCapture(1)
 
+cap.set(cv.CAP_PROP_FRAME_WIDTH,4208)
+cap.set(cv.CAP_PROP_FRAME_HEIGHT,3120)
+
+cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))
+
 posepub = rospy.Publisher('fabric_pose', Float32MultiArray, queue_size=10)
 
 rospy.init_node('fabric_detecter')
 
+
+bwbuffer = [[],[],[],[],[]]
+
 while(True):
     ret, src = cap.read()
-    cv.imshow('frame',src)
+
+    src = cv.resize(src,(1280,949))
+
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
@@ -184,12 +203,23 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    # FELIX THIS ONE
-    _ , bw = cv.threshold(gray, 100 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
-    _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
+    _ , obw = cv.threshold(gray, 40 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+    _, contours , _ = cv.findContours(obw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
-    #bw[320,155:180] = 100;
-    #print(bw(640*240));
+
+    bwbuffer[4] = bwbuffer[3]
+    bwbuffer[3] = bwbuffer[2]
+    bwbuffer[2] = bwbuffer[1]
+    bwbuffer[1] = bwbuffer[0]
+    bwbuffer[0] = obw
+
+
+    bw = obw
+    if(np.any(bwbuffer[4])):
+        bw = bwbuffer[0] + bwbuffer[1] + bwbuffer[2] + bwbuffer[3] + bwbuffer[4]
+
+    if(np.any(bw)):
+        _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
     center = 0    
 
@@ -199,34 +229,34 @@ while(True):
         # Ignore contours that are too small or too large
         
         # Project
-        if area > 13000 and area < 30000 :
-        	print(area)
-        if area < 13000	 or 25000 < area:
+        if area > 60000 and area < 100000 :
+            print(area)
+        if area < 85000 or 160000 < area:
             continue
 
-        # Touch Tommorow
-        # if area < 2000 or 6000 < area:
-        #     continue
         # Draw each contour only for visualisation purposes
         cv.drawContours(src, contours, i, (0, 0, 255), 2);
         # Find the orientation of each shape
-        angle, center = getOrientation(c, src)
+        angle, center = getOrientation(c, src)    
 
-    ## Center: x = 360
-    ## Center: y = 240
-    ## 500 pixels = 0.40 cm,  pixel = 1.25 mm
-    if center:
-    	bw = getN(bw,center)
-    #bw[center[1],center[0]] = 100
+        print(center)
+
+        # if(center[1] < 300 or center[1] > 700 or center[0] < 300 or center[0] > 700):
+        #     continue
 
 
-    position = Float32MultiArray()
-    if center != 0:
-    	position.data = [center[0],center[1],angle]
-    	posepub.publish(position)
-
-    cv.imshow('output', src)
-    cv.imshow('binary', bw)
+        if center:
+            bw,angle2,newx,newy = getN(obw,center)
+        
+        #bw[center[1],center[0]] = 100
+        position = Float32MultiArray()
+        if center != 0:
+            position.data = [center[0],center[1],angle,angle2,newx,newy]
+            posepub.publish(position)
+    cv.imshow('Original',src)
+    cv.imshow('PreFilter', obw)
+    if(np.any(bw)):
+        cv.imshow('PostFilter', bw)
 
 cap.release()
 cv.destroyAllWindows()
