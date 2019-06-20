@@ -89,7 +89,7 @@ def getN(img,target):
     		if img[center[1],center[0]-1] == 0:
     			state = 1
     	elif state == 1:
-    		if img[center[1],center[0]-1] == 255:
+    		if img[center[1],center[0]-1] >= 240:
     			state = 2
     	elif state == 2:
     		if img[center[1],center[0]-1] == 0:
@@ -105,7 +105,7 @@ def getN(img,target):
     		if img[center[1],center[0]-1] == 0:
     			state = 1
     	elif state == 1:
-    		if img[center[1],center[0]-1] == 255:
+    		if img[center[1],center[0]-1] >= 240:
     			state = 2
     	elif state == 2:
     		if img[center[1],center[0]-1] == 0:
@@ -122,7 +122,7 @@ def getN(img,target):
     		if img[center[1]+1,center[0]] == 0:
     			state = 1
     	elif state == 1:
-    		if img[center[1]+1,center[0]] == 255:
+    		if img[center[1]+1,center[0]] >= 240:
     			state = 2
     	elif state == 2:
     		if img[center[1]+1,center[0]] == 0:
@@ -140,7 +140,7 @@ def getN(img,target):
     		if img[center[1]+1,center[0]] == 0:
     			state = 1
     	elif state == 1:
-    		if img[center[1]+1,center[0]] == 255:
+    		if img[center[1]+1,center[0]] >= 240:
     			state = 2
     	elif state == 2:
     		if img[center[1]+1,center[0]] == 0:
@@ -184,8 +184,8 @@ posepub = rospy.Publisher('fabric_pose', Float32MultiArray, queue_size=10)
 rospy.init_node('fabric_detecter')
 
 
-bwbuffer = [[],[],[],[],[]]
-
+bwbuffer = []
+bw = []
 while(True):
     ret, src = cap.read()
 
@@ -203,20 +203,18 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , obw = cv.threshold(gray, 40 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+    _ , obw = cv.threshold(gray, 30 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
     _, contours , _ = cv.findContours(obw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
+    if(not np.any(bw)):
+    	bw = obw
 
-    bwbuffer[4] = bwbuffer[3]
-    bwbuffer[3] = bwbuffer[2]
-    bwbuffer[2] = bwbuffer[1]
-    bwbuffer[1] = bwbuffer[0]
-    bwbuffer[0] = obw
-
-
-    bw = obw
-    if(np.any(bwbuffer[4])):
-        bw = bwbuffer[0] + bwbuffer[1] + bwbuffer[2] + bwbuffer[3] + bwbuffer[4]
+    bwbuffer.insert(0,obw)
+    
+    if(len(bwbuffer)>8):
+    	bw = bwbuffer[0]+bwbuffer[1]+bwbuffer[2]+bwbuffer[3]+bwbuffer[4]+bwbuffer[5]+bwbuffer[6]+bwbuffer[7]
+     	bwbuffer.pop()
+    print(bw[122][10])
 
     if(np.any(bw)):
         _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
@@ -231,28 +229,29 @@ while(True):
         # Project
         if area > 60000 and area < 100000 :
             print(area)
-        if area < 85000 or 160000 < area:
+        if area < 75000 or 100000 < area:
             continue
 
         # Draw each contour only for visualisation purposes
-        cv.drawContours(src, contours, i, (0, 0, 255), 2);
+        
         # Find the orientation of each shape
         angle, center = getOrientation(c, src)    
 
+        if(center[1] < 300 or center[1] > 700 or center[0] < 300 or center[0] > 700):
+            continue
+
         print(center)
-
-        # if(center[1] < 300 or center[1] > 700 or center[0] < 300 or center[0] > 700):
-        #     continue
-
+        cv.drawContours(src, contours, i, (0, 0, 255), 2);
 
         if center:
-            bw,angle2,newx,newy = getN(obw,center)
+            bw,angle2,newx,newy = getN(bw,center)
         
         #bw[center[1],center[0]] = 100
         position = Float32MultiArray()
         if center != 0:
             position.data = [center[0],center[1],angle,angle2,newx,newy]
             posepub.publish(position)
+
     cv.imshow('Original',src)
     cv.imshow('PreFilter', obw)
     if(np.any(bw)):

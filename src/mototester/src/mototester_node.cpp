@@ -27,9 +27,9 @@
 float fabric_x = 0;
 float fabric_y = 0;
 float fabric_orien = 0;
-float goal_x = 531.0;
-float goal_y = 598.0;
-float goal_orien = 0.4732;
+float goal_x = 560.0;
+float goal_y = 550.0;
+float goal_orien = 0.434	;
 float fine_orien = 0.0;
 float fine_x = 0;
 float fine_y = 0;
@@ -327,6 +327,8 @@ int main(int argc, char **argv)
 		ROS_INFO("X Offset in pixels: %f", xoff);
 		ROS_INFO("y Offset in pixels: %f", yoff);
 		ROS_INFO("Anlge Offset in radians: %f", angleoff);
+
+
 		// ROS_INFO("X Offset in millimeters: %f", xoff * 0.5);
 		// ROS_INFO("y Offset in millimeters: %f", yoff * 0.5);
 
@@ -344,7 +346,7 @@ int main(int argc, char **argv)
 		sleep(4.0);
 
 
-		sew_pose.pose.position.x = sew_pose.pose.position.x + yoff*0.00007;
+		sew_pose.pose.position.x = sew_pose.pose.position.x + yoff*0.000068;
 		sew_pose.pose.position.y = sew_pose.pose.position.y + xoff*0.00005;	
 
 		group.setPoseTarget(sew_pose.pose);
@@ -357,10 +359,7 @@ int main(int argc, char **argv)
 		ROS_INFO("X Offset in pixels: %f", fine_x);
 		ROS_INFO("y Offset in pixels: %f", fine_y);
 		ROS_INFO("Anlge Offset in radians: %f", fine_orien);
-
-		sleep(5.0);
-
-		//test = 5;
+		test = 5;
 
 		// moveit_msgs::Constraints arm_left_constraints;
 		// moveit_msgs::PositionConstraint arm_left_position_constraints;
@@ -440,8 +439,8 @@ int main(int argc, char **argv)
 		sleep(3.0);
 
 
-		sew_pose.pose.position.x = sew_pose.pose.position.x + fine_y*0.00009;
-		sew_pose.pose.position.y = sew_pose.pose.position.y - fine_x*0.00006;	
+		sew_pose.pose.position.x = sew_pose.pose.position.x + fine_y*0.00008;
+		sew_pose.pose.position.y = sew_pose.pose.position.y - fine_x*0.000055;	
 
 		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);
