@@ -172,7 +172,7 @@ parser = argparse.ArgumentParser(description='Code for Introduction to Principal
 parser.add_argument('--input', help='Path to input image.', default='../data/pca_test1.jpg')
 args = parser.parse_args()
 
-cap = cv.VideoCapture(1)
+cap = cv.VideoCapture(0)
 
 cap.set(cv.CAP_PROP_FRAME_WIDTH,4208)
 cap.set(cv.CAP_PROP_FRAME_HEIGHT,3120)
@@ -203,7 +203,7 @@ while(True):
     gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     # Convert image to binary
 
-    _ , obw = cv.threshold(gray, 30 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+    _ , obw = cv.threshold(gray, 75 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
     _, contours , _ = cv.findContours(obw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
 
     if(not np.any(bw)):
@@ -229,7 +229,7 @@ while(True):
         # Project
         if area > 60000 and area < 100000 :
             print(area)
-        if area < 75000 or 100000 < area:
+        if area < 65000 or 110000 < area:
             continue
 
         # Draw each contour only for visualisation purposes
@@ -237,7 +237,7 @@ while(True):
         # Find the orientation of each shape
         angle, center = getOrientation(c, src)    
 
-        if(center[1] < 300 or center[1] > 700 or center[0] < 300 or center[0] > 700):
+        if(center[1] < 200 or center[1] > 800 or center[0] < 200 or center[0] > 800):
             continue
 
         print(center)
