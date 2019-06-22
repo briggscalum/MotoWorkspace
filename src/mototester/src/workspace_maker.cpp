@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	primitive.type = primitive.BOX;
 	primitive.dimensions.resize(3);
 	primitive.dimensions[0] = 0.9;
-	primitive.dimensions[1] = 4.0;
+	primitive.dimensions[1] = 0.5;
 	primitive.dimensions[2] = 2;
 
 	shape_msgs::SolidPrimitive primitive_2;
@@ -104,9 +104,9 @@ int main(int argc, char **argv)
 	/* A pose for the box (specified relative to frame_id) */
 	geometry_msgs::Pose box_pose;
 	box_pose.orientation.w = 1.0;
-	box_pose.position.x =  1.2 + xoffset;
-	box_pose.position.y = -0.5;
-	box_pose.position.z =  -0.2;
+	box_pose.position.x =  0.8 + xoffset;
+	box_pose.position.y = 0.5;
+	box_pose.position.z =  -0.23;
 
 	geometry_msgs::Pose box2_pose;
 	box2_pose.orientation.w = 1.0;
