@@ -46,7 +46,7 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
 
 int main(int argc, char **argv)
 {
-	int test = 2;
+	int test = 1;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -96,8 +96,8 @@ int main(int argc, char **argv)
 	group.getCurrentState()->copyJointGroupPositions(
     group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
 
-    torso_variable_values.getCurrentState()->copyJointGroupPositions(
-    torso_variable_values.getCurrentState()->getRobotModel()->getJointModelGroup(torso_variable_values.getName()), torso_variable_values);
+    torso_group.getCurrentState()->copyJointGroupPositions(
+    torso_group.getCurrentState()->getRobotModel()->getJointModelGroup(torso_group.getName()), torso_variable_values);
 
 	arm_right_group.getCurrentState()->copyJointGroupPositions(
     arm_right_group.getCurrentState()->getRobotModel()->getJointModelGroup(arm_right_group.getName()), right_group_variable_values);
@@ -106,72 +106,117 @@ int main(int argc, char **argv)
 
 	if(test == 1) {
 
-		// Vision Center: 325,233: X Position 0.064548, Y Position -0.889965, Z Position 0.830696
-		// Start Pose X Position 0.064407, Y Position -0.677742, Z Position 0.826667
+		// Right Side Sew
+		// 
+		// Start Torso Joint: {0.288917}
 
-	    moveit_msgs::RobotTrajectory trajectory;
+		group.setMaxVelocityScalingFactor(0.2);
 
-		std::vector<double> right_grab_start = {-0.622489, -1.588846, 0.746608, -1.565799, 1.588187, -0.795210, -0.632151};
-		arm_right_group.setJointValueTarget(right_grab_start);
-		arm_right_group.plan(my_plan);
-		arm_right_group.execute(my_plan);
+		torso_group.setJointValueTarget({0.288917});
+		torso_group.plan(my_plan);
+		torso_group.execute(my_plan);
 
-		sleep(3.0);
-
-		float xoff = 325 - fabric_x;
-		float yoff = 233 - fabric_y;
-
-		geometry_msgs::PoseStamped Pose1;
-	    geometry_msgs::PoseStamped Pose2;
-	    geometry_msgs::PoseStamped Pose3;
-
-	    Pose1 = arm_right_group.getCurrentPose();
-	    Pose2 = arm_right_group.getCurrentPose();
-	    Pose3 = arm_right_group.getCurrentPose();
+		sleep(1.0);
+		
 
 
+		std::vector<double> post_grab = {-0.557790, 0.497606, 1.421438, -1.295318, 0.415056, -0.493714, -0.126899};
+		
+		group.setJointValueTarget(post_grab);
+		group.plan(my_plan);
+		group.execute(my_plan);
 
-	    Pose2.pose.position.x = Pose2.pose.position.x - yoff*0.0007;
+		sleep(1.0);
 
-		Pose3.pose.position.x = Pose3.pose.position.x - yoff*0.0006;
-		Pose3.pose.position.y = Pose3.pose.position.y + xoff*0.0006 - 0.2122;
+		std::vector<double> left_above_machine = {-0.515452, 1.046823, 1.421438, -1.295318, 0.216003, -1.253885, -0.741214};
+		group.setJointValueTarget(left_above_machine);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(1.0);
+
+		std::vector<double> pre_spin = {-0.624825, 1.716013, 1.472378, -1.805905, -0.000972, -0.745059, -2.108231};
+		group.setJointValueTarget(pre_spin);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		
+
+		torso_group.setJointValueTarget({-0.884527});
+		torso_group.plan(my_plan);
+		torso_group.execute(my_plan);
+
+		sleep(1.0);
+		
+
+		std::vector<double> left_above_machine_right =  {-0.645993, 1.464338, 1.472378, -1.380613, -0.502675, -1.419525, -2.011410};
+		group.setJointValueTarget(left_above_machine_right);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+	 //    moveit_msgs::RobotTrajectory trajectory;
+
+		// std::vector<double> right_grab_start = {-0.622489, -1.588846, 0.746608, -1.565799, 1.588187, -0.795210, -0.632151};
+		// arm_right_group.setJointValueTarget(right_grab_start);
+		// arm_right_group.plan(my_plan);
+		// arm_right_group.execute(my_plan);
+
+		// sleep(3.0);
+
+		// float xoff = 325 - fabric_x;
+		// float yoff = 233 - fabric_y;
+
+		// geometry_msgs::PoseStamped Pose1;
+	 //    geometry_msgs::PoseStamped Pose2;
+	 //    geometry_msgs::PoseStamped Pose3;
+
+	 //    Pose1 = arm_right_group.getCurrentPose();
+	 //    Pose2 = arm_right_group.getCurrentPose();
+	 //    Pose3 = arm_right_group.getCurrentPose();
+
+
+
+	 //    Pose2.pose.position.x = Pose2.pose.position.x - yoff*0.0007;
+
+		// Pose3.pose.position.x = Pose3.pose.position.x - yoff*0.0006;
+		// Pose3.pose.position.y = Pose3.pose.position.y + xoff*0.0006 - 0.2122;
 
 	  
-		std::vector<geometry_msgs::Pose> waypoints;
-		waypoints.push_back(Pose1.pose);
-		waypoints.push_back(Pose2.pose);
-		waypoints.push_back(Pose3.pose);
+		// std::vector<geometry_msgs::Pose> waypoints;
+		// waypoints.push_back(Pose1.pose);
+		// waypoints.push_back(Pose2.pose);
+		// waypoints.push_back(Pose3.pose);
 
 
 
-		arm_right_group.setPlanningTime(10.0);
+		// arm_right_group.setPlanningTime(10.0);
 
-		sleep(2.0);
+		// sleep(2.0);
 
-		double fraction = arm_right_group.computeCartesianPath(waypoints, 0.05,  // eef_step
-		                                             0,   // jump_threshold
-		                                             trajectory);
+		// double fraction = arm_right_group.computeCartesianPath(waypoints, 0.05,  // eef_step
+		//                                              0,   // jump_threshold
+		//                                              trajectory);
 
-		// First to create a RobotTrajectory object
-		robot_trajectory::RobotTrajectory rt(arm_right_group.getCurrentState()->getRobotModel(), "arm_right");
+		// // First to create a RobotTrajectory object
+		// robot_trajectory::RobotTrajectory rt(arm_right_group.getCurrentState()->getRobotModel(), "arm_right");
 
-		// Second get a RobotTrajectory from trajectory
-		rt.setRobotTrajectoryMsg(*arm_right_group.getCurrentState(), trajectory);
+		// // Second get a RobotTrajectory from trajectory
+		// rt.setRobotTrajectoryMsg(*arm_right_group.getCurrentState(), trajectory);
 
-		// Thrid create a IterativeParabolicTimeParameterization object
-		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+		// // Thrid create a IterativeParabolicTimeParameterization object
+		// trajectory_processing::IterativeParabolicTimeParameterization iptp;
 
-		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+		// ROS_INFO("number of points %d", (int)rt.getWayPointCount());
 
-		int trajlen = (int)rt.getWayPointCount();
-		for( int i = 0; i < trajlen; i++) {
-			rt.setWayPointDurationFromPrevious (i, 0.2);
-		}
+		// int trajlen = (int)rt.getWayPointCount();
+		// for( int i = 0; i < trajlen; i++) {
+		// 	rt.setWayPointDurationFromPrevious (i, 0.2);
+		// }
 
-		rt.getRobotTrajectoryMsg(trajectory);
-		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
-		cart_plan.trajectory_ = trajectory;
-		arm_right_group.execute(cart_plan);
+		// rt.getRobotTrajectoryMsg(trajectory);
+		// moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+		// cart_plan.trajectory_ = trajectory;
+		// arm_right_group.execute(cart_plan);
 	}
 	
 	if(test == 2) {
