@@ -61,7 +61,7 @@ def getOrientation(pts, img):
     
     return angle, cntr
 
-def getN(img,target):
+def getN(img,target, angle):
 
 	imgN = img
 	center = target
@@ -81,52 +81,61 @@ def getN(img,target):
 
 	spotcount = 0
 
-	while(i < 1000):
-		j = 400
-		while( j < 850):
-			center = [i,j]
-			if(img[center[1],center[0]] == 0):
-				size = 0
-				frontier.append(center)
-				added.append(center)
-				while frontier:
-					center = frontier.pop()
-					img[center[1],center[0]] = 100
-					if center[1] < 850 and img[center[1]+1,center[0]] == 0:
-						frontier.append([center[0],center[1]+1])
-						added.append([center[0],center[1]+1])
-					if center[1] > 500 and img[center[1]-1,center[0]] == 0:
-						frontier.append([center[0],center[1]-1])
-						added.append([center[0],center[1]-1])
-					if center[0] < 1000 and img[center[1],center[0]+1] == 0:
-						frontier.append([center[0]+1,center[1]])
-						added.append([center[0]+1,center[1]])
-					if center[0] > 200 and img[center[1],center[0]-1] == 0:
-						frontier.append([center[0]-1,center[1]])
-						added.append([center[0]-1,center[1]])
-					size = size + 1
-				if size <= 30:
-					# print(size)
-					# print(len(added))
-					spotcount = spotcount + 1
-					while added:
-						center = added.pop() 
-						img[center[1],center[0]] = 255
-				frontier = []
-				added = []
-			j = j + 1
-		i = i + 1
+	# while(i < 1000):
+	# 	j = 400
+	# 	while( j < 850):
+	# 		center = [i,j]
+	# 		if(img[center[1],center[0]] == 0):
+	# 			size = 0
+	# 			frontier.append(center)
+	# 			added.append(center)
+	# 			while frontier:
+	# 				center = frontier.pop()
+	# 				img[center[1],center[0]] = 100
+	# 				if center[1] < 850 and img[center[1]+1,center[0]] == 0:
+	# 					frontier.append([center[0],center[1]+1])
+	# 					added.append([center[0],center[1]+1])
+	# 				if center[1] > 500 and img[center[1]-1,center[0]] == 0:
+	# 					frontier.append([center[0],center[1]-1])
+	# 					added.append([center[0],center[1]-1])
+	# 				if center[0] < 1000 and img[center[1],center[0]+1] == 0:
+	# 					frontier.append([center[0]+1,center[1]])
+	# 					added.append([center[0]+1,center[1]])
+	# 				if center[0] > 200 and img[center[1],center[0]-1] == 0:
+	# 					frontier.append([center[0]-1,center[1]])
+	# 					added.append([center[0]-1,center[1]])
+	# 				size = size + 1
+	# 			if size <= 30:
+	# 				# print(size)
+	# 				# print(len(added))
+	# 				spotcount = spotcount + 1
+	# 				while added:
+	# 					center = added.pop() 
+	# 					img[center[1],center[0]] = 255
+	# 			frontier = []
+	# 			added = []
+	# 		j = j + 1
+	# 	i = i + 1
 
-	print("Spotcount: ")
-	print(spotcount)
+	# print("Spotcount: ")
+	# print(spotcount)
 
 	#print(pixelcount)
 	
 	center = target
 
 	#img[center[1],center[0]- 140] = 255  
-	point2 = [center[0]-60,center[1]+180]
-	point3 = [center[0]+260,center[1]+180]
+
+	angle1 = 1.5 - angle
+	angle2 = 2.95 - angle
+
+	point2 = [int(round(center[0]-190*cos(angle1))), int(round(center[1]+190*sin(angle1)))]
+	point3 = [int(round(center[0]-290*cos(angle2))), int(round(center[1]+290*sin(angle2)))]
+	img[point2[1],point2[0]-1] = 50;
+	img[point3[1],point3[0]-1] = 50;
+
+	print(point2)
+
 
 	top_left_hor = 0;
 	bottom_left_hor = 0;
@@ -138,13 +147,13 @@ def getN(img,target):
 	center = point2
 	while center[0] > 2:
 		if state == 0:
-			if img[center[1],center[0]-1] == 100:
+			if img[center[1],center[0]-1] == 0:
 				state = 1
 		elif state == 1:
 			if img[center[1],center[0]-1] >= 240:
 				state = 2
 		elif state == 2:
-			if img[center[1],center[0]-1] == 100:
+			if img[center[1],center[0]-1] == 0:
 				break
 			img[center[1],center[0]-1] = 99;
 			bottom_left_hor = bottom_left_hor + 1;
@@ -155,13 +164,13 @@ def getN(img,target):
 
 	while center[1] < 947:
 		if state == 0:
-			if img[center[1]+1,center[0]] == 100:
+			if img[center[1]+1,center[0]] == 0:
 				state = 1
 		elif state == 1:
 			if img[center[1]+1,center[0]] >= 240:
 				state = 2
 		elif state == 2:
-			if img[center[1]+1,center[0]] == 100:
+			if img[center[1]+1,center[0]] == 0:
 				break
 			img[center[1]+1,center[0]] = 99;
 			bottom_left_ver = bottom_left_ver + 1;
@@ -173,13 +182,13 @@ def getN(img,target):
 
 	while center[1] < 947:
 		if state == 0:
-			if img[center[1]+1,center[0]] == 100:
+			if img[center[1]+1,center[0]] == 0:
 				state = 1
 		elif state == 1:
 			if img[center[1]+1,center[0]] >= 240:
 				state = 2
 		elif state == 2:
-			if img[center[1]+1,center[0]] == 100:
+			if img[center[1]+1,center[0]] == 0:
 				break
 			img[center[1]+1,center[0]] = 99;
 			bottom_right_ver = bottom_right_ver + 1;
@@ -189,10 +198,10 @@ def getN(img,target):
 	print(bottom_left_hor)
 	print(bottom_left_ver)
 	print(bottom_right_ver)
-	print(np.arctan((bottom_right_ver-bottom_left_ver)*0.1/30));
+	print(np.arcsin((bottom_right_ver-bottom_left_ver)*0.073/30));
 
-	angle2 = (np.arctan((bottom_right_ver-bottom_left_ver)*0.1/30))
-	newx = ((bottom_left_hor) / 2)
+	angle2 = (np.arcsin((bottom_right_ver-bottom_left_ver)*0.073/30))
+	newx = ((bottom_left_hor))
 	newy = ((bottom_left_ver + bottom_right_ver) / 2)
 
 
@@ -217,63 +226,80 @@ posepub = rospy.Publisher('fabric_pose', Float32MultiArray, queue_size=10)
 
 rospy.init_node('fabric_detecter')
 
+bwbuffer = [[],[],[],[],[]]
+
 while(True):
 
-    ret, src = cap.read()
+	ret, src = cap.read()
 
-    src = cv.resize(src,(1280,949))
+	src = cv.resize(src,(1280,949))
 
-    if cv.waitKey(1) & 0xFF == ord('q'):
-        break
+	if cv.waitKey(1) & 0xFF == ord('q'):
+	    break
 
-    # Check if image is loaded successfully
-    if src is None:
-        print('Could not open or find the image: ', args.input)
-        exit(0)
+	# Check if image is loaded successfully
+	if src is None:
+	    print('Could not open or find the image: ', args.input)
+	    exit(0)
 
-    # Convert image to grayscale
-    gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
-    # Convert image to binary
+	# Convert image to grayscale
+	gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
+	# Convert image to binary
 
-    _ , bw = cv.threshold(gray, 30 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
 
-    _, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
-    center = 0    
 
-    for i, c in enumerate(contours):
-        # Calculate the area of each contour
-        area = cv.contourArea(c);
-        # Ignore contours that are too small or too large
-        
-        # Project
-        if area > 60000 and area < 100000 :
-            print(area)
-        if area < 65000 or 110000 < area:
-            continue
+	_ , obw = cv.threshold(gray, 30 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
 
-        # Draw each contour only for visualisation purposes
-        
-        # Find the orientation of each shape
-        angle, center = getOrientation(c, src)    
+	bwbuffer[4] = bwbuffer[3]
+	bwbuffer[3] = bwbuffer[2]
+	bwbuffer[2] = bwbuffer[1]
+	bwbuffer[1] = bwbuffer[0]
+	bwbuffer[0] = obw
 
-        if(center[1] < 200 or center[1] > 800 or center[0] < 200 or center[0] > 800):
-            continue
+	bw = obw
 
-        print(center)
-        cv.drawContours(src, contours, i, (0, 0, 255), 2);
+	if(np.any(bwbuffer[4])):
+	    bw = bwbuffer[0] + bwbuffer[1] + bwbuffer[2] + bwbuffer[3] + bwbuffer[4]
+	    print("PING")
 
-        if center:
-            bw,angle2,newx,newy = getN(bw,center)
-        
-        #bw[center[1],center[0]] = 100
-        position = Float32MultiArray()
-        if center != 0:
-            position.data = [center[0],center[1],angle,angle2,newx,newy]
-            posepub.publish(position)
+	_, contours , _ = cv.findContours(bw, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
+	center = 0    
 
-    cv.imshow('Original',src)
-    if(np.any(bw)):
-        cv.imshow('Black and White', bw)
+	for i, c in enumerate(contours):
+	    # Calculate the area of each contour
+	    area = cv.contourArea(c);
+	    # Ignore contours that are too small or too large
+	    
+	    # Project
+	    if area > 60000 and area < 100000 :
+	        print(area)
+	    if area < 70000 or 110000 < area:
+	        continue
+
+	    # Draw each contour only for visualisation purposes
+	    
+	    # Find the orientation of each shape
+	    angle, center = getOrientation(c, src)    
+
+	    if(center[1] < 200 or center[1] > 800 or center[0] < 200 or center[0] > 800):
+	        continue
+
+	    print(center)
+	    cv.drawContours(src, contours, i, (0, 0, 255), 2);
+
+	    if center:
+	        bw,angle2,newx,newy = getN(bw,center, angle)
+	    
+	    #bw[center[1],center[0]] = 100
+	    position = Float32MultiArray()
+	    if center != 0:
+	        position.data = [center[0],center[1],angle,angle2,newx,newy]
+	        posepub.publish(position)
+
+
+	cv.imshow('Original',src)
+	if(np.any(bw)):
+	    cv.imshow('Black and White', bw)
 
 cap.release()
 cv.destroyAllWindows()

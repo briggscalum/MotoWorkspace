@@ -46,7 +46,7 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
 
 int main(int argc, char **argv)
 {
-	int test = 5;
+	int test = 1;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -125,8 +125,6 @@ int main(int argc, char **argv)
 
 		sleep(2.0);
 
-
-
 		std::vector<double> start_pos = {-1.104773, 0.758963, 1.874357, -1.709933, 0.269328, -1.131166, -0.690442};
 		group.setJointValueTarget(start_pos);
 		group.plan(my_plan);
@@ -161,7 +159,7 @@ int main(int argc, char **argv)
 		waypoints.push_back(grabPose.pose);
 
 
-		double fraction = group.computeCartesianPath(waypoints, 0.02, 0, trajectory);
+		double fraction = group.computeCartesianPath(waypoints, 0.04, 0, trajectory);
 
     	// First to create a RobotTrajectory object
     	robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "arm_left");
@@ -177,7 +175,7 @@ int main(int argc, char **argv)
    		int trajlen = (int)rt.getWayPointCount();
 
    		for( int i = 1; i < trajlen; i++) {
-   			rt.setWayPointDurationFromPrevious (i, 0.2);
+   			rt.setWayPointDurationFromPrevious (i, 0.5);
    		}
 
    		rt.getRobotTrajectoryMsg(trajectory);
@@ -192,6 +190,44 @@ int main(int argc, char **argv)
 		gripper_pub.publish(close);
 
 		sleep(1.0);
+
+
+   		moveit_msgs::RobotTrajectory trajectory2;
+		preGrabPose = group.getCurrentPose();
+		grabPose = group.getCurrentPose();
+
+		grabPose.pose.position.z = grabPose.pose.position.z + 0.10;
+
+		std::vector<geometry_msgs::Pose> waypoints2;
+		waypoints2.push_back(preGrabPose.pose);
+		waypoints2.push_back(grabPose.pose);
+
+
+		fraction = group.computeCartesianPath(waypoints2, 0.04, 0, trajectory2);
+
+    	// First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt2(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    	// Second get a RobotTrajectory from trajectory
+    	rt2.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory2);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp2;
+
+   		ROS_INFO("number of points %d", (int)rt2.getWayPointCount());
+
+   		trajlen = (int)rt2.getWayPointCount();
+
+   		for( int i = 1; i < trajlen; i++) {
+   			rt2.setWayPointDurationFromPrevious (i, 0.5);
+   		}
+
+   		rt2.getRobotTrajectoryMsg(trajectory2);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan2;
+    	cart_plan2.trajectory_ = trajectory2;
+    	group.execute(cart_plan2);
+
+		sleep(2.0);
 
 		group.setJointValueTarget(start_pos);
 		group.plan(my_plan);
@@ -218,14 +254,54 @@ int main(int argc, char **argv)
 		//{-0.286087, 1.211214, 1.255206, -1.131865, 0.425991, -1.152399, -0.656965}
 
 
-		std::vector<double> left_post_slide = {-0.203849, 1.220606, 1.220137, -1.023864, 0.427403, -1.231255, -0.668365};
+		std::vector<double> left_post_slide = {-0.124423, 1.233116, 1.214123, -0.850752, 0.422847, -1.331510, -0.649927};
 		group.setJointValueTarget(left_post_slide);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
 		sleep(2.0);
 
-		std::vector<double> left_pre_spin = {-0.507935, 1.012854, 1.373125, -1.649409, 0.378529, -0.917062, -0.828229};
+
+
+		//
+
+		sew_pose = group.getCurrentPose();
+
+		group.setMaxVelocityScalingFactor(0.02);
+		group.setGoalJointTolerance(0.00001);
+
+
+		sleep(5.0);
+
+		ROS_INFO("X Offset in pixels: %f", fine_x);
+		ROS_INFO("y Offset in pixels: %f", fine_y);
+		ROS_INFO("Anlge Offset in radians: %f", fine_orien);
+
+		sleep(2.0);
+
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)-fine_orien);
+
+		group.setPoseTarget(sew_pose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(5.0);
+
+		sew_pose.pose.position.x = sew_pose.pose.position.x + fine_y*0.000092;
+		sew_pose.pose.position.y = sew_pose.pose.position.y - fine_x*0.000065;	
+
+		group.setPoseTarget(sew_pose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+
+		//
+
+
+		group.setMaxVelocityScalingFactor(0.1);
+
+
+		std::vector<double> left_pre_spin = {-0.577356, 1.017097, 1.390288, -1.676352, 0.374808, -0.938538, -0.793730};
 		group.setJointValueTarget(left_pre_spin);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -602,10 +678,10 @@ int main(int argc, char **argv)
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(10.0);
+		sleep(5.0);
 
 		sew_pose.pose.position.x = sew_pose.pose.position.x + fine_y*0.000092;
-		sew_pose.pose.position.y = sew_pose.pose.position.y - fine_x*0.000050;	
+		sew_pose.pose.position.y = sew_pose.pose.position.y - fine_x*0.000065;	
 
 		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);

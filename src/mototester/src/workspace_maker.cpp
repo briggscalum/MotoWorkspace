@@ -141,9 +141,9 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose top_pose;
 	top_pose.orientation.w = 1.0;
-	top_pose.position.x =  1.1 + xoffset;
+	top_pose.position.x =  1.0 + xoffset;
 	top_pose.position.y =  0.1;
-	top_pose.position.z =  1.0;
+	top_pose.position.z =  1.05;
 
 	geometry_msgs::Pose tabletwo_pose;
 	tabletwo_pose.orientation.w = 1.0;
