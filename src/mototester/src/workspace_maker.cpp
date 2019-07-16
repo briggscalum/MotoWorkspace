@@ -91,8 +91,8 @@ int main(int argc, char **argv)
 	primitive_7.type = primitive.BOX;
 	primitive_7.dimensions.resize(3);
 	primitive_7.dimensions[0] = 1;
-	primitive_7.dimensions[1] = 0.2;
-	primitive_7.dimensions[2] = 0.3;
+	primitive_7.dimensions[1] = 0.1;
+	primitive_7.dimensions[2] = 0.03;
 
 	shape_msgs::SolidPrimitive primitive_8;
 	primitive_8.type = primitive.BOX;
@@ -141,9 +141,9 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose top_pose;
 	top_pose.orientation.w = 1.0;
-	top_pose.position.x =  1.0 + xoffset;
-	top_pose.position.y =  0.1;
-	top_pose.position.z =  1.05;
+	top_pose.position.x =  1.1 + xoffset;
+	top_pose.position.y =  0.15;
+	top_pose.position.z =  0.87;
 
 	geometry_msgs::Pose tabletwo_pose;
 	tabletwo_pose.orientation.w = 1.0;
