@@ -66,24 +66,10 @@ def getN(img,target, angle):
 	imgN = img
 	center = target
 
-
 	if(target[1] < 200 or target[1] > 800 or target[0] < 200 or target[0] > 800):
 	    return imgN, 0.0, 0.0 ,0.0
 
 	center = target
-
-	frontier = []
-	added = []
-	size = 0
-
-	i = 200
-	j = 400
-
-	spotcount = 0
-	
-	center = target
-
-	#img[center[1],center[0]- 140] = 255  
 
 	angle1 = 1.5 - angle
 	angle2 = 2.95 - angle
@@ -168,7 +154,7 @@ def getN(img,target, angle):
 	else:
 		state = 0
 		center = point2
-		while center[0] < 1500:
+		while center[0] < 1200:
 			if state == 0:
 				if img[center[1],center[0]+1] == 0:
 					state = 1
@@ -266,7 +252,7 @@ while(True):
 
 
 
-	_ , obw = cv.threshold(gray, 80 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+	_ , obw = cv.threshold(gray, 65 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]
