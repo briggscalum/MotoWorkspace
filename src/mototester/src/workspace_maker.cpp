@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 	box_pose.orientation.w = 1.0;
 	box_pose.position.x =  0.8 + xoffset;
 	box_pose.position.y = 0.5;
-	box_pose.position.z =  -0.23;
+	box_pose.position.z =  -0.25;
 
 	geometry_msgs::Pose box2_pose;
 	box2_pose.orientation.w = 1.0;
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 
 	geometry_msgs::Pose sewing_pose;
 	sewing_pose.orientation.w = 1.0;
-	sewing_pose.position.x =  1.08  + xoffset;
+	sewing_pose.position.x =  1.3  + xoffset;
 	sewing_pose.position.y =  0.1;
 	sewing_pose.position.z =  0.88;
 
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
 	bed_pose.orientation.w = 1.0;
 	bed_pose.position.x =  0.93  + xoffset;
 	bed_pose.position.y =  0.1;
-	bed_pose.position.z =  0.73;
+	bed_pose.position.z =  0.70;
 
 	geometry_msgs::Pose camera_pose;
 	camera_pose.orientation.w = 1.0;
@@ -143,7 +143,7 @@ int main(int argc, char **argv)
 	top_pose.orientation.w = 1.0;
 	top_pose.position.x =  1.1 + xoffset;
 	top_pose.position.y =  0.15;
-	top_pose.position.z =  0.87;
+	top_pose.position.z =  0.90;
 
 	geometry_msgs::Pose tabletwo_pose;
 	tabletwo_pose.orientation.w = 1.0;

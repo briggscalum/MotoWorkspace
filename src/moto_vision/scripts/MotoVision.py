@@ -248,11 +248,24 @@ while(True):
 
 	# Convert image to grayscale
 	gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
+
+	average = int(np.mean(gray))
+	adjustment = 1 - (115 / average)
+	#print(average)
+	#print(adjustment)
+
+	# Corrects for Brightness
+	fixed = cv.add(gray,np.array(adjustment))
+
+
+	# print(np.shape(gray))
+	# print(np.shape(fixed))
+
 	# Convert image to binary
 
 
 
-	_ , obw = cv.threshold(gray, 48, 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+	_ , obw = cv.threshold(fixed, 60, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]

@@ -512,7 +512,7 @@ Visualization Manager:
         Show Robot Collision: false
         Show Robot Visual: true
       Value: true
-      Velocity_Scaling_Factor: 0.02
+      Velocity_Scaling_Factor: 0.10000000000000001
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -547,7 +547,7 @@ Visualization Manager:
       Pitch: 0.124796726
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 4.39640903
+      Yaw: 4.26640606
     Saved: ~
 Window Geometry:
   Displays:

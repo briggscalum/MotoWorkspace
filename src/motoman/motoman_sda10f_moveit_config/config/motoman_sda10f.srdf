@@ -47,7 +47,8 @@
         <joint name="arm_left_joint_6_b" />
         <joint name="arm_left_joint_7_t" />
 	<joint name="arm_left_joint_tool0" />
-<!--	<joint name="arm_left_joint_leftN" /> -->
+	<joint name="arm_left_joint_leftN" />
+	<joint name="arm_left_joint_rightN" />
     </group>
 
    <group name="arm_left_N">

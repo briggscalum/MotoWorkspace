@@ -120,6 +120,8 @@ int main(int argc, char **argv)
 
 		//group.setPlanningTime(10.0);
 
+		group.setEndEffectorLink("arm_left_link_rightN");
+
 		group.setGoalJointTolerance(0.001);
 		torso_group.setGoalJointTolerance(0.001);
 
@@ -282,6 +284,7 @@ int main(int argc, char **argv)
 		//
 		clamp_pub.publish(Ping);
 
+		group.setEndEffectorLink("arm_left_link_leftN");
 		sew_pose = group.getCurrentPose();
 
 		group.setMaxVelocityScalingFactor(0.02);
@@ -415,6 +418,7 @@ int main(int argc, char **argv)
 
 		clamp_pub.publish(Ping);		
 
+		group.setEndEffectorLink("arm_left_link_rightN");
 		sew_pose = group.getCurrentPose();
 
 		group.setMaxVelocityScalingFactor(0.02);
@@ -1105,9 +1109,10 @@ int main(int argc, char **argv)
 	// Flatten
 	if(test == 11){
 
+		group.setEndEffectorLink("arm_left_link_leftN");
 		sleep(1.0);
 		sew_pose = group.getCurrentPose();
-		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation));
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)+M_PI/8);
 
 		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);
