@@ -66,7 +66,7 @@ def getN(img,target, angle):
 	imgN = img
 	center = target
 
-	if(target[1] < 200 or target[1] > 800 or target[0] < 200 or target[0] > 800):
+	if(target[1] < 200 or target[1] > 600 or target[0] < 200 or target[0] > 800):
 	    return imgN, 0.0, 0.0 ,0.0
 
 	center = target
@@ -252,7 +252,7 @@ while(True):
 
 
 
-	_ , obw = cv.threshold(gray, 65 , 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
+	_ , obw = cv.threshold(gray, 48, 255, cv.THRESH_BINARY) ## Will try and correct for lighting: +cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]

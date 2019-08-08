@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Empty.h"
 #include "std_msgs/Float32MultiArray.h"
 #include <tf/tf.h>
 #include <tf/transform_datatypes.h>
@@ -58,12 +59,18 @@ int main(int argc, char **argv)
 
 	ros::Subscriber posedub = node_handle.subscribe("fabric_pose", 1000, poseUpdater);
  	ros::Publisher gripper_pub = node_handle.advertise<robotiq_2f_gripper_control::Robotiq2FGripper_robot_output>("Robotiq2FGripperRobotOutput", 10);
+ 	ros::Publisher clamp_pub = node_handle.advertise<std_msgs::Empty>("clamp_pedal", 1);
+ 	ros::Publisher start_pub = node_handle.advertise<std_msgs::Empty>("start_pedal", 1);
 
  	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output reset;
  	reset.rACT = 0; reset.rGTO = 0; reset.rATR = 0; reset.rPR = 0; reset.rSP = 0; reset.rFR = 0;
 
 	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output open;
  	open.rACT = 1; open.rGTO = 1; open.rATR = 0; open.rPR = 50; open.rSP = 255; open.rFR = 150;
+
+ 	std_msgs::Empty Ping;
+
+
 
 	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output close;
  	close.rACT = 1; close.rGTO = 1;	close.rATR = 0; close.rPR = 255; close.rSP = 255; close.rFR = 200;
@@ -250,17 +257,17 @@ int main(int argc, char **argv)
 
 		//sleep(1.0);
 
-		std::vector<double> left_pre_slide = {-0.122378, 1.078610, 1.293556, -0.680510, 0.365619, -1.544081, -0.699134};
+		std::vector<double> left_pre_slide = {-0.527996, 0.709739, 1.505777, -1.494583, 0.445128, -0.968352, -0.805972};
 		group.setJointValueTarget(left_pre_slide);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
 		sleep(2.0);
+ 
+		// {-0.286087, 1.211214, 1.255206, -1.131865, 0.425991, -1.152399, -0.656965}
 
-		//{-0.286087, 1.211214, 1.255206, -1.131865, 0.425991, -1.152399, -0.656965}
 
-
-		std::vector<double> left_post_slide = {-0.124423, 1.233116, 1.214123, -0.850752, 0.422847, -1.331510, -0.649927};
+		std::vector<double> left_post_slide = {-0.081403, 1.274806, 1.208306, -0.736706, 0.417379, -1.407921, -0.634256};
 		group.setJointValueTarget(left_post_slide);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -273,6 +280,7 @@ int main(int argc, char **argv)
 		} while(std::cin.get() != '\n');
 
 		//
+		clamp_pub.publish(Ping);
 
 		sew_pose = group.getCurrentPose();
 
@@ -308,12 +316,13 @@ int main(int argc, char **argv)
 
 		//
 
+
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
 		} while(std::cin.get() != '\n');
 
-
+		clamp_pub.publish(Ping);
 
 		geometry_msgs::PoseStamped releasePose = group.getCurrentPose();
 		releasePose.pose.position.z = releasePose.pose.position.z + 0.01;
@@ -330,10 +339,14 @@ int main(int argc, char **argv)
 
 		sleep(1.0);
 
+		// publish Start
+
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
 		} while(std::cin.get() != '\n');
+
+		clamp_pub.publish(Ping);		
 
 
 		group.setPoseTarget(sew_pose.pose);
@@ -386,7 +399,7 @@ int main(int argc, char **argv)
 		sleep(1.0);
 
 		
-		std::vector<double> right_sew = {-0.493925, 1.326519, 1.789426, -1.752869, -0.720622, -1.071448, -1.922890};
+		std::vector<double> right_sew = {-0.497078, 1.332876, 1.786358, -1.766493, -0.718905, -1.066329, -1.913416};
 		group.setJointValueTarget(right_sew);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -399,6 +412,8 @@ int main(int argc, char **argv)
 		} while(std::cin.get() != '\n');
 
 		//
+
+		clamp_pub.publish(Ping);		
 
 		sew_pose = group.getCurrentPose();
 
@@ -432,13 +447,53 @@ int main(int argc, char **argv)
 		group.execute(my_plan);
 
 
-		//
+		// P
 
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
 		} while(std::cin.get() != '\n');
 
+
+		clamp_pub.publish(Ping);
+		releasePose = group.getCurrentPose();
+		releasePose.pose.position.z = releasePose.pose.position.z + 0.01;
+		group.setPoseTarget(releasePose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+
+
+		sleep(1.0);
+
+
+
+		gripper_pub.publish(release);
+		gripper_pub.publish(release);
+		gripper_pub.publish(release);
+
+		sleep(1.0);
+
+		// Publish Start
+
+		do
+		{
+			std::cout << '\n' << "Press any Key to Continue";
+		} while(std::cin.get() != '\n');
+
+		clamp_pub.publish(Ping);
+
+		group.setPoseTarget(sew_pose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(1.0);
+
+		gripper_pub.publish(close);
+		gripper_pub.publish(close);
+		gripper_pub.publish(close);
+
+		
 		sleep(1.0);
 
 		group.setMaxVelocityScalingFactor(0.2);
@@ -1037,7 +1092,36 @@ int main(int argc, char **argv)
 
 		sleep(1.0);
 	}
+	if(test == 10){
 
+		sleep(1.0);
+		std::vector<double> targetpose = {-0.527996, 0.709739, 1.505777, -1.494583, 0.445128, -0.968352, -0.805972};
+		group.setJointValueTarget(targetpose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+	}
+
+
+	// Flatten
+	if(test == 11){
+
+		sleep(1.0);
+		sew_pose = group.getCurrentPose();
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation));
+
+		group.setPoseTarget(sew_pose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+	}
+
+	if(test == 12){
+
+	sleep(1);
+	clamp_pub.publish(Ping);
+	sleep(1);
+	start_pub.publish(Ping);
+
+	}
 	ROS_INFO("Test Complete");
 
     sleep(1.0);

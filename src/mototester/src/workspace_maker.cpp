@@ -188,7 +188,7 @@ int main(int argc, char **argv)
 	collision_objects.push_back(collision_object_2);
 	collision_objects.push_back(collision_object_3);
 	collision_objects.push_back(collision_object_4);
-	collision_objects.push_back(collision_object_5);
+	// collision_objects.push_back(collision_object_5);
 	collision_objects.push_back(collision_object_6);
 	collision_objects.push_back(collision_object_7);
 	collision_objects.push_back(collision_object_8);
