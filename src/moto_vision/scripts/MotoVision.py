@@ -265,7 +265,7 @@ while(True):
 
 
 
-	_ , obw = cv.threshold(fixed, 60, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
+	_ , obw = cv.threshold(fixed, 120, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]

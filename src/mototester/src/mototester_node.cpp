@@ -76,7 +76,7 @@ int main(int argc, char **argv)
  	close.rACT = 1; close.rGTO = 1;	close.rATR = 0; close.rPR = 255; close.rSP = 255; close.rFR = 200;
 
  	robotiq_2f_gripper_control::Robotiq2FGripper_robot_output release;
- 	release.rACT = 1; release.rGTO = 1;	release.rATR = 0; release.rPR = 215; release.rSP = 255; release.rFR = 200;
+ 	release.rACT = 1; release.rGTO = 1;	release.rATR = 0; release.rPR = 200; release.rSP = 255; release.rFR = 200;
 
 	moveit::planning_interface::MoveGroupInterface group("arm_left");
 	moveit::planning_interface::MoveGroupInterface torso_group("torso");
@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 
 		//group.setPlanningTime(10.0);
 
-		group.setEndEffectorLink("arm_left_link_rightN");
+		//group.setEndEffectorLink("arm_left_link_rightN");
 
 		group.setGoalJointTolerance(0.001);
 		torso_group.setGoalJointTolerance(0.001);
@@ -279,7 +279,7 @@ int main(int argc, char **argv)
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
-		} while(std::cin.get() != '\n');
+		} while(std::cin.get() != 'g');
 
 		//
 		clamp_pub.publish(Ping);
@@ -323,12 +323,12 @@ int main(int argc, char **argv)
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
-		} while(std::cin.get() != '\n');
+		} while(std::cin.get() != 'g');
 
 		clamp_pub.publish(Ping);
 
 		geometry_msgs::PoseStamped releasePose = group.getCurrentPose();
-		releasePose.pose.position.z = releasePose.pose.position.z + 0.01;
+		releasePose.pose.position.z = releasePose.pose.position.z + 0.002;
 		group.setPoseTarget(releasePose.pose);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -347,7 +347,7 @@ int main(int argc, char **argv)
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
-		} while(std::cin.get() != '\n');
+		} while(std::cin.get() != 'g');
 
 		clamp_pub.publish(Ping);		
 
@@ -366,6 +366,9 @@ int main(int argc, char **argv)
 		sleep(1.0);
 
 		group.setMaxVelocityScalingFactor(0.3);
+
+		group.setEndEffectorLink("arm_left_link_rightN");
+		group.clearPoseTargets();
 
 		std::vector<double> left_pre_spin = {-0.577356, 1.017097, 1.390288, -1.676352, 0.374808, -0.938538, -0.793730};
 		group.setJointValueTarget(left_pre_spin);
@@ -409,16 +412,20 @@ int main(int argc, char **argv)
 
 		sleep(1.0);
 
+
+		
+
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
-		} while(std::cin.get() != '\n');
+		} while(std::cin.get() != 'g');
 
 		//
 
 		clamp_pub.publish(Ping);		
 
-		group.setEndEffectorLink("arm_left_link_rightN");
+		//group.setEndEffectorLink("arm_left_link_rightN");
+		sleep(1.0);
 		sew_pose = group.getCurrentPose();
 
 		group.setMaxVelocityScalingFactor(0.02);
@@ -430,7 +437,7 @@ int main(int argc, char **argv)
 
 		sleep(1.0);
 
-		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)+fine_orien);
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)+fine_orien	);
 
 		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);
@@ -456,12 +463,12 @@ int main(int argc, char **argv)
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
-		} while(std::cin.get() != '\n');
+		} while(std::cin.get() != 'g');
 
 
 		clamp_pub.publish(Ping);
 		releasePose = group.getCurrentPose();
-		releasePose.pose.position.z = releasePose.pose.position.z + 0.01;
+		releasePose.pose.position.z = releasePose.pose.position.z + 0.002;
 		group.setPoseTarget(releasePose.pose);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -483,7 +490,7 @@ int main(int argc, char **argv)
 		do
 		{
 			std::cout << '\n' << "Press any Key to Continue";
-		} while(std::cin.get() != '\n');
+		} while(std::cin.get() != 'g');
 
 		clamp_pub.publish(Ping);
 
@@ -522,6 +529,40 @@ int main(int argc, char **argv)
 		torso_group.execute(my_plan);
 
 		sleep(1.0);
+
+		std::vector<double> place_mid = {-1.839516, 1.208521, 1.970846, -2.096496, 0.197215, -0.945130, 0.190003};
+		group.setJointValueTarget(place_mid);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(1.0);
+
+		std::vector<double> place_start = {-0.816828, 0.666327, 2.512341, -1.802777, -0.059932, 0.645927, 1.827814};
+		group.setJointValueTarget(place_start);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+
+		sleep(1.0);
+
+		gripper_pub.publish(open);
+		gripper_pub.publish(open);
+		gripper_pub.publish(open);
+
+		sleep(1.0);
+
+		std::vector<double> place_end = {-1.439266, 1.039443, 2.816617, -2.037354, -0.393944, -0.162298, 1.933177};
+		group.setJointValueTarget(place_end);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(1.0);
+
+		group.setJointValueTarget(start_pos);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+
 
 		return 1; 
 
@@ -1109,10 +1150,10 @@ int main(int argc, char **argv)
 	// Flatten
 	if(test == 11){
 
-		group.setEndEffectorLink("arm_left_link_leftN");
+		group.setEndEffectorLink("arm_left_link_rightN");
 		sleep(1.0);
 		sew_pose = group.getCurrentPose();
-		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)+M_PI/8);
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)+0.4);
 
 		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);

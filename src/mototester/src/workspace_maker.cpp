@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 	geometry_msgs::Pose top_pose;
 	top_pose.orientation.w = 1.0;
 	top_pose.position.x =  1.1 + xoffset;
-	top_pose.position.y =  0.15;
+	top_pose.position.y =  0.17;
 	top_pose.position.z =  0.90;
 
 	geometry_msgs::Pose tabletwo_pose;
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 	collision_objects.push_back(collision_object_4);
 	// collision_objects.push_back(collision_object_5);
 	collision_objects.push_back(collision_object_6);
-	collision_objects.push_back(collision_object_7);
+	//collision_objects.push_back(collision_object_7);
 	collision_objects.push_back(collision_object_8);
 
 	planning_scene_interface.applyCollisionObjects(collision_objects);

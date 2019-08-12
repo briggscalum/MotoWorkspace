@@ -118,6 +118,16 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          arm_left_link_leftN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_left_link_rightN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           arm_left_link_tool0:
             Alpha: 1
             Show Axes: false
@@ -353,6 +363,16 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          arm_left_link_leftN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_left_link_rightN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           arm_left_link_tool0:
             Alpha: 1
             Show Axes: false
@@ -512,7 +532,7 @@ Visualization Manager:
         Show Robot Collision: false
         Show Robot Visual: true
       Value: true
-      Velocity_Scaling_Factor: 0.10000000000000001
+      Velocity_Scaling_Factor: 0.02
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -529,7 +549,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.01355028
+      Distance: 3.03469038
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -544,10 +564,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.124796726
+      Pitch: 0.509796321
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 4.26640606
+      Yaw: 4.75141764
     Saved: ~
 Window Geometry:
   Displays:
