@@ -23,6 +23,7 @@
 #include <moveit/trajectory_processing/iterative_time_parameterization.h>
 
 #include <moveit_visual_tools/moveit_visual_tools.h>
+
 #include <iostream>
 
 
@@ -274,7 +275,9 @@ int main(int argc, char **argv)
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(1.0);
+		sleep(2.0);
+
+		clamp_pub.publish(Ping);
 
 		do
 		{
@@ -282,7 +285,7 @@ int main(int argc, char **argv)
 		} while(std::cin.get() != 'g');
 
 		//
-		clamp_pub.publish(Ping);
+	
 
 		group.setEndEffectorLink("arm_left_link_leftN");
 		sew_pose = group.getCurrentPose();

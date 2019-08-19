@@ -211,6 +211,10 @@ def getN(img,target, angle):
 	print(newy)
 	print(newx)
 	
+	if(angle2 > 0.16 or angle2 < -0.16):
+		angle2 = 0;
+		print("Fabric Orientation Error")
+
 	imgN = img
 	return imgN,angle2, newx, newy	
 
@@ -250,6 +254,8 @@ while(True):
 	gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
 
 	average = int(np.mean(gray))
+	if average == 0:
+		average = 115
 	adjustment = 1 - (115 / average)
 	#print(average)
 	#print(adjustment)
@@ -265,7 +271,7 @@ while(True):
 
 
 
-	_ , obw = cv.threshold(fixed, 120, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
+	_ , obw = cv.threshold(fixed, 70, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]
