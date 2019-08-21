@@ -37,6 +37,7 @@ float goal_orien = 0.45;
 float fine_orien = 0.0;
 float fine_x = 0;
 float fine_y = 0;
+int starter = 0;
 
 void poseUpdater(std_msgs::Float32MultiArray msg)
 {
@@ -47,6 +48,12 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
   	fine_x = msg.data[4];
   	fine_y = msg.data[5];
 }
+
+void startProcess(std_msgs::Empty msg)
+{
+	starter = 1;
+}
+
 
 int main(int argc, char **argv)
 {
@@ -59,6 +66,7 @@ int main(int argc, char **argv)
 	sleep(1.0);
 
 	ros::Subscriber posedub = node_handle.subscribe("fabric_pose", 1000, poseUpdater);
+	ros::Subscriber startsub = node_handle.subscribe("Start_Process", 1, startProcess);
  	ros::Publisher gripper_pub = node_handle.advertise<robotiq_2f_gripper_control::Robotiq2FGripper_robot_output>("Robotiq2FGripperRobotOutput", 10);
  	ros::Publisher clamp_pub = node_handle.advertise<std_msgs::Empty>("clamp_pedal", 1);
  	ros::Publisher start_pub = node_handle.advertise<std_msgs::Empty>("start_pedal", 1);
@@ -122,6 +130,9 @@ int main(int argc, char **argv)
 		//group.setPlanningTime(10.0);
 
 		//group.setEndEffectorLink("arm_left_link_rightN");
+
+		while(starter == 0)
+		{}
 
 		group.setGoalJointTolerance(0.001);
 		torso_group.setGoalJointTolerance(0.001);

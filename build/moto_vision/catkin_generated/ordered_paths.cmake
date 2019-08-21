@@ -1,1 +1,1 @@
-set(ORDERED_PATHS "/opt/ros/kinetic/lib")
+set(ORDERED_PATHS "/home/calum/MotoWorkspace/devel/lib;/opt/ros/kinetic/lib")

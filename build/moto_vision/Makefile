@@ -166,6 +166,51 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+moto_vision/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+.PHONY : moto_vision/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_lisp: moto_vision/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_lisp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_lisp/fast:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f moto_vision/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make moto_vision/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
+.PHONY : sensor_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+moto_vision/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+.PHONY : moto_vision/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_eus: moto_vision/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_eus
+
+# fast build rule for target.
+sensor_msgs_generate_messages_eus/fast:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f moto_vision/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make moto_vision/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
+.PHONY : sensor_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+moto_vision/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+.PHONY : moto_vision/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_cpp: moto_vision/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_cpp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_cpp/fast:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f moto_vision/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make moto_vision/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
+.PHONY : sensor_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
 moto_vision/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
 	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 .PHONY : moto_vision/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
@@ -241,6 +286,21 @@ rosgraph_msgs_generate_messages_nodejs/fast:
 .PHONY : rosgraph_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
+moto_vision/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+.PHONY : moto_vision/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_nodejs: moto_vision/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+sensor_msgs_generate_messages_nodejs/fast:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f moto_vision/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make moto_vision/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
+.PHONY : sensor_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
 moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
 	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
 .PHONY : moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
@@ -269,6 +329,21 @@ roscpp_generate_messages_py: moto_vision/CMakeFiles/roscpp_generate_messages_py.
 roscpp_generate_messages_py/fast:
 	cd /home/calum/MotoWorkspace/build && $(MAKE) -f moto_vision/CMakeFiles/roscpp_generate_messages_py.dir/build.make moto_vision/CMakeFiles/roscpp_generate_messages_py.dir/build
 .PHONY : roscpp_generate_messages_py/fast
+
+# Convenience name for target.
+moto_vision/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f CMakeFiles/Makefile2 moto_vision/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+.PHONY : moto_vision/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_py: moto_vision/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_py
+
+# fast build rule for target.
+sensor_msgs_generate_messages_py/fast:
+	cd /home/calum/MotoWorkspace/build && $(MAKE) -f moto_vision/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make moto_vision/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
+.PHONY : sensor_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 moto_vision/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
@@ -325,6 +400,9 @@ help:
 	@echo "... install/local"
 	@echo "... list_install_components"
 	@echo "... install/strip"
+	@echo "... sensor_msgs_generate_messages_lisp"
+	@echo "... sensor_msgs_generate_messages_eus"
+	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... test"
 	@echo "... roscpp_generate_messages_nodejs"
@@ -333,8 +411,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... edit_cache"
+	@echo "... sensor_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... roscpp_generate_messages_py"
+	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"

@@ -6,6 +6,9 @@ import cv2 as cv
 import numpy as np
 import argparse
 import rospy
+
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
 from math import atan2, cos, sin, sqrt, pi
 from std_msgs.msg import Float32MultiArray
 import time
@@ -231,6 +234,9 @@ cap.set(cv.CAP_PROP_FRAME_HEIGHT,3120)
 cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))
 
 posepub = rospy.Publisher('fabric_pose', Float32MultiArray, queue_size=10)
+picpub = rospy.Publisher("Camera_bw",Image,queue_size=10)
+colorpub = rospy.Publisher("Camera_color",Image,queue_size=10)
+bridge = CvBridge()
 
 rospy.init_node('fabric_detecter')
 
@@ -271,7 +277,7 @@ while(True):
 
 
 
-	_ , obw = cv.threshold(fixed, 70, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
+	_ , obw = cv.threshold(gray, 80, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]
@@ -281,6 +287,10 @@ while(True):
 
 	bw = obw
 
+	
+	bw_message = bridge.cv2_to_imgmsg(bw, "8UC1")
+	picpub.publish(bw_message)
+	
 	if(np.any(bwbuffer[4])):
 	    bw = bwbuffer[0] + bwbuffer[1] + bwbuffer[2] + bwbuffer[3] + bwbuffer[4]
 
@@ -318,6 +328,8 @@ while(True):
 	        position.data = [center[0],center[1],angle,angle2,newx,newy]
 	        posepub.publish(position)
 
+	color_message = bridge.cv2_to_imgmsg(src, "bgr8")
+	colorpub.publish(color_message)
 
 	cv.imshow('Original',src)
 	if(np.any(bw)):
