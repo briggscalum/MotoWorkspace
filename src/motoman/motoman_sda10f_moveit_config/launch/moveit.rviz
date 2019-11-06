@@ -218,6 +218,21 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          arm_right_link_leftN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_right_link_rightN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_right_link_tool0:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           arm_right_robotiq_85_adapter_link:
             Alpha: 1
             Show Axes: false
@@ -463,6 +478,21 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          arm_right_link_leftN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_right_link_rightN:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          arm_right_link_tool0:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           arm_right_robotiq_85_adapter_link:
             Alpha: 1
             Show Axes: false
@@ -532,7 +562,7 @@ Visualization Manager:
         Show Robot Collision: false
         Show Robot Visual: true
       Value: true
-      Velocity_Scaling_Factor: 0.02
+      Velocity_Scaling_Factor: 0.029999999999999999
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -549,25 +579,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.03469038
+      Distance: 5.23124409
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.31668866
-        Y: 0.70171535
-        Z: 4.02331921e-07
+        X: 0.842774391
+        Y: 3.5586741
+        Z: 6.407505e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.509796321
+      Pitch: 0.0547964051
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 4.75141764
+      Yaw: 4.78140211
     Saved: ~
 Window Geometry:
   Displays:

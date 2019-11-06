@@ -106,7 +106,11 @@
     <disable_collisions link1="arm_left_link_leftN" link2="arm_left_link_rightN" reason="Adjacent" />
     <disable_collisions link1="arm_left_link_leftN" link2="arm_left_link_tool0" reason="Adjacent" />
     <disable_collisions link1="arm_left_link_rightN" link2="arm_left_link_tool0" reason="Adjacent" />
+    <disable_collisions link1="arm_right_link_leftN" link2="arm_right_link_rightN" reason="Adjacent" />
+    <disable_collisions link1="arm_right_link_leftN" link2="arm_right_link_tool0" reason="Adjacent" />
+    <disable_collisions link1="arm_right_link_rightN" link2="arm_right_link_tool0" reason="Adjacent" />
 
+    <disable_collisions link1="arm_right_joint_1_s" link2="torso_base_link" reason="Adjacent" />
     <disable_collisions link1="arm_left_link_1_s" link2="arm_left_link_2_l" reason="Adjacent" />
     <disable_collisions link1="arm_left_link_1_s" link2="arm_left_link_3_e" reason="Never" />
     <disable_collisions link1="arm_left_link_1_s" link2="arm_left_link_4_u" reason="Never" />

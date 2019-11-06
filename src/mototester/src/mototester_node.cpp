@@ -35,29 +35,32 @@ float goal_x = 587.0;
 float goal_y = 554.0;
 float goal_orien = 0.45;
 float fine_orien = 0.0;
+float fabheight = 0.0;
 float fine_x = 0;
 float fine_y = 0;
 int starter = 0;
 
 void poseUpdater(std_msgs::Float32MultiArray msg)
 {
-  	fabric_x =  msg.data[0];
-  	fabric_y =  msg.data[1];
+	if(msg.data[0] != 0)
+  		fabric_x =  msg.data[0];
+  	if(msg.data[1] != 0)
+  		fabric_y =  msg.data[1];
   	fabric_orien =  msg.data[2];
+  	if(msg.data[2] != 0)
+  		fabheight = msg.data[2];
   	fine_orien = msg.data[3];
   	fine_x = msg.data[4];
   	fine_y = msg.data[5];
 }
 
 void startProcess(std_msgs::Empty msg)
-{
-	starter = 1;
-}
+{ starter = 1;}
 
 
 int main(int argc, char **argv)
 {
-	int test = 1;
+ 	int test = 14;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -65,7 +68,7 @@ int main(int argc, char **argv)
 
 	sleep(1.0);
 
-	ros::Subscriber posedub = node_handle.subscribe("fabric_pose", 1000, poseUpdater);
+	ros::Subscriber posesub = node_handle.subscribe("fabric_pose", 1000, poseUpdater);
 	ros::Subscriber startsub = node_handle.subscribe("Start_Process", 1, startProcess);
  	ros::Publisher gripper_pub = node_handle.advertise<robotiq_2f_gripper_control::Robotiq2FGripper_robot_output>("Robotiq2FGripperRobotOutput", 10);
  	ros::Publisher clamp_pub = node_handle.advertise<std_msgs::Empty>("clamp_pedal", 1);
@@ -131,14 +134,14 @@ int main(int argc, char **argv)
 
 		//group.setEndEffectorLink("arm_left_link_rightN");
 
-		while(starter == 0)
-		{}
+		// while(starter == 0)
+		// {}
 
 		group.setGoalJointTolerance(0.001);
 		torso_group.setGoalJointTolerance(0.001);
 
-		group.setMaxVelocityScalingFactor(0.2);
-		torso_group.setMaxVelocityScalingFactor(0.2);
+		group.setMaxVelocityScalingFactor(0.5);
+		torso_group.setMaxVelocityScalingFactor(0.5);
 
 
      	torso_group.setJointValueTarget({0.289002});
@@ -174,8 +177,8 @@ int main(int argc, char **argv)
 		preGrabPose = group.getCurrentPose();
 		grabPose = group.getCurrentPose();
 
-		grabPose.pose.position.x = grabPose.pose.position.x + 0.13;
-		grabPose.pose.position.y = grabPose.pose.position.y + 0.01;
+		grabPose.pose.position.x = grabPose.pose.position.x + 0.06;
+		grabPose.pose.position.y = grabPose.pose.position.y + 0.02;
 
 		std::vector<geometry_msgs::Pose> waypoints;
 		waypoints.push_back(preGrabPose.pose);
@@ -271,7 +274,7 @@ int main(int argc, char **argv)
 
 		//sleep(1.0);
 
-		std::vector<double> left_pre_slide = {-0.527996, 0.709739, 1.505777, -1.494583, 0.445128, -0.968352, -0.805972};
+		std::vector<double> left_pre_slide = {-0.466978, 1.194119, 1.438099, -1.225301, 0.313251, -1.273812, -0.564385};
 		group.setJointValueTarget(left_pre_slide);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -363,7 +366,6 @@ int main(int argc, char **argv)
 			std::cout << '\n' << "Press any Key to Continue";
 		} while(std::cin.get() != 'g');
 
-		clamp_pub.publish(Ping);		
 
 
 		group.setPoseTarget(sew_pose.pose);
@@ -426,8 +428,7 @@ int main(int argc, char **argv)
 
 		sleep(1.0);
 
-
-		
+		clamp_pub.publish(Ping);		
 
 		do
 		{
@@ -436,7 +437,7 @@ int main(int argc, char **argv)
 
 		//
 
-		clamp_pub.publish(Ping);		
+		
 
 		//group.setEndEffectorLink("arm_left_link_rightN");
 		sleep(1.0);
@@ -480,24 +481,35 @@ int main(int argc, char **argv)
 		} while(std::cin.get() != 'g');
 
 
+
+		sleep(1.0);
+
+
+
+		gripper_pub.publish(release);
+		gripper_pub.publish(release);
+		gripper_pub.publish(release);
+
+		sleep(1.0);
+
 		clamp_pub.publish(Ping);
 		releasePose = group.getCurrentPose();
 		releasePose.pose.position.z = releasePose.pose.position.z + 0.002;
+		releasePose.pose.position.y = releasePose.pose.position.y - 0.10;
+		releasePose.pose.position.x = releasePose.pose.position.x - 0.08;
 		group.setPoseTarget(releasePose.pose);
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-
-
 		sleep(1.0);
 
+		gripper_pub.publish(open);
+		gripper_pub.publish(open);
+		gripper_pub.publish(open);
+
+		
 
 
-		gripper_pub.publish(release);
-		gripper_pub.publish(release);
-		gripper_pub.publish(release);
-
-		sleep(1.0);
 
 		// Publish Start
 
@@ -506,13 +518,8 @@ int main(int argc, char **argv)
 			std::cout << '\n' << "Press any Key to Continue";
 		} while(std::cin.get() != 'g');
 
-		clamp_pub.publish(Ping);
-
-		group.setPoseTarget(sew_pose.pose);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(1.0);
+	
+	    sleep(1.0);
 
 		gripper_pub.publish(close);
 		gripper_pub.publish(close);
@@ -523,14 +530,7 @@ int main(int argc, char **argv)
 
 		group.setMaxVelocityScalingFactor(0.2);
 
-		std::vector<double> right_post_sew = {-0.635614, 1.497216, 1.651262, -2.099519, -0.639761, -0.992546, -1.701275};
-		group.setJointValueTarget(right_post_sew);
-		group.plan(my_plan);
-		group.execute(my_plan);
-
-		sleep(2.0);
-
-
+		
 		group.setJointValueTarget(left_spin);
 		group.plan(my_plan);
 		group.execute(my_plan);
@@ -1182,11 +1182,257 @@ int main(int argc, char **argv)
 	start_pub.publish(Ping);
 
 	}
+
+	if(test == 13) {
+
+		sleep(1.0);	
+
+		moveit_msgs::RobotTrajectory trajectory;
+		geometry_msgs::PoseStamped preGrabPose;
+		geometry_msgs::PoseStamped grabPose;
+
+		preGrabPose = group.getCurrentPose();
+		grabPose = group.getCurrentPose();
+
+		grabPose.pose.position.y = grabPose.pose.position.y - 0.08;
+
+		std::vector<geometry_msgs::Pose> waypoints;
+		waypoints.push_back(preGrabPose.pose);
+		waypoints.push_back(grabPose.pose);
+
+		group.setMaxVelocityScalingFactor(0.2);
+
+		double fraction = group.computeCartesianPath(waypoints, 0.02, 0, trajectory);
+
+    	// First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    	// Second get a RobotTrajectory from trajectory
+    	rt.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+   		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+
+   		int trajlen = (int)rt.getWayPointCount();
+		
+
+		for( int i = 1; i < trajlen; i++) {
+   			rt.setWayPointDurationFromPrevious (i, 0.3);
+   		}
+
+   		rt.getRobotTrajectoryMsg(trajectory);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+    	cart_plan.trajectory_ = trajectory;
+    	group.execute(cart_plan);
+
+    	sleep(1.0);
+	}
+
+
+	// Paper Testing
+	if(test == 14) {
+
+		// Vision offset: 1.28
+
+		int intialxoff = fabric_y;
+		float startheight = fabheight;
+		ROS_INFO("start %f", startheight);
+
+		group.setGoalJointTolerance(0.001);
+		torso_group.setGoalJointTolerance(0.001);
+
+		group.setMaxVelocityScalingFactor(0.5);
+		torso_group.setMaxVelocityScalingFactor(0.5);
+
+
+     	torso_group.setJointValueTarget({0.289002});
+		torso_group.plan(my_plan);
+		torso_group.execute(my_plan);
+
+		sleep(1.0);
+
+		std::vector<double> start_pos = {-1.104773, 0.758963, 1.874357, -1.709933, 0.269328, -1.131166, -0.690442};
+		group.setJointValueTarget(start_pos);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(1.0);
+
+		gripper_pub.publish(open);
+		gripper_pub.publish(open);
+		gripper_pub.publish(open);
+
+		std::vector<double> pre_grab =  {-0.428202, 0.420311, 1.135222, -1.520615, 0.562379, -0.099132, -0.368607};
+		
+		group.setJointValueTarget(pre_grab);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(3.0);
+
+
+   		moveit_msgs::RobotTrajectory trajectory;
+		geometry_msgs::PoseStamped preGrabPose;
+		geometry_msgs::PoseStamped grabPose;
+
+		preGrabPose = group.getCurrentPose();
+		grabPose = group.getCurrentPose();
+
+		grabPose.pose.position.x = grabPose.pose.position.x + 0.06;
+		grabPose.pose.position.y = grabPose.pose.position.y + 0.02;
+
+		std::vector<geometry_msgs::Pose> waypoints;
+		waypoints.push_back(preGrabPose.pose);
+		waypoints.push_back(grabPose.pose);
+
+		group.setMaxVelocityScalingFactor(0.2);
+
+		double fraction = group.computeCartesianPath(waypoints, 0.04, 0, trajectory);
+
+    	// First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    	// Second get a RobotTrajectory from trajectory
+    	rt.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+   		ROS_INFO("number of points %d", (int)rt.getWayPointCount());
+
+   		int trajlen = (int)rt.getWayPointCount();
+		
+
+		for( int i = 1; i < trajlen; i++) {
+   			rt.setWayPointDurationFromPrevious (i, 0.3);
+   		}
+
+   		rt.getRobotTrajectoryMsg(trajectory);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan;
+    	cart_plan.trajectory_ = trajectory;
+    	group.execute(cart_plan);
+
+    	sleep(1.0);
+
+    	gripper_pub.publish(close);
+		gripper_pub.publish(close);
+		gripper_pub.publish(close);
+
+		sleep(1.0);
+
+
+   		moveit_msgs::RobotTrajectory trajectory2;
+		preGrabPose = group.getCurrentPose();
+		grabPose = group.getCurrentPose();
+
+		grabPose.pose.position.z = grabPose.pose.position.z + 0.10;
+
+		std::vector<geometry_msgs::Pose> waypoints2;
+		waypoints2.push_back(preGrabPose.pose);
+		waypoints2.push_back(grabPose.pose);
+
+
+		fraction = group.computeCartesianPath(waypoints2, 0.03, 0, trajectory2);
+
+    	// First to create a RobotTrajectory object
+    	robot_trajectory::RobotTrajectory rt2(group.getCurrentState()->getRobotModel(), "arm_left");
+
+    	// Second get a RobotTrajectory from trajectory
+    	rt2.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory2);
+
+    	// Thrid create a IterativeParabolicTimeParameterization object
+   		trajectory_processing::IterativeParabolicTimeParameterization iptp2;
+
+   		ROS_INFO("number of points %d", (int)rt2.getWayPointCount());
+
+   		trajlen = (int)rt2.getWayPointCount();
+
+   		for( int i = 1; i < trajlen; i++) {
+   			rt2.setWayPointDurationFromPrevious (i, 0.3);
+   		}
+
+   		rt2.getRobotTrajectoryMsg(trajectory2);
+		moveit::planning_interface::MoveGroupInterface::Plan cart_plan2;
+    	cart_plan2.trajectory_ = trajectory2;
+    	group.execute(cart_plan2);
+
+		sleep(2.0);
+
+		float warp = fabheight/startheight/1.28;
+		float endheight = fabheight;
+		ROS_INFO("Start Height %f", startheight);
+		ROS_INFO("Warp Factor %f", warp);
+
+
+		group.setJointValueTarget(start_pos);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(1.0);
+
+		// X Position 0.063557,  Y Position -0.399869, Z Position 1.177102
+
+		std::vector<double> pre_flatten =  {-0.647493, 1.146958, 1.408923, -1.373733, 0.337187, -1.253931, -0.584447};
+
+		group.setJointValueTarget(pre_flatten);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		
+		sleep(3.0);
+
+		geometry_msgs::PoseStamped flatPose;
+	    flatPose = group.getCurrentPose();
+
+	    // 1 Pixel = 1.5 mm
+	    int xoff = intialxoff - 650	;
+
+		ROS_INFO("Forward %f Meters", - xoff*0.0004 + (startheight - endheight/1.28)*0.0002);
+		sleep(3.0);
+
+	    ROS_INFO("Offset in pixels %i", xoff);
+
+		flatPose.pose.position.x = flatPose.pose.position.x - xoff*0.0004 + (startheight - endheight/1.28)*0.0002;
+		
+		group.setPoseTarget(flatPose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(3.0);
+
+		flatPose.pose.position.z = flatPose.pose.position.z - 0.1;
+
+		group.setPoseTarget(flatPose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		group.setMaxVelocityScalingFactor(0.05);
+
+
+		ROS_INFO("Forward %f Meters", 0.09 - (startheight - endheight/1.28)*0.0002);
+		sleep(3.0);
+
+		
+		flatPose.pose.position.x = flatPose.pose.position.x + 0.09 - (startheight - endheight/1.28)*0.0002;
+
+		group.setPoseTarget(flatPose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+
+	}
+
+
+
 	ROS_INFO("Test Complete");
 
     sleep(1.0);
 
 	ros::shutdown();
 	return 0;
+
+
 }
 

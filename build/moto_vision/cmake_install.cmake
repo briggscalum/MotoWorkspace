@@ -52,6 +52,9 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/moto_vision" TYPE PROGRAM FILES "/home/calum/MotoWorkspace/src/moto_vision/scripts/MotoVision.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/moto_vision" TYPE PROGRAM FILES
+    "/home/calum/MotoWorkspace/src/moto_vision/scripts/MotoVision.py"
+    "/home/calum/MotoWorkspace/src/moto_vision/scripts/PaperVision.py"
+    )
 endif()
 

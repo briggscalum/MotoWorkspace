@@ -277,7 +277,7 @@ while(True):
 
 
 
-	_ , obw = cv.threshold(gray, 80, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
+	_ , obw = cv.threshold(gray, 90, 255, cv.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 
 	bwbuffer[4] = bwbuffer[3]
 	bwbuffer[3] = bwbuffer[2]
@@ -288,8 +288,7 @@ while(True):
 	bw = obw
 
 	
-	bw_message = bridge.cv2_to_imgmsg(bw, "8UC1")
-	picpub.publish(bw_message)
+	
 	
 	if(np.any(bwbuffer[4])):
 	    bw = bwbuffer[0] + bwbuffer[1] + bwbuffer[2] + bwbuffer[3] + bwbuffer[4]
@@ -334,6 +333,8 @@ while(True):
 	cv.imshow('Original',src)
 	if(np.any(bw)):
 	    cv.imshow('Black and White', bw)
+	    bw_message = bridge.cv2_to_imgmsg(bw, "8UC1")
+	    picpub.publish(bw_message)
 
 cap.release()
 cv.destroyAllWindows()
