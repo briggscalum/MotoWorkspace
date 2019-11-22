@@ -46,12 +46,16 @@ void poseUpdater(std_msgs::Float32MultiArray msg)
   		fabric_x =  msg.data[0];
   	if(msg.data[1] != 0)
   		fabric_y =  msg.data[1];
-  	fabric_orien =  msg.data[2];
+  	if(msg.data[2] != 0)
+  		fabric_orien =  msg.data[2];
   	if(msg.data[2] != 0)
   		fabheight = msg.data[2];
-  	fine_orien = msg.data[3];
-  	fine_x = msg.data[4];
-  	fine_y = msg.data[5];
+  	if(msg.data[3] != 0)
+  		fine_orien = msg.data[3];
+  	if(msg.data[4] != 0)
+  		fine_x = msg.data[4];
+  	if(msg.data[5] != 0)
+  		fine_y = msg.data[5];
 }
 
 void startProcess(std_msgs::Empty msg)
@@ -60,7 +64,7 @@ void startProcess(std_msgs::Empty msg)
 
 int main(int argc, char **argv)
 {
- 	int test = 14;
+ 	int test = 5;
 	ros::init(argc, argv, "test");
 	ros::NodeHandle node_handle;
 	ros::AsyncSpinner spinner(1);
@@ -828,11 +832,11 @@ int main(int argc, char **argv)
 	if(test == 5) {
 	
 
-		sew_pose = group.getCurrentPose();
+		group.setEndEffectorLink("arm_left_link_leftN");
 
+		sew_pose = group.getCurrentPose();
 		group.setMaxVelocityScalingFactor(0.02);
 		group.setGoalJointTolerance(0.00001);
-
 
 		sleep(2.0);
 
@@ -1164,10 +1168,10 @@ int main(int argc, char **argv)
 	// Flatten
 	if(test == 11){
 
-		group.setEndEffectorLink("arm_left_link_rightN");
+		group.setEndEffectorLink("arm_left_link_leftN");
 		sleep(1.0);
 		sew_pose = group.getCurrentPose();
-		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation)+0.4);
+		sew_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(sew_pose.pose.orientation));
 
 		group.setPoseTarget(sew_pose.pose);
 		group.plan(my_plan);
@@ -1236,8 +1240,12 @@ int main(int argc, char **argv)
 
 		// Vision offset: 1.28
 
+		group.setEndEffectorLink("arm_left_link_leftN");
 		int intialxoff = fabric_y;
+		int intialyoff = fabric_x;
 		float startheight = fabheight;
+		float startorien = fine_orien;
+		ROS_INFO("angle %f", startorien);
 		ROS_INFO("start %f", startheight);
 
 		group.setGoalJointTolerance(0.001);
@@ -1287,7 +1295,7 @@ int main(int argc, char **argv)
 		waypoints.push_back(preGrabPose.pose);
 		waypoints.push_back(grabPose.pose);
 
-		group.setMaxVelocityScalingFactor(0.2);
+		group.setMaxVelocityScalingFactor(0.3);
 
 		double fraction = group.computeCartesianPath(waypoints, 0.04, 0, trajectory);
 
@@ -1370,11 +1378,11 @@ int main(int argc, char **argv)
 		group.plan(my_plan);
 		group.execute(my_plan);
 
-		sleep(1.0);
+		sleep(2.0);
 
 		// X Position 0.063557,  Y Position -0.399869, Z Position 1.177102
 
-		std::vector<double> pre_flatten =  {-0.647493, 1.146958, 1.408923, -1.373733, 0.337187, -1.253931, -0.584447};
+		std::vector<double> pre_flatten =  {-0.578941, 1.075917, 1.380446, -1.354262, 0.354684, -1.263909, -0.671432};
 
 		group.setJointValueTarget(pre_flatten);
 		group.plan(my_plan);
@@ -1388,13 +1396,28 @@ int main(int argc, char **argv)
 
 	    // 1 Pixel = 1.5 mm
 	    int xoff = intialxoff - 650	;
+	    int yoff = intialyoff - 550	;
 
-		ROS_INFO("Forward %f Meters", - xoff*0.0004 + (startheight - endheight/1.28)*0.0002);
+		ROS_INFO("Forward %f Meters", - xoff*0.0004 + (startheight - endheight/1.28)*0.000195);
 		sleep(3.0);
 
-	    ROS_INFO("Offset in pixels %i", xoff);
+    	ROS_INFO("Offset in pixels %i", xoff);
 
-		flatPose.pose.position.x = flatPose.pose.position.x - xoff*0.0004 + (startheight - endheight/1.28)*0.0002;
+		flatPose.pose.position.x = flatPose.pose.position.x - xoff*0.0004 + (startheight - endheight/1.28)*0.0002 + 0.01;
+		flatPose.pose.position.y = flatPose.pose.position.y - yoff*0.0005;
+
+
+				
+		group.setPoseTarget(flatPose.pose);
+		group.plan(my_plan);
+		group.execute(my_plan);
+
+		sleep(3.0);
+
+
+		flatPose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(M_PI/2,0,tf::getYaw(flatPose.pose.orientation) + startorien + 0.52); //
+
+
 		
 		group.setPoseTarget(flatPose.pose);
 		group.plan(my_plan);
@@ -1402,7 +1425,7 @@ int main(int argc, char **argv)
 
 		sleep(3.0);
 
-		flatPose.pose.position.z = flatPose.pose.position.z - 0.1;
+		flatPose.pose.position.z = flatPose.pose.position.z - 0.10;
 
 		group.setPoseTarget(flatPose.pose);
 		group.plan(my_plan);
@@ -1415,7 +1438,7 @@ int main(int argc, char **argv)
 		sleep(3.0);
 
 		
-		flatPose.pose.position.x = flatPose.pose.position.x + 0.09 - (startheight - endheight/1.28)*0.0002;
+		flatPose.pose.position.x = flatPose.pose.position.x + 0.08 - (startheight - endheight/1.28)*0.0002;
 
 		group.setPoseTarget(flatPose.pose);
 		group.plan(my_plan);

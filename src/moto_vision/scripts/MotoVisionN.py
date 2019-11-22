@@ -66,93 +66,156 @@ def getOrientation(pts, img):
 
 def getN(img,target, angle):
 
-
 	imgN = img
-	center = [target[1],target[0]];
+	center = target
 
-
-	if(center[1] < 300 or center[1] > 900 or center[0] < 300 or center[0] > 700):
+	if(target[1] < 200 or target[1] > 600 or target[0] < 200 or target[0] > 800):
 	    return imgN, 0.0, 0.0 ,0.0
 
-	angle1 = 1.9 - angle
-	angle2 = 3.65 - angle
-	angle3 = 0.37 - angle
+	center = target
+
+	angle1 = 1.5 - angle
+	angle2 = 2.95 - angle
+	angle3 = 0.17 - angle
 
 	point2 = [int(round(center[0]-190*cos(angle1))), int(round(center[1]+190*sin(angle1)))]
 	point3 = [int(round(center[0]-290*cos(angle2))), int(round(center[1]+290*sin(angle2)))]
 	point4 = [int(round(center[0]-300*cos(angle3))), int(round(center[1]+300*sin(angle3)))]
+	img[point2[1],point2[0]-1] = 50;
+	img[point3[1],point3[0]-1] = 50;
+	img[point4[1],point4[0]] = 50;
 
-	img[center[0],center[1]] = 50;
-	img[point2[0],point2[1]] = 50;
-	img[point3[0],point3[1]] = 50;
-	img[point4[0],point4[1]] = 50;
 
-	bottom_left_hor = -10;
-	bottom_left_ver = -10;
-	bottom_right_ver = -10;
-	bottom_right_hor = -10;
+	bottom_left_hor = 0;
+	bottom_left_ver = 0;
+	bottom_right_ver = 0;
 
-	angleout = 0;
+	bottom_right_ver_2 = 0;
+	bottom_left_ver_2 = 0;
+	bottom_right_hor = 0;
+
+	angle2 = 0;
 	newy = 0;
 	newx = 0;
 
-	state = 0
-	center = point2
-	while center[0] < 948:
-		if state == 0:
-			if  img[center[0]+1,center[1]] == 0:
-				state = 1
-		elif state == 1:
-			if img[center[0]+1, center[1]] >= 240:
-				break
-			img[center[0]+1, center[1]] = 99;
-			bottom_right_ver = bottom_right_ver + 1;
-		center = [center[0]+1,center[1]]
-	state = 0
+	if (angle > 0):
+		state = 0
+		center = point2
+		while center[0] > 2:
+			if state == 0:
+				if img[center[1],center[0]-1] == 0:
+					state = 1
+			elif state == 1:
+				if img[center[1],center[0]-1] >= 240:
+					state = 2
+			elif state == 2:
+				if img[center[1],center[0]-1] == 0:
+					break
+				img[center[1],center[0]-1] = 99;
+				bottom_left_hor = bottom_left_hor + 1;
+			center = [center[0]-1,center[1]]
 
-	center = point2
-	while center[1] < 1278:
-		if state == 0:
-			if img[center[0],center[1]+1] == 0:
-				state = 1
-		elif state == 1:
-			if img[center[0],center[1]+1] >= 240:
-				break
-			img[center[0],center[1]] = 99;
-			bottom_right_hor = bottom_right_hor + 1;
-		center = [center[0],center[1]+1]
+		state = 0
+		center = point2
 
-	state = 0
-	center = point3
+		while center[1] < 947:
+			if state == 0:
+				if img[center[1]+1,center[0]] == 0:
+					state = 1
+			elif state == 1:
+				if img[center[1]+1,center[0]] >= 240:
+					state = 2
+			elif state == 2:
+				if img[center[1]+1,center[0]] == 0:
+					break
+				img[center[1]+1,center[0]] = 99;
+				bottom_left_ver = bottom_left_ver + 1;
 
-	while center[0] < 948:
-		if state == 0:
-			if img[center[0]+1,center[1]] == 0:
-				state = 1
-		elif state == 1:
+			center = [center[0],center[1]+1]
 
-			if img[center[0]+1, center[1]] >= 240:
-				break
-			img[center[0]+1,center[1]] = 99;
-			bottom_left_ver = bottom_left_ver + 1;
-		center = [center[0]+1,center[1]]
+		state = 0
+		center = point3
 
-	print(bottom_left_ver)
-	print(bottom_right_ver)
-	print(bottom_right_hor)
+		while center[1] < 947:
+			if state == 0:
+				if img[center[1]+1,center[0]] == 0:
+					state = 1
+			elif state == 1:
+				if img[center[1]+1,center[0]] >= 240:
+					state = 2
+			elif state == 2:
+				if img[center[1]+1,center[0]] == 0:
+					break
+				img[center[1]+1,center[0]] = 99;
+				bottom_right_ver = bottom_right_ver + 1;
 
+			center = [center[0],center[1]+1]
+		angle2 = (np.arcsin((bottom_right_ver-bottom_left_ver)*0.085/30))
+		newy = ((bottom_left_ver + bottom_right_ver) / 2)
+		newx = (bottom_left_hor - (newy)*0.4)
 
-	angle2 = (np.arcsin((bottom_right_ver-bottom_left_ver)*0.085/30))
-	newy = ((bottom_left_ver + bottom_right_ver) / 2)
-	newx = (-bottom_right_hor + (newy)*0.4)
+	else:
+		state = 0
+		center = point2
+		while center[0] < 1200:
+			if state == 0:
+				if img[center[1],center[0]+1] == 0:
+					state = 1
+			elif state == 1:
+				if img[center[1],center[0]+1] >= 240:
+					state = 2
+			elif state == 2:
+				if img[center[1],center[0]+1] == 0:
+					break
+				img[center[1],center[0]+1] = 99;
+				bottom_right_hor = bottom_right_hor + 1;
+			center = [center[0]+1,center[1]]
+
+		state = 0
+		center = point2
+
+		while center[1] < 947:
+			if state == 0:
+				if img[center[1]+1,center[0]] == 0:
+					state = 1
+			elif state == 1:
+				if img[center[1]+1,center[0]] >= 240:
+					state = 2
+			elif state == 2:
+				if img[center[1]+1,center[0]] == 0:
+					break
+				img[center[1]+1,center[0]] = 99;
+				bottom_right_ver_2 = bottom_right_ver_2 + 1;
+			center = [center[0],center[1]+1]
+
+		state = 0
+		center = point4
+
+		while center[1] < 947:
+			if state == 0:
+				if img[center[1]+1,center[0]] == 0:
+					state = 1
+			elif state == 1:
+				if img[center[1]+1,center[0]] >= 240:
+					state = 2
+			elif state == 2:
+				if img[center[1]+1,center[0]] == 0:
+					break
+				img[center[1]+1,center[0]] = 99;
+				bottom_left_ver_2 = bottom_left_ver_2 + 1;
+
+			center = [center[0],center[1]+1]
+		angle2 = (np.arcsin((bottom_left_ver_2-bottom_right_ver_2)*0.085/30))
+		newy = ((bottom_left_ver_2 + bottom_right_ver_2) / 2)
+		newx = (bottom_right_hor - (newy)*0.4)
 
 	print("Angle, y, x")
 	print(angle2)
 	print(newy)
 	print(newx)
 	
-	if(angleout > 0.3 or angleout < -0.3):
-	
+	if(angle2 > 0.16 or angle2 < -0.16):
+		angle2 = 0;
 		print("Fabric Orientation Error")
 
 	imgN = img
@@ -241,7 +304,7 @@ while(True):
 	    # Project
 	    #if area > 60000 and area < 100000 :
 	        #print(area)
-	    if area < 70000 or 1000000 < area:
+	    if area < 70000 or 110000 < area:
 	        continue
 
 	    # Draw each contour only for visualisation purposes
@@ -249,13 +312,13 @@ while(True):
 	    # Find the orientation of each shape
 	    angle, center = getOrientation(c, src)    
 
-	    if(center[1] < 200 or center[1] > 900 or center[0] < 200 or center[0] > 900):
+	    if(center[1] < 200 or center[1] > 800 or center[0] < 200 or center[0] > 800):
 	        continue
 
 	    #print(center)
 	    cv.drawContours(src, contours, i, (0, 0, 255), 2);
 
-	    if center != 0:
+	    if center:
 	        bw,angle2,newx,newy = getN(bw,center, angle)
 	    
 	    #bw[center[1],center[0]] = 100

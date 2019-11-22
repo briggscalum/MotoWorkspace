@@ -57,10 +57,11 @@ def getCenter(pts, img):
     drawAxis(img, cntr, p2, (255, 255, 0), 5)
     angle = atan2(eigenvectors[0,1], eigenvectors[0,0]) # orientation in radians
 
+
     # Store the center of the object
     
         
-    return cntr
+    return cntr, angle
 
 posepub = rospy.Publisher('fabric_pose', Float32MultiArray, queue_size=10)
 picpub = rospy.Publisher("Camera_bw",Image,queue_size=10)
@@ -94,7 +95,7 @@ if(cap.isOpened()):
 		##bw = cv2.adaptiveThreshold(notgray,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
   		#cv2.THRESH_BINARY,15,5)
   		notgray = cv2.GaussianBlur(notgray,(5,5),0)
-		_ , bw = cv2.threshold(notgray, 215, 255, cv2.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
+		_ , bw = cv2.threshold(notgray, 185, 255, cv2.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 		_ , bw2 = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY) ## Will try and correct for lighting:  + cv.THRESH_OTSU
 
 		_, contours, _ = cv2.findContours(bw, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
@@ -113,7 +114,7 @@ if(cap.isOpened()):
 			# Draw each contour only for visualisation purposes
 
 			# Find the orientation of each shape
-			center = getCenter(c, frame)    
+			center, angle = getCenter(c, frame)    
 
 			if(center[1] < 400 or center[1] > 800 or center[0] < 400 or center[0] > 800):
 				continue
@@ -163,7 +164,7 @@ if(cap.isOpened()):
 			# Draw each contour only for visualisation purposes
 
 			# Find the orientation of each shape
-			center = getCenter(c, frame)    
+			center, angle = getCenter(c, frame)    
 
 			if(center[1] < 400 or center[1] > 800 or center[0] < 400 or center[0] > 800):
 				continue
@@ -196,7 +197,7 @@ if(cap.isOpened()):
 			#bw[center[1],center[0]] = 100
 			position = Float32MultiArray()
 			if center != 0:
-				position.data = [center[0],center[1],Width,0,0,0]
+				position.data = [center[0],center[1],Width,angle,0,0]
 				posepub.publish(position)
 
 		cv2.imshow('contour',frame)
